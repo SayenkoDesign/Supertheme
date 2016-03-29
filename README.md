@@ -2,6 +2,7 @@
 [![Total Downloads](https://poser.pugx.org/sayenkodesign/theme/downloads)](https://packagist.org/packages/sayenkodesign/theme) 
 [![Latest Unstable Version](https://poser.pugx.org/sayenkodesign/theme/v/unstable)](https://packagist.org/packages/sayenkodesign/theme) 
 [![License](https://poser.pugx.org/sayenkodesign/theme/license)](https://packagist.org/packages/sayenkodesign/theme)
+[![Build Status](https://travis-ci.org/SayenkoDesign/Theme.svg?branch=master)](https://travis-ci.org/SayenkoDesign/Theme)
 
 # Requirements
 
