@@ -1,0 +1,8 @@
+.alignright {
+  float: right;
+  padding: 0 0 $global-padding $global-padding;
+}
+.alignleft {
+  float: left;
+  padding: 0 $global-padding $global-padding 0;
+}

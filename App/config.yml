@@ -1,0 +1,28 @@
+parameters:
+  twig.path: "%tempalte_dir%/App/views"
+  twig.options:
+    debug:            "%WP_DEBUG%"
+    charset:          "utf-8"
+    cache:            null #"%tempalte_dir%/var/twig/views"
+    auto_reload:      "%WP_DEBUG%"
+    strict_variables: true
+    autoescape:       true
+    optimizations:    -1
+
+services:
+  twig.loader:
+    class: "Twig_Loader_Filesystem"
+    arguments: ["%twig.path%"]
+  twig.debug:
+    class: "Twig_Extension_Debug"
+  twig.acf:
+    class: "App\\Twig\\ACF"
+  twig.wordpress:
+    class: "App\\Twig\\WordPress"
+  twig.environment:
+    class: "Twig_Environment"
+    arguments: ["@twig.loader", "%twig.options%"]
+    calls:
+      - [addExtension, ["@twig.debug"]]
+      - [addExtension, ["@twig.acf"]]
+      - [addExtension, ["@twig.wordpress"]]

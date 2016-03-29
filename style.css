@@ -1,0 +1,17 @@
+/*
+Theme Name: Sayenko Design Base Theme
+Theme URI: http://sayenkodesign.com
+Author: Robert M. Pakrer <robert@sayenkodesign.com>
+Author URI: http://sayenkodesign.com
+Description: Base theme built with foundation and twig. Easily compile and minify your assets with simple gulp commands.
+Version: 1.0
+License: MIT
+License URI: https://opensource.org/licenses/MIT
+Tags: foundation, sass, compass, gulp, bower, twig, composer, responsive
+Text Domain: sayenkodesign
+
+This style file is not used by the theme.
+Instead edit the sass files and compile them with gulp.
+
+For more information read the Readme file.
+*/
