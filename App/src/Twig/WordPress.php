@@ -617,7 +617,7 @@ class WordPress extends Twig_Extension
             }),
 
             new \Twig_SimpleFunction('wp_get_site_option', function ($option, $default = false, $deprecated = true) {
-                return get_site_option($option, $default , $deprecated);
+                return get_site_option($option, $default, $deprecated);
             }),
 
             new \Twig_SimpleFunction('wp_get_site_url', function ($blogID = null, $path = '', $scheme = null) {
