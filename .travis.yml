@@ -20,7 +20,7 @@ before_script:
   - vendor/bin/phpcs --config-set installed_paths vendor/escapestudios/symfony2-coding-standard
 
 script:
-  - vendor/bin/phpcs ./ --standard=Symfony2 --ignore=vendor/*,Tests/* -nps --color
+  - vendor/bin/phpcs ./ --standard=Symfony2 --ignore=vendor/*,Tests/* -nps --colors
 #  - phpunit --coverage-clover clover.xml
 
 notifications:
