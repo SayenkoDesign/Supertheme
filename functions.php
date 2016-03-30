@@ -18,15 +18,15 @@ if (function_exists('acf_add_options_page')) {
     ]);
 
     acf_add_options_sub_page([
-        'page_title' 	=> 'Social',
-        'menu_title' 	=> 'Social',
-        'parent_slug' 	=> $parent['menu_slug'],
+        'page_title'   => 'Social',
+        'menu_title'   => 'Social',
+        'parent_slug'  => $parent['menu_slug'],
     ]);
 
     acf_add_options_sub_page([
-        'page_title' 	=> 'Footer',
-        'menu_title' 	=> 'Footer',
-        'parent_slug' 	=> $parent['menu_slug'],
+        'page_title'  => 'Footer',
+        'menu_title'  => 'Footer',
+        'parent_slug' => $parent['menu_slug'],
     ]);
 }
 
