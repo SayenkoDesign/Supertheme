@@ -3,14 +3,25 @@ namespace App\Twig;
 
 use Twig_Extension;
 
+/**
+ * Class WordPress
+ * @package App\Twig
+ *
+ * Twig extension to port most of the wordpress functions to twig
+ */
 class WordPress extends Twig_Extension
 {
 
+    /**
+     * {@inheritdoc}
+     *
+     * @return array
+     */
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('wp_has_action', function ($tag, $function_to_check = false) {
-                return has_action( $tag, $function_to_check );
+            new \Twig_SimpleFunction('wp_has_action', function ($tag, $functionToCheck = false) {
+                return has_action( $tag, $functionToCheck );
             }),
 
             new \Twig_SimpleFunction('wp_do_action', function ($tag, $arg = '') {
@@ -27,8 +38,8 @@ class WordPress extends Twig_Extension
                 return did_action( $tag );
             }),
 
-            new \Twig_SimpleFunction('wp_get_attached_file', function ($attachment_id, $unfiltered = false) {
-                return get_attached_file( $attachment_id, $unfiltered );
+            new \Twig_SimpleFunction('wp_get_attached_file', function ($attachmentID, $unfiltered = false) {
+                return get_attached_file( $attachmentID, $unfiltered );
             }),
 
             new \Twig_SimpleFunction('wp_is_attachment', function ($attachment = '') {
@@ -43,36 +54,36 @@ class WordPress extends Twig_Extension
                 return wp_attachment_is_image( $post );
             }),
 
-            new \Twig_SimpleFunction('wp_attachment_is_image', function ($attachment_id, $size = 'thumbnail', $icon = false, $attr = '') {
-                return wp_get_attachment_image( $attachment_id, $size, $icon, $attr );
+            new \Twig_SimpleFunction('wp_attachment_is_image', function ($attachmentID, $size = 'thumbnail', $icon = false, $attr = '') {
+                return wp_get_attachment_image( $attachmentID, $size, $icon, $attr );
             }),
 
             new \Twig_SimpleFunction('wp_get_attachment_link', function ($id = 0, $size = 'thumbnail', $permalink = false, $icon = false, $text = false, $attr = '') {
                 return wp_get_attachment_link( $id, $size, $permalink, $icon, $text );
             }),
 
-            new \Twig_SimpleFunction('wp_get_attachment_image_src', function ($attachment_id, $size = 'thumbnail', $icon = false) {
-                return wp_get_attachment_image_src( $attachment_id, $size, $icon );
+            new \Twig_SimpleFunction('wp_get_attachment_image_src', function ($attachmentID, $size = 'thumbnail', $icon = false) {
+                return wp_get_attachment_image_src( $attachmentID, $size, $icon );
             }),
 
-            new \Twig_SimpleFunction('wp_get_attachment_metadata', function ($post_id = 0, $unfiltered = false) {
-                return wp_get_attachment_metadata( $post_id, $unfiltered );
+            new \Twig_SimpleFunction('wp_get_attachment_metadata', function ($postID = 0, $unfiltered = false) {
+                return wp_get_attachment_metadata( $postID, $unfiltered );
             }),
 
-            new \Twig_SimpleFunction('wp_get_attachment_thumb_file', function ($post_id = 0) {
-                return wp_get_attachment_thumb_file( $post_id );
+            new \Twig_SimpleFunction('wp_get_attachment_thumb_file', function ($postID = 0) {
+                return wp_get_attachment_thumb_file( $postID );
             }),
 
-            new \Twig_SimpleFunction('wp_get_attachment_thumb_url', function ($post_id = 0) {
-                return wp_get_attachment_thumb_url( $post_id );
+            new \Twig_SimpleFunction('wp_get_attachment_thumb_url', function ($postID = 0) {
+                return wp_get_attachment_thumb_url( $postID );
             }),
 
-            new \Twig_SimpleFunction('wp_get_attachment_url', function ($post_id = 0) {
-                return wp_get_attachment_url( $post_id );
+            new \Twig_SimpleFunction('wp_get_attachment_url', function ($postID = 0) {
+                return wp_get_attachment_url( $postID );
             }),
 
-            new \Twig_SimpleFunction('wp_check_for_changed_slugs', function ($post_id, $post, $post_before) {
-                wp_check_for_changed_slugs( $post_id, $post, $post_before );
+            new \Twig_SimpleFunction('wp_check_for_changed_slugs', function ($postID, $post, $post_before) {
+                wp_check_for_changed_slugs( $postID, $post, $post_before );
                 return true;
             }),
 
@@ -88,8 +99,8 @@ class WordPress extends Twig_Extension
                 return wp_mime_type_icon( $mime );
             }),
 
-            new \Twig_SimpleFunction('wp_generate_attachment_metadata', function ($attachment_id, $file) {
-                return wp_generate_attachment_metadata( $attachment_id, $file );
+            new \Twig_SimpleFunction('wp_generate_attachment_metadata', function ($attachmentID, $file) {
+                return wp_generate_attachment_metadata( $attachmentID, $file );
             }),
 
             new \Twig_SimpleFunction('wp_prepare_attachment_for_js', function ($attachment) {
@@ -108,16 +119,16 @@ class WordPress extends Twig_Extension
                 return cat_is_ancestor_of( $cat1, $cat2 );
             }),
 
-            new \Twig_SimpleFunction('wp_get_ancestors', function ($object_id = 0, $object_type = '', $resource_type = '') {
-                return get_ancestors( $object_id, $object_type, $resource_type );
+            new \Twig_SimpleFunction('wp_get_ancestors', function ($objectID = 0, $objectType = '', $resourceType = '') {
+                return get_ancestors( $objectID, $objectType, $resourceType );
             }),
 
-            new \Twig_SimpleFunction('wp_get_cat_ID', function ($cat_name) {
-                return get_cat_ID( $cat_name );
+            new \Twig_SimpleFunction('wp_get_cat_ID', function ($catName) {
+                return get_cat_ID( $catName );
             }),
 
-            new \Twig_SimpleFunction('wp_get_cat_name', function ($cat_id) {
-                return get_cat_name( $cat_id );
+            new \Twig_SimpleFunction('wp_get_cat_name', function ($catID) {
+                return get_cat_name( $catID );
             }),
 
             new \Twig_SimpleFunction('wp_get_categories', function ($args = '') {
@@ -128,20 +139,20 @@ class WordPress extends Twig_Extension
                 return get_category( $category, $output, $filter );
             }),
 
-            new \Twig_SimpleFunction('wp_get_category_by_path', function ($category_path, $full_match = true, $output = OBJECT) {
-                return get_category_by_path( $category_path, $full_match, $output );
+            new \Twig_SimpleFunction('wp_get_category_by_path', function ($categoryPath, $full_match = true, $output = OBJECT) {
+                return get_category_by_path( $categoryPath, $full_match, $output );
             }),
 
             new \Twig_SimpleFunction('wp_get_category_by_slug', function ($slug) {
                 return get_category_by_slug( $slug );
             }),
 
-            new \Twig_SimpleFunction('wp_get_the_category_by_ID', function ($cat_ID) {
-                return get_the_category_by_ID( $cat_ID );
+            new \Twig_SimpleFunction('wp_get_the_category_by_ID', function ($catID) {
+                return get_the_category_by_ID( $catID );
             }),
 
-            new \Twig_SimpleFunction('wp_get_the_category_by_ID', function ($separator = '', $parents='', $post_id = false) {
-                return get_the_category_list( $separator, $parents, $post_id );
+            new \Twig_SimpleFunction('wp_get_the_category_by_ID', function ($separator = '', $parents='', $postID = false) {
+                return get_the_category_list( $separator, $parents, $postID );
             }),
 
             new \Twig_SimpleFunction('wp_get_category_link', function ($category_id) {
@@ -172,60 +183,60 @@ class WordPress extends Twig_Extension
                 return wp_dropdown_categories( $args );
             }),
 
-            new \Twig_SimpleFunction('wp_get_approved_comments', function ($post_id, $args = array()) {
-                return get_approved_comments($post_id, $args);
+            new \Twig_SimpleFunction('wp_get_approved_comments', function ($postID, $args = array()) {
+                return get_approved_comments($postID, $args);
             }),
 
-            new \Twig_SimpleFunction('wp_get_avatar', function ($id_or_email, $size = 96, $default = '', $alt = '', $args = null) {
-                return get_avatar( $id_or_email, $size, $default, $alt, $args );
+            new \Twig_SimpleFunction('wp_get_avatar', function ($IDorEmail, $size = 96, $default = '', $alt = '', $args = null) {
+                return get_avatar( $IDorEmail, $size, $default, $alt, $args );
             }),
 
             new \Twig_SimpleFunction('wp_get_comment', function (&$comment = null, $output = OBJECT) {
                 return get_comment( $comment, $output );
             }),
 
-            new \Twig_SimpleFunction('wp_get_comment_text', function ($comment_ID = 0, $args = array()) {
-                return get_comment_text( $comment_ID, $args );
+            new \Twig_SimpleFunction('wp_get_comment_text', function ($commentID = 0, $args = array()) {
+                return get_comment_text( $commentID, $args );
             }),
 
-            new \Twig_SimpleFunction('wp_get_comment_meta', function ($comment_id, $key = '', $single = false) {
-                return get_comment_meta( $comment_id, $key, $single );
+            new \Twig_SimpleFunction('wp_get_comment_meta', function ($commentID, $key = '', $single = false) {
+                return get_comment_meta( $commentID, $key, $single );
             }),
 
             new \Twig_SimpleFunction('wp_get_comments', function ($args = '') {
                 return get_comments( $args );
             }),
 
-            new \Twig_SimpleFunction('wp_get_enclosed', function ($post_id) {
-                return get_enclosed( $post_id );
+            new \Twig_SimpleFunction('wp_get_enclosed', function ($postID) {
+                return get_enclosed( $postID );
             }),
 
             new \Twig_SimpleFunction('wp_get_lastcommentmodified', function ($timezone = 'server') {
                 return get_lastcommentmodified( $timezone );
             }),
 
-            new \Twig_SimpleFunction('wp_get_pung', function ($post_id) {
-                return get_pung( $post_id );
+            new \Twig_SimpleFunction('wp_get_pung', function ($postID) {
+                return get_pung( $postID );
             }),
 
-            new \Twig_SimpleFunction('wp_get_to_ping', function ($post_id) {
-                return get_to_ping( $post_id );
+            new \Twig_SimpleFunction('wp_get_to_ping', function ($postID) {
+                return get_to_ping( $postID );
             }),
 
             new \Twig_SimpleFunction('wp_have_comments', function () {
                 return have_comments();
             }),
 
-            new \Twig_SimpleFunction('wp_get_comment_author', function ($comment_ID = 0) {
-                return get_comment_author( $comment_ID );
+            new \Twig_SimpleFunction('wp_get_comment_author', function ($commentID = 0) {
+                return get_comment_author( $commentID );
             }),
 
             new \Twig_SimpleFunction('wp_is_trackback', function () {
                 return is_trackback();
             }),
 
-            new \Twig_SimpleFunction('wp_trackback', function ($trackback_url, $title, $excerpt, $ID) {
-                return trackback( $trackback_url, $title, $excerpt, $ID );
+            new \Twig_SimpleFunction('wp_trackback', function ($trackbackURL, $title, $excerpt, $ID) {
+                return trackback( $trackbackURL, $title, $excerpt, $ID );
             }),
 
             new \Twig_SimpleFunction('wp_trackback_url', function () {
@@ -236,24 +247,24 @@ class WordPress extends Twig_Extension
                 return wp_allow_comment( $commentdata );
             }),
 
-            new \Twig_SimpleFunction('wp_count_comments', function ($post_id = 0) {
-                return wp_count_comments( $post_id );
+            new \Twig_SimpleFunction('wp_count_comments', function ($postID = 0) {
+                return wp_count_comments( $postID );
             }),
 
-            new \Twig_SimpleFunction('wp_get_comment_status', function ($comment_id) {
-                return wp_get_comment_status( $comment_id );
+            new \Twig_SimpleFunction('wp_get_comment_status', function ($commentID) {
+                return wp_get_comment_status( $commentID );
             }),
 
             new \Twig_SimpleFunction('wp_get_current_commenter', function () {
                 return wp_get_current_commenter();
             }),
 
-            new \Twig_SimpleFunction('wp_comment_class', function ($class = '', $comment = null, $post_id = null, $echo = true) {
-                return comment_class( $class, $comment_id, $post_id, $echo );
+            new \Twig_SimpleFunction('wp_comment_class', function ($class = '', $commentID = null, $postID = null, $echo = true) {
+                return comment_class( $class, $commentID, $postID, $echo );
             }),
 
-            new \Twig_SimpleFunction('wp_get_comment_date', function ($d = '', $comment_ID = 0) {
-                return get_comment_date( $d, $comment_ID );
+            new \Twig_SimpleFunction('wp_get_comment_date', function ($d = '', $commentID = 0) {
+                return get_comment_date( $d, $commentID );
             }),
 
             new \Twig_SimpleFunction('wp_get_comment_time', function ($d = '', $gmt = false, $translate = true) {
@@ -264,8 +275,8 @@ class WordPress extends Twig_Extension
                 return paginate_comments_links( $args );
             }),
 
-            new \Twig_SimpleFunction('wp_get_comment_pages_count', function ($comments, $per_page, $threaded) {
-                return get_comment_pages_count($comments, $per_page, $threaded);
+            new \Twig_SimpleFunction('wp_get_comment_pages_count', function ($comments, $perPage, $threaded) {
+                return get_comment_pages_count($comments, $perPage, $threaded);
             }),
 
             new \Twig_SimpleFunction('wp_has_nav_menu', function ($location) {
@@ -348,8 +359,8 @@ class WordPress extends Twig_Extension
                 return is_single($post);
             }),
 
-            new \Twig_SimpleFunction('wp_is_sticky', function ($post_id = 0) {
-                return is_sticky($post_id);
+            new \Twig_SimpleFunction('wp_is_sticky', function ($postID = 0) {
+                return is_sticky($postID);
             }),
 
             new \Twig_SimpleFunction('wp_is_tag', function ($tag = '') {
@@ -380,16 +391,16 @@ class WordPress extends Twig_Extension
                 return is_time();
             }),
 
-            new \Twig_SimpleFunction('wp_get_author_feed_link', function ($author_id, $feed = '') {
-                return get_author_feed_link( $author_id, $feed );
+            new \Twig_SimpleFunction('wp_get_author_feed_link', function ($authorID, $feed = '') {
+                return get_author_feed_link( $authorID, $feed );
             }),
 
             new \Twig_SimpleFunction('wp_get_bloginfo_rss', function ($show = '') {
                 return get_bloginfo_rss( $show );
             }),
 
-            new \Twig_SimpleFunction('wp_get_category_feed_link', function ($cat_id, $feed = '') {
-                return get_category_feed_link( $cat_id, $feed );
+            new \Twig_SimpleFunction('wp_get_category_feed_link', function ($catID, $feed = '') {
+                return get_category_feed_link( $catID, $feed );
             }),
 
             new \Twig_SimpleFunction('wp_get_comment_link', function ($comment = null, $args = array()) {
@@ -400,16 +411,16 @@ class WordPress extends Twig_Extension
                 return get_comment_author_rss();
             }),
 
-            new \Twig_SimpleFunction('wp_get_post_comments_feed_link', function ($post_id = 0, $feed = '') {
-                return get_post_comments_feed_link( $post_id, $feed );
+            new \Twig_SimpleFunction('wp_get_post_comments_feed_link', function ($postID = 0, $feed = '') {
+                return get_post_comments_feed_link( $postID, $feed );
             }),
 
-            new \Twig_SimpleFunction('wp_get_search_comments_feed_link', function ($search_query = '', $feed = '') {
-                return get_search_comments_feed_link( $search_query, $feed );
+            new \Twig_SimpleFunction('wp_get_search_comments_feed_link', function ($searchQuery = '', $feed = '') {
+                return get_search_comments_feed_link( $searchQuery, $feed );
             }),
 
-            new \Twig_SimpleFunction('wp_get_search_feed_link', function ($search_query = '', $feed = '') {
-                return get_search_feed_link( $search_query, $feed );
+            new \Twig_SimpleFunction('wp_get_search_feed_link', function ($searchQuery = '', $feed = '') {
+                return get_search_feed_link( $searchQuery, $feed );
             }),
 
             new \Twig_SimpleFunction('wp_get_the_category_rss', function ($type = null) {
@@ -420,20 +431,20 @@ class WordPress extends Twig_Extension
                 return get_the_title_rss();
             }),
 
-            new \Twig_SimpleFunction('wp_get_post_custom', function ($post_id = 0) {
-                return get_post_custom($post_id);
+            new \Twig_SimpleFunction('wp_get_post_custom', function ($postID = 0) {
+                return get_post_custom($postID);
             }),
 
-            new \Twig_SimpleFunction('wp_get_post_custom_keys', function ($post_id = 0) {
-                return get_post_custom_keys($post_id);
+            new \Twig_SimpleFunction('wp_get_post_custom_keys', function ($postID = 0) {
+                return get_post_custom_keys($postID);
             }),
 
-            new \Twig_SimpleFunction('wp_get_post_custom_values', function ($key = '', $post_id = 0) {
-                return get_post_custom_values($key, $post_id);
+            new \Twig_SimpleFunction('wp_get_post_custom_values', function ($key = '', $postID = 0) {
+                return get_post_custom_values($key, $postID);
             }),
 
-            new \Twig_SimpleFunction('wp_get_post_meta', function ($post_id, $key = '', $single = false) {
-                return get_post_meta($post_id, $key, $single);
+            new \Twig_SimpleFunction('wp_get_post_meta', function ($postID, $key = '', $single = false) {
+                return get_post_meta($postID, $key, $single);
             }),
 
             new \Twig_SimpleFunction('wp_apply_filters', function ($tag, $value) {
@@ -602,12 +613,12 @@ class WordPress extends Twig_Extension
                 return get_site_option( $option, $default , $deprecated );
             }),
 
-            new \Twig_SimpleFunction('wp_get_site_url', function ($blog_id = null, $path = '', $scheme = null) {
-                return get_site_url( $blog_id, $path, $scheme );
+            new \Twig_SimpleFunction('wp_get_site_url', function ($blogID = null, $path = '', $scheme = null) {
+                return get_site_url( $blogID, $path, $scheme );
             }),
 
-            new \Twig_SimpleFunction('wp_get_admin_url', function ($blog_id = null, $path = '', $scheme = 'admin') {
-                return get_admin_url( $blog_id, $path, $scheme );
+            new \Twig_SimpleFunction('wp_get_admin_url', function ($blogID = null, $path = '', $scheme = 'admin') {
+                return get_admin_url( $blogID, $path, $scheme );
             }),
 
             new \Twig_SimpleFunction('wp_get_user_option', function ($option, $user = 0, $deprecated = '') {
@@ -615,7 +626,7 @@ class WordPress extends Twig_Extension
             }),
 
             new \Twig_SimpleFunction('wp_get_option', function ($option, $user = 0, $deprecated = '') {
-                return get_option( $option, $user = 0, $deprecated = '' );
+                return get_option( $option, $user, $deprecated );
             }),
 
             new \Twig_SimpleFunction('wp_get_the_ID', function () {
@@ -630,8 +641,8 @@ class WordPress extends Twig_Extension
                 return get_the_author_posts();
             }),
 
-            new \Twig_SimpleFunction('wp_get_the_content', function ($more_link_text = null, $strip_teaser = false) {
-                return get_the_content( $more_link_text, $strip_teaser );
+            new \Twig_SimpleFunction('wp_get_the_content', function ($moreLinkText = null, $stripTeaser = false) {
+                return get_the_content( $moreLinkText, $stripTeaser );
             }),
 
             new \Twig_SimpleFunction('wp_get_the_title', function ($post = 0) {
@@ -642,8 +653,8 @@ class WordPress extends Twig_Extension
                 return wp_get_post_revision( $post, $output, $filter );
             }),
 
-            new \Twig_SimpleFunction('wp_get_post_revisions', function ($post_id = 0, $args = null) {
-                return wp_get_post_revisions( $post_id, $args );
+            new \Twig_SimpleFunction('wp_get_post_revisions', function ($postID = 0, $args = null) {
+                return wp_get_post_revisions( $postID, $args );
             }),
 
             new \Twig_SimpleFunction('wp_is_post_revision', function ($post) {
@@ -658,8 +669,8 @@ class WordPress extends Twig_Extension
                 return get_all_page_ids();
             }),
 
-            new \Twig_SimpleFunction('wp_get_ancestors', function ($object_id = 0, $object_type = '', $resource_type = '') {
-                return get_ancestors( $object_id, $object_type, $resource_type );
+            new \Twig_SimpleFunction('wp_get_ancestors', function ($objectID = 0, $objectType = '', $resourceType = '') {
+                return get_ancestors( $objectID, $objectType, $resourceType );
             }),
 
             new \Twig_SimpleFunction('wp_get_page_link', function ($post = false, $leavename = false, $sample = false) {
@@ -670,24 +681,24 @@ class WordPress extends Twig_Extension
                 return get_pagenum_link($pagenum, $escape);
             }),
 
-            new \Twig_SimpleFunction('wp_get_page_by_path', function ($page_path, $output = OBJECT, $post_type = 'page') {
-                return get_page_by_path( $page_path, $output, $post_type );
+            new \Twig_SimpleFunction('wp_get_page_by_path', function ($page_path, $output = OBJECT, $postType = 'page') {
+                return get_page_by_path( $page_path, $output, $postType );
             }),
 
-            new \Twig_SimpleFunction('wp_get_page_by_title', function ($page_title, $output = OBJECT, $post_type = 'page') {
-                return get_page_by_title( $page_title, $output, $post_type );
+            new \Twig_SimpleFunction('wp_get_page_by_title', function ($page_title, $output = OBJECT, $postType = 'page') {
+                return get_page_by_title( $page_title, $output, $postType );
             }),
 
-            new \Twig_SimpleFunction('wp_get_page_children', function ($page_id, $pages) {
-                return get_page_children( $page_id, $pages );
+            new \Twig_SimpleFunction('wp_get_page_children', function ($pageID, $pages) {
+                return get_page_children( $pageID, $pages );
             }),
 
-            new \Twig_SimpleFunction('wp_get_page_hierarchy', function (&$pages, $page_id = 0) {
-                return get_page_hierarchy( $pages, $page_id );
+            new \Twig_SimpleFunction('wp_get_page_hierarchy', function (&$pages, $pageID = 0) {
+                return get_page_hierarchy( $pages, $pageID );
             }),
 
-            new \Twig_SimpleFunction('wp_get_page_uri', function ($page_id = 0) {
-                return get_page_uri( $page_id );
+            new \Twig_SimpleFunction('wp_get_page_uri', function ($pageID = 0) {
+                return get_page_uri( $pageID );
             }),
 
             new \Twig_SimpleFunction('wp_get_pages', function ($args = array()) {
@@ -714,11 +725,11 @@ class WordPress extends Twig_Extension
                 return wp_dropdown_pages( $args );
             }),
 
-            new \Twig_SimpleFunction('wp_is_email', function($email){
+            new \Twig_SimpleFunction('wp_is_email', function($email) {
                 return is_email( $email );
             }),
 
-            new \Twig_SimpleFunction('wp_kses_version', function(){
+            new \Twig_SimpleFunction('wp_kses_version', function() {
                 return wp_kses_version();
             }),
 
@@ -738,20 +749,20 @@ class WordPress extends Twig_Extension
                 return is_plugin_inactive($plugin);
             }),
 
-            new \Twig_SimpleFunction('wp_get_plugins', function ($plugin_folder = '') {
-                return get_plugins( $plugin_folder );
+            new \Twig_SimpleFunction('wp_get_plugins', function ($pluginFolder = '') {
+                return get_plugins( $pluginFolder );
             }),
 
-            new \Twig_SimpleFunction('wp_get_adjacent_post', function ($in_same_term = false, $excluded_terms = '', $previous = true, $taxonomy = 'category') {
-                return get_adjacent_post($in_same_term, $excluded_terms, $previous, $taxonomy);
+            new \Twig_SimpleFunction('wp_get_adjacent_post', function ($inSameTerm = false, $excludedTerms = '', $previous = true, $taxonomy = 'category') {
+                return get_adjacent_post($inSameTerm, $excludedTerms, $previous, $taxonomy);
             }),
 
-            new \Twig_SimpleFunction('wp_get_boundary_post', function ($in_same_cat = false, $excluded_categories = '', $start = true) {
-                return get_boundary_post($in_same_cat, $excluded_categories, $start);
+            new \Twig_SimpleFunction('wp_get_boundary_post', function ($inSameCat = false, $excludedCategories = '', $start = true) {
+                return get_boundary_post($inSameCat, $excludedCategories, $start);
             }),
 
-            new \Twig_SimpleFunction('wp_get_the_content', function ($more_link_text = null, $strip_teaser = false) {
-                return get_the_content($more_link_text, $strip_teaser);
+            new \Twig_SimpleFunction('wp_get_the_content', function ($moreLinkText = null, $stripTeaser = false) {
+                return get_the_content($moreLinkText, $stripTeaser);
             }),
 
             new \Twig_SimpleFunction('wp_get_children', function ($args = '', $output = OBJECT) {
@@ -762,16 +773,16 @@ class WordPress extends Twig_Extension
                 return get_extended($post);
             }),
 
-            new \Twig_SimpleFunction('wp_get_next_post', function ($in_same_term = false, $excluded_terms = '', $taxonomy = 'category') {
-                return get_next_post($in_same_term, $excluded_terms, $taxonomy);
+            new \Twig_SimpleFunction('wp_get_next_post', function ($inSameTerm = false, $excludedTerms = '', $taxonomy = 'category') {
+                return get_next_post($inSameTerm, $excludedTerms, $taxonomy);
             }),
 
-            new \Twig_SimpleFunction('wp_get_next_posts_link', function ($label = null, $max_page = 0) {
-                return get_next_posts_link($label, $max_page);
+            new \Twig_SimpleFunction('wp_get_next_posts_link', function ($label = null, $maxPage = 0) {
+                return get_next_posts_link($label, $maxPage);
             }),
 
-            new \Twig_SimpleFunction('wp_get_next_post_link', function ($format = '%link &raquo;', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category') {
-                return get_next_post_link($format, $link, $in_same_term = false, $excluded_terms, $taxonomy);
+            new \Twig_SimpleFunction('wp_get_next_post_link', function ($format = '%link &raquo;', $link = '%title', $inSameTerm = false, $excludedTerms = '', $taxonomy = 'category') {
+                return get_next_post_link($format, $link, $inSameTerm, $excludedTerms, $taxonomy);
             }),
 
             new \Twig_SimpleFunction('wp_get_permalink', function ($post = 0, $leavename = false) {
@@ -814,16 +825,16 @@ class WordPress extends Twig_Extension
                 return get_edit_post_link( $id, $context );
             }),
 
-            new \Twig_SimpleFunction('wp_get_delete_post_link', function ($id = 0, $deprecated = '', $force_delete = false) {
-                return get_delete_post_link( $id, $deprecated, $force_delete );
+            new \Twig_SimpleFunction('wp_get_delete_post_link', function ($id = 0, $deprecated = '', $forceDelete = false) {
+                return get_delete_post_link( $id, $deprecated, $forceDelete );
             }),
 
-            new \Twig_SimpleFunction('wp_get_previous_post', function ($in_same_term = false, $excluded_terms = '', $taxonomy = 'category') {
-                return get_previous_post( $in_same_term, $excluded_terms, $taxonomy );
+            new \Twig_SimpleFunction('wp_get_previous_post', function ($inSameTerm = false, $excludedTerms = '', $taxonomy = 'category') {
+                return get_previous_post( $inSameTerm, $excludedTerms, $taxonomy );
             }),
 
-            new \Twig_SimpleFunction('wp_get_previous_post_link', function ($format = '&laquo; %link', $link = '%title', $in_same_term = false, $excluded_terms = '', $taxonomy = 'category') {
-                return get_previous_post_link( $format, $link, $in_same_term, $excluded_terms, $taxonomy );
+            new \Twig_SimpleFunction('wp_get_previous_post_link', function ($format = '&laquo; %link', $link = '%title', $inSameTerm = false, $excludedTerms = '', $taxonomy = 'category') {
+                return get_previous_post_link( $format, $link, $inSameTerm, $excludedTerms, $taxonomy );
             }),
 
             new \Twig_SimpleFunction('wp_get_previous_posts_link', function ($label = null) {
@@ -839,11 +850,11 @@ class WordPress extends Twig_Extension
             }),
 
             new \Twig_SimpleFunction('wp_is_single', function ($post = '') {
-                return is_single();
+                return is_single($post);
             }),
 
-            new \Twig_SimpleFunction('wp_is_sticky', function ($post_id = 0) {
-                return is_sticky($post_id);
+            new \Twig_SimpleFunction('wp_is_sticky', function ($postID = 0) {
+                return is_sticky($postID);
             }),
 
             new \Twig_SimpleFunction('wp_get_the_ID', function () {
@@ -871,16 +882,16 @@ class WordPress extends Twig_Extension
                 return has_post_format($format,$post);
             }),
 
-            new \Twig_SimpleFunction('wp_is_post_type_archive', function ($post_types = '') {
-                return is_post_type_archive( $post_types );
+            new \Twig_SimpleFunction('wp_is_post_type_archive', function ($postTypes = '') {
+                return is_post_type_archive( $postTypes );
             }),
 
             new \Twig_SimpleFunction('wp_post_type_archive_title', function ($prefix = '') {
                 return post_type_archive_title( $prefix, false );
             }),
 
-            new \Twig_SimpleFunction('wp_post_type_exists', function ($post_type) {
-                return post_type_exists( $post_type );
+            new \Twig_SimpleFunction('wp_post_type_exists', function ($postType) {
+                return post_type_exists( $postType );
             }),
 
             new \Twig_SimpleFunction('wp_get_post_type', function ($post = null) {
@@ -891,24 +902,24 @@ class WordPress extends Twig_Extension
                 return get_post_types( $args, $output, $operator );
             }),
 
-            new \Twig_SimpleFunction('wp_get_post_type_archive_link', function ($post_type) {
-                return get_post_type_archive_link( $post_type );
+            new \Twig_SimpleFunction('wp_get_post_type_archive_link', function ($postType) {
+                return get_post_type_archive_link( $postType );
             }),
 
             new \Twig_SimpleFunction('wp_get_post_type_capabilities', function ($args) {
                 return get_post_type_capabilities( $args );
             }),
 
-            new \Twig_SimpleFunction('wp_is_post_type_hierarchical', function ($post_type) {
-                return is_post_type_hierarchical( $post_type );
+            new \Twig_SimpleFunction('wp_is_post_type_hierarchical', function ($postType) {
+                return is_post_type_hierarchical( $postType );
             }),
 
             new \Twig_SimpleFunction('wp_check_admin_referer', function () {
                 return check_admin_referer();
             }),
 
-            new \Twig_SimpleFunction('wp_check_admin_referer', function ($action = -1, $query_arg = false, $die = true) {
-                return check_ajax_referer( $action, $query_arg, $die );
+            new \Twig_SimpleFunction('wp_check_admin_referer', function ($action = -1, $queryArg = false, $die = true) {
+                return check_ajax_referer( $action, $queryArg, $die );
             }),
 
             new \Twig_SimpleFunction('wp_create_nonce', function ($action = -1) {
@@ -927,12 +938,12 @@ class WordPress extends Twig_Extension
                 return wp_nonce_field( $action, $name, $referer, false );
             }),
 
-            new \Twig_SimpleFunction('wp_nonce_url', function ($actionurl, $action = -1, $name = '_wpnonce') {
-                return wp_nonce_url( $actionurl, $action, $name );
+            new \Twig_SimpleFunction('wp_nonce_url', function ($actionURL, $action = -1, $name = '_wpnonce') {
+                return wp_nonce_url( $actionURL, $action, $name );
             }),
 
-            new \Twig_SimpleFunction('wp_nonce_url', function ($jump_back_to = 'current') {
-                return wp_original_referer_field( false, $jump_back_to );
+            new \Twig_SimpleFunction('wp_nonce_url', function ($jumpBackTo = 'current') {
+                return wp_original_referer_field( false, $jumpBackTo );
             }),
 
             new \Twig_SimpleFunction('wp_referer_field', function () {
@@ -951,12 +962,12 @@ class WordPress extends Twig_Extension
                 return is_serialized_string( $data );
             }),
 
-            new \Twig_SimpleFunction('wp_do_shortcode', function ($content, $ignore_html = false) {
-                return do_shortcode($content, $ignore_html);
+            new \Twig_SimpleFunction('wp_do_shortcode', function ($content, $ignoreHtml = false) {
+                return do_shortcode($content, $ignoreHtml);
             }),
 
-            new \Twig_SimpleFunction('wp_get_shortcode_regex', function ($tagnames = null) {
-                return get_shortcode_regex($tagnames);
+            new \Twig_SimpleFunction('wp_get_shortcode_regex', function ($tagNames = null) {
+                return get_shortcode_regex($tagNames);
             }),
 
             new \Twig_SimpleFunction('wp_strip_shortcodes', function ($content) {
@@ -1003,8 +1014,8 @@ class WordPress extends Twig_Extension
                 return get_object_taxonomies( $object, $output );
             }),
 
-            new \Twig_SimpleFunction('wp_get_edit_term_link', function ($term_id, $taxonomy, $object_type = '') {
-                return get_edit_term_link( $term_id, $taxonomy, $object_type );
+            new \Twig_SimpleFunction('wp_get_edit_term_link', function ($termID, $taxonomy, $objectType = '') {
+                return get_edit_term_link( $termID, $taxonomy, $objectType );
             }),
 
             new \Twig_SimpleFunction('wp_get_taxonomy', function ($taxonomy) {
@@ -1035,8 +1046,8 @@ class WordPress extends Twig_Extension
                 return get_the_terms( $post, $taxonomy );
             }),
 
-            new \Twig_SimpleFunction('wp_get_term_children', function ($term_id, $taxonomy) {
-                return get_term_children( $term_id, $taxonomy );
+            new \Twig_SimpleFunction('wp_get_term_children', function ($termID, $taxonomy) {
+                return get_term_children( $termID, $taxonomy );
             }),
 
             new \Twig_SimpleFunction('wp_get_term_link', function ($term, $taxonomy = '') {
@@ -1063,20 +1074,20 @@ class WordPress extends Twig_Extension
                 return term_exists( $term, $taxonomy, $parent );
             }),
 
-            new \Twig_SimpleFunction('wp_get_object_terms', function ($object_ids, $taxonomies, $args = array()) {
-                return wp_get_object_terms( $object_ids, $taxonomies, $args );
+            new \Twig_SimpleFunction('wp_get_object_terms', function ($objectIDs, $taxonomies, $args = array()) {
+                return wp_get_object_terms( $objectIDs, $taxonomies, $args );
             }),
 
-            new \Twig_SimpleFunction('wp_get_post_categories', function ($post_id = 0, $args = array()) {
-                return wp_get_post_categories($post_id, $args);
+            new \Twig_SimpleFunction('wp_get_post_categories', function ($postID = 0, $args = array()) {
+                return wp_get_post_categories($postID, $args);
             }),
 
-            new \Twig_SimpleFunction('wp_get_post_tags', function ($post_id = 0, $args = array()) {
-                return wp_get_post_tags( $post_id, $args );
+            new \Twig_SimpleFunction('wp_get_post_tags', function ($postID = 0, $args = array()) {
+                return wp_get_post_tags( $postID, $args );
             }),
 
-            new \Twig_SimpleFunction('wp_get_post_terms', function ($post_id = 0, $taxonomy = 'post_tag', $args = array()) {
-                return wp_get_post_terms( $post_id, $taxonomy, $args );
+            new \Twig_SimpleFunction('wp_get_post_terms', function ($postID = 0, $taxonomy = 'post_tag', $args = array()) {
+                return wp_get_post_terms( $postID, $taxonomy, $args );
             }),
 
             new \Twig_SimpleFunction('wp_count_terms', function ($taxonomy, $args = array()) {
@@ -1087,8 +1098,8 @@ class WordPress extends Twig_Extension
                 return has_term( $term, $taxonomy, $post );
             }),
 
-            new \Twig_SimpleFunction('wp_is_object_in_term', function ($object_id, $taxonomy, $terms = null) {
-                return is_object_in_term( $object_id, $taxonomy, $terms = null );
+            new \Twig_SimpleFunction('wp_is_object_in_term', function ($objectID, $taxonomy, $terms = null) {
+                return is_object_in_term( $objectID, $taxonomy, $terms );
             }),
 
             new \Twig_SimpleFunction('wp_body_class', function ($class = '') {
@@ -1097,15 +1108,15 @@ class WordPress extends Twig_Extension
                 return ob_get_clean();
             }),
 
-            new \Twig_SimpleFunction('wp_comment_form', function ($args = array(), $post_id = null) {
+            new \Twig_SimpleFunction('wp_comment_form', function ($args = array(), $postID = null) {
                 ob_start();
-                comment_form($args, $post_id);
+                comment_form($args, $postID);
                 return ob_get_clean();
             }),
 
-            new \Twig_SimpleFunction('wp_comments_template', function ($file = '/comments.php', $separate_comments = false) {
+            new \Twig_SimpleFunction('wp_comments_template', function ($file = '/comments.php', $separateComments = false) {
                 ob_start();
-                comments_template($file, $separate_comments);
+                comments_template($file, $separateComments);
                 return ob_get_clean();
             }),
 
@@ -1151,8 +1162,8 @@ class WordPress extends Twig_Extension
                 return get_header_textcolor();
             }),
 
-            new \Twig_SimpleFunction('wp_get_post_class', function ($class = '', $post_id = null) {
-                return get_post_class($class, $post_id);
+            new \Twig_SimpleFunction('wp_get_post_class', function ($class = '', $postID = null) {
+                return get_post_class($class, $postID);
             }),
 
             new \Twig_SimpleFunction('wp_get_stylesheet_directory_uri', function () {
@@ -1189,8 +1200,8 @@ class WordPress extends Twig_Extension
                 return get_theme_mods();
             }),
 
-            new \Twig_SimpleFunction('wp_get_theme_root', function ($stylesheet_or_template = false) {
-                return get_theme_root( $stylesheet_or_template );
+            new \Twig_SimpleFunction('wp_get_theme_root', function ($stylesheetOrTemplate = false) {
+                return get_theme_root( $stylesheetOrTemplate );
             }),
 
             new \Twig_SimpleFunction('wp_get_theme_roots', function () {
@@ -1235,9 +1246,9 @@ class WordPress extends Twig_Extension
                 return ob_get_clean();
             }),
 
-            new \Twig_SimpleFunction('wp_load_template', function ($_template_file, $require_once = true) {
+            new \Twig_SimpleFunction('wp_load_template', function ($templateFile, $requireOnce = true) {
                 ob_start();
-                load_template( $_template_file, $require_once );
+                load_template( $templateFile, $requireOnce );
                 return ob_end_clean();
             }),
 
@@ -1253,8 +1264,8 @@ class WordPress extends Twig_Extension
                 return wp_get_nav_menu_items($menu, $args);
             }),
 
-            new \Twig_SimpleFunction('wp_get_theme', function ($stylesheet = null, $theme_root = null) {
-                return wp_get_theme( $stylesheet, $theme_root );
+            new \Twig_SimpleFunction('wp_get_theme', function ($stylesheet = null, $themeRoot = null) {
+                return wp_get_theme( $stylesheet, $themeRoot );
             }),
 
             new \Twig_SimpleFunction('wp_get_theme', function ($args = array()) {
@@ -1309,8 +1320,8 @@ class WordPress extends Twig_Extension
                 return get_month_link( $year, $month );
             }),
 
-            new \Twig_SimpleFunction('wp_get_the_date', function ($format, $post_id) {
-                return get_the_date( $format, $post_id );
+            new \Twig_SimpleFunction('wp_get_the_date', function ($format, $postID) {
+                return get_the_date( $format, $postID );
             }),
 
             new \Twig_SimpleFunction('wp_get_the_time', function ($format, $post) {
@@ -1321,8 +1332,8 @@ class WordPress extends Twig_Extension
                 return get_the_modified_time( $d );
             }),
 
-            new \Twig_SimpleFunction('wp_get_weekstartend', function ($mysqlstring, $start_of_week) {
-                return get_weekstartend( $mysqlstring, $start_of_week );
+            new \Twig_SimpleFunction('wp_get_weekstartend', function ($mysqlstring, $startOfWeek) {
+                return get_weekstartend( $mysqlstring, $startOfWeek );
             }),
 
             new \Twig_SimpleFunction('wp_get_year_link', function ($year) {
@@ -1345,8 +1356,8 @@ class WordPress extends Twig_Extension
                 return iso8601_timezone_to_offset( $timezone );
             }),
 
-            new \Twig_SimpleFunction('wp_is_new_day', function ($date_string, $timezone = 'user') {
-                return iso8601_to_datetime( $date_string, $timezone );
+            new \Twig_SimpleFunction('wp_is_new_day', function ($dateString, $timezone = 'user') {
+                return iso8601_to_datetime( $dateString, $timezone );
             }),
 
             new \Twig_SimpleFunction('wp_mysql2date', function ($format, $date, $translate = true) {
@@ -1369,8 +1380,8 @@ class WordPress extends Twig_Extension
                 return current_user_can( $capability );
             }),
 
-            new \Twig_SimpleFunction('wp_current_user_can_for_blog', function ($blog_id, $capability) {
-                return current_user_can_for_blog($blog_id, $capability);
+            new \Twig_SimpleFunction('wp_current_user_can_for_blog', function ($blogID, $capability) {
+                return current_user_can_for_blog($blogID, $capability);
             }),
 
             new \Twig_SimpleFunction('wp_get_role', function ($role) {
@@ -1381,8 +1392,8 @@ class WordPress extends Twig_Extension
                 return get_super_admins();
             }),
 
-            new \Twig_SimpleFunction('wp_is_super_admin', function ($user_id = false) {
-                return is_super_admin( $user_id );
+            new \Twig_SimpleFunction('wp_is_super_admin', function ($userID = false) {
+                return is_super_admin( $userID );
             }),
 
             new \Twig_SimpleFunction('wp_user_can', function ($user, $capability) {
@@ -1393,12 +1404,12 @@ class WordPress extends Twig_Extension
                 return count_users( $strategy );
             }),
 
-            new \Twig_SimpleFunction('wp_count_user_posts', function ($userid, $post_type = 'post', $public_only = false) {
-                return count_user_posts( $userid , $post_type );
+            new \Twig_SimpleFunction('wp_count_user_posts', function ($userid, $postType = 'post', $publicOnly = false) {
+                return count_user_posts( $userid , $postType, $publicOnly );
             }),
 
-            new \Twig_SimpleFunction('wp_count_many_users_posts', function ($users, $post_type = 'post', $public_only = false) {
-                return count_many_users_posts( $users, $post_type, $public_only );
+            new \Twig_SimpleFunction('wp_count_many_users_posts', function ($users, $postType = 'post', $publicOnly = false) {
+                return count_many_users_posts( $users, $postType, $publicOnly );
             }),
 
             new \Twig_SimpleFunction('wp_email_exists', function ($email) {
@@ -1417,8 +1428,8 @@ class WordPress extends Twig_Extension
                 return get_user_by($field, $value);
             }),
 
-            new \Twig_SimpleFunction('wp_get_userdata', function ($user_id) {
-                return get_userdata( $user_id );
+            new \Twig_SimpleFunction('wp_get_userdata', function ($userID) {
+                return get_userdata( $userID );
             }),
 
             new \Twig_SimpleFunction('wp_get_users', function ($args = array()) {
@@ -1437,8 +1448,8 @@ class WordPress extends Twig_Extension
                 return wp_get_current_user();
             }),
 
-            new \Twig_SimpleFunction('wp_get_author_posts_url', function ($author_id, $author_nicename = '') {
-                return get_author_posts_url( $author_id, $author_nicename );
+            new \Twig_SimpleFunction('wp_get_author_posts_url', function ($authorID, $authorNicename = '') {
+                return get_author_posts_url( $authorID, $authorNicename );
             }),
 
             new \Twig_SimpleFunction('wp_get_the_modified_author', function () {
@@ -1449,12 +1460,12 @@ class WordPress extends Twig_Extension
                 return is_multi_author();
             }),
 
-            new \Twig_SimpleFunction('wp_is_multi_author', function ($user_id, $key = '', $single = false) {
-                return get_user_meta($user_id, $key, $single);
+            new \Twig_SimpleFunction('wp_is_multi_author', function ($userID, $key = '', $single = false) {
+                return get_user_meta($userID, $key, $single);
             }),
 
-            new \Twig_SimpleFunction('wp_get_the_author_meta', function ($field = '', $user_id = false) {
-                return get_the_author_meta($field, $user_id);
+            new \Twig_SimpleFunction('wp_get_the_author_meta', function ($field = '', $userID = false) {
+                return get_the_author_meta($field, $userID);
             }),
 
             new \Twig_SimpleFunction('wp_is_user_logged_in', function () {
@@ -1469,12 +1480,8 @@ class WordPress extends Twig_Extension
                 return wp_loginout( $redirect, false );
             }),
 
-            new \Twig_SimpleFunction('wp_is_active_widget', function ($callback = false, $widget_id = false, $id_base = false, $skip_inactive = true) {
-                return is_active_widget( $callback, $widget_id, $id_base, $skip_inactive );
-            }),
-
-            new \Twig_SimpleFunction('wp_is_active_widget', function ($callback = false, $widget_id = false, $id_base = false, $skip_inactive = true) {
-                return is_active_widget( $callback, $widget_id, $id_base, $skip_inactive );
+            new \Twig_SimpleFunction('wp_is_active_widget', function ($callback = false, $widgetID = false, $idBase = false, $skipInactive = true) {
+                return is_active_widget( $callback, $widgetID, $idBase, $skipInactive );
             }),
 
             new \Twig_SimpleFunction('wp_the_widget', function ($widget, $instance = array(), $args = array()) {
@@ -1483,304 +1490,309 @@ class WordPress extends Twig_Extension
                 return ob_get_clean();
             }),
 
-            new \Twig_SimpleFunction('wp_is_active_widget', function ($callback = false, $widget_id = false, $id_base = false, $skip_inactive = true) {
-                return is_active_widget( $callback, $widget_id, $id_base, $skip_inactive );
+            new \Twig_SimpleFunction('wp_is_active_widget', function ($callback = false, $widgetID = false, $idBase = false, $skipInactive = true) {
+                return is_active_widget( $callback, $widgetID, $idBase, $skipInactive );
             }),
         );
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @return array
+     */
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('wp_maybe_serialize', function($data){
+            new \Twig_SimpleFilter('wp_maybe_serialize', function($data) {
                 maybe_serialize( $data );
             }),
 
-            new \Twig_SimpleFilter('wp_maybe_unserialize', function($original){
+            new \Twig_SimpleFilter('wp_maybe_unserialize', function($original) {
                 maybe_unserialize( $original );
             }),
 
-            new \Twig_SimpleFilter('wp_absint', function($maybeint){
+            new \Twig_SimpleFilter('wp_absint', function($maybeint) {
                 return absint( $maybeint );
             }),
 
-            new \Twig_SimpleFilter('wp_add_magic_quotes', function($array){
+            new \Twig_SimpleFilter('wp_add_magic_quotes', function($array) {
                 return add_magic_quotes( $array );
             }),
 
-            new \Twig_SimpleFilter('wp_addslashes_gpc', function($gpc){
+            new \Twig_SimpleFilter('wp_addslashes_gpc', function($gpc) {
                 return addslashes_gpc( $gpc );
             }),
 
-            new \Twig_SimpleFilter('wp_antispambot', function($emailaddy, $hex_encoding = 0){
-                return antispambot( $emailaddy, $hex_encoding );
+            new \Twig_SimpleFilter('wp_antispambot', function($emailaddy, $hexEncoding = 0) {
+                return antispambot( $emailaddy, $hexEncoding );
             }),
 
-            new \Twig_SimpleFilter('wp_backslashit', function($string){
+            new \Twig_SimpleFilter('wp_backslashit', function($string) {
                 return backslashit( $string );
             }),
 
-            new \Twig_SimpleFilter('wp_balanceTags', function($text, $force = false){
+            new \Twig_SimpleFilter('wp_balanceTags', function($text, $force = false) {
                 return balanceTags( $text, $force );
             }),
 
-            new \Twig_SimpleFilter('wp_convert_chars', function($content, $deprecated = ''){
+            new \Twig_SimpleFilter('wp_convert_chars', function($content, $deprecated = '') {
                 return convert_chars( $content, $deprecated );
             }),
 
-            new \Twig_SimpleFilter('wp_convert_smilies', function($text){
+            new \Twig_SimpleFilter('wp_convert_smilies', function($text) {
                 return convert_smilies( $text );
             }),
 
-            new \Twig_SimpleFilter('wp_ent2ncr', function($text){
+            new \Twig_SimpleFilter('wp_ent2ncr', function($text) {
                 return ent2ncr( $text );
             }),
 
-            new \Twig_SimpleFilter('wp_esc_attr', function($text){
+            new \Twig_SimpleFilter('wp_esc_attr', function($text) {
                 return esc_attr( $text );
             }),
 
-            new \Twig_SimpleFilter('wp_esc_html', function($text){
+            new \Twig_SimpleFilter('wp_esc_html', function($text) {
                 return esc_html( $text );
             }),
 
-            new \Twig_SimpleFilter('wp_esc_js', function($text){
+            new \Twig_SimpleFilter('wp_esc_js', function($text) {
                 return esc_js( $text );
             }),
 
-            new \Twig_SimpleFilter('wp_esc_textarea', function($text){
+            new \Twig_SimpleFilter('wp_esc_textarea', function($text) {
                 return esc_textarea( $text );
             }),
 
-            new \Twig_SimpleFilter('wp_esc_sql', function($sql){
+            new \Twig_SimpleFilter('wp_esc_sql', function($sql) {
                 return esc_sql( $sql );
             }),
 
-            new \Twig_SimpleFilter('wp_esc_url', function($url, $protocols = null, $_context = 'display'){
-                return esc_url( $url, $protocols, $_context );
+            new \Twig_SimpleFilter('wp_esc_url', function($url, $protocols = null, $context = 'display') {
+                return esc_url( $url, $protocols, $context );
             }),
 
-            new \Twig_SimpleFilter('wp_esc_url_raw', function($url, $protocols){
+            new \Twig_SimpleFilter('wp_esc_url_raw', function($url, $protocols) {
                 return esc_url_raw( $url, $protocols );
             }),
 
-            new \Twig_SimpleFilter('wp_format_to_edit', function($content, $rich_text = false){
-                return format_to_edit( $content, $rich_text );
+            new \Twig_SimpleFilter('wp_format_to_edit', function($content, $richText = false) {
+                return format_to_edit( $content, $richText );
             }),
 
-            new \Twig_SimpleFilter('wp_htmlentities2', function($myHTML){
+            new \Twig_SimpleFilter('wp_htmlentities2', function($myHTML) {
                 return htmlentities2( $myHTML );
             }),
 
-            new \Twig_SimpleFilter('wp_make_clickable', function($text){
+            new \Twig_SimpleFilter('wp_make_clickable', function($text) {
                 return make_clickable( $text );
             }),
 
-            new \Twig_SimpleFilter('wp_popuplinks', function($text){
+            new \Twig_SimpleFilter('wp_popuplinks', function($text) {
                 return popuplinks( $text );
             }),
 
-            new \Twig_SimpleFilter('wp_remove_accents', function($string){
+            new \Twig_SimpleFilter('wp_remove_accents', function($string) {
                 return remove_accents( $string );
             }),
 
-            new \Twig_SimpleFilter('wp_sanitize_email', function($email){
+            new \Twig_SimpleFilter('wp_sanitize_email', function($email) {
                 return sanitize_email( $email );
             }),
 
-            new \Twig_SimpleFilter('wp_sanitize_file_name', function($name){
+            new \Twig_SimpleFilter('wp_sanitize_file_name', function($name) {
                 return sanitize_file_name( $name );
             }),
 
-            new \Twig_SimpleFilter('wp_sanitize_html_class', function($class, $fallback = ''){
+            new \Twig_SimpleFilter('wp_sanitize_html_class', function($class, $fallback = '') {
                 return sanitize_html_class( $class, $fallback );
             }),
 
-            new \Twig_SimpleFilter('wp_sanitize_key', function($key){
+            new \Twig_SimpleFilter('wp_sanitize_key', function($key) {
                 return sanitize_key( $key );
             }),
 
-            new \Twig_SimpleFilter('wp_sanitize_mime_type', function($mime_type){
-                return sanitize_mime_type( $mime_type );
+            new \Twig_SimpleFilter('wp_sanitize_mime_type', function($mimeType) {
+                return sanitize_mime_type( $mimeType );
             }),
 
-            new \Twig_SimpleFilter('wp_sanitize_option', function($option, $value){
+            new \Twig_SimpleFilter('wp_sanitize_option', function($option, $value) {
                 return sanitize_option( $option, $value );
             }),
 
-            new \Twig_SimpleFilter('wp_sanitize_sql_orderby', function($orderby){
+            new \Twig_SimpleFilter('wp_sanitize_sql_orderby', function($orderby) {
                 return sanitize_sql_orderby( $orderby );
             }),
 
-            new \Twig_SimpleFilter('wp_sanitize_text_field', function($str){
+            new \Twig_SimpleFilter('wp_sanitize_text_field', function($str) {
                 return sanitize_text_field( $str ) ;
             }),
 
-            new \Twig_SimpleFilter('wp_sanitize_text_field', function($title, $fallback_title = '', $context = 'save'){
-                return sanitize_title( $title, $fallback_title, $context );
+            new \Twig_SimpleFilter('wp_sanitize_text_field', function($title, $fallbackTitle = '', $context = 'save') {
+                return sanitize_title( $title, $fallbackTitle, $context );
             }),
 
-            new \Twig_SimpleFilter('wp_sanitize_title_for_query', function($title){
+            new \Twig_SimpleFilter('wp_sanitize_title_for_query', function($title) {
                 return sanitize_title_for_query( $title );
             }),
 
-            new \Twig_SimpleFilter('wp_sanitize_title_with_dashes', function($title, $raw_title = '', $context = 'display'){
-                return sanitize_title_with_dashes( $title, $raw_title, $context );
+            new \Twig_SimpleFilter('wp_sanitize_title_with_dashes', function($title, $rawTitle = '', $context = 'display') {
+                return sanitize_title_with_dashes( $title, $rawTitle, $context );
             }),
 
-            new \Twig_SimpleFilter('wp_sanitize_user', function($username, $strict = false){
+            new \Twig_SimpleFilter('wp_sanitize_user', function($username, $strict = false) {
                 return sanitize_user( $username, $strict );
             }),
 
-            new \Twig_SimpleFilter('wp_sanitize_title_with_dashes', function($str){
+            new \Twig_SimpleFilter('wp_sanitize_title_with_dashes', function($str) {
                 return seems_utf8( $str );
             }),
 
-            new \Twig_SimpleFilter('wp_stripslashes_deep', function($value){
+            new \Twig_SimpleFilter('wp_stripslashes_deep', function($value) {
                 return stripslashes_deep( $value );
             }),
 
-            new \Twig_SimpleFilter('wp_trailingslashit', function($string){
+            new \Twig_SimpleFilter('wp_trailingslashit', function($string) {
                 return trailingslashit( $string );
             }),
 
-            new \Twig_SimpleFilter('wp_untrailingslashit', function($string){
+            new \Twig_SimpleFilter('wp_untrailingslashit', function($string) {
                 return untrailingslashit( $string );
             }),
 
-            new \Twig_SimpleFilter('wp_urlencode_deep', function($value){
+            new \Twig_SimpleFilter('wp_urlencode_deep', function($value) {
                 return urlencode_deep( $value );
             }),
 
-            new \Twig_SimpleFilter('wp_url_shorten', function($url, $length = 35){
+            new \Twig_SimpleFilter('wp_url_shorten', function($url, $length = 35) {
                 return url_shorten($url, $length);
             }),
 
-            new \Twig_SimpleFilter('wp_url_shorten', function($utf8_string, $length = 0){
-                return utf8_uri_encode( $utf8_string, $length );
+            new \Twig_SimpleFilter('wp_url_shorten', function($utf8string, $length = 0) {
+                return utf8_uri_encode( $utf8string, $length );
             }),
 
-            new \Twig_SimpleFilter('wp_wpautop', function($pee, $br = true){
+            new \Twig_SimpleFilter('wp_wpautop', function($pee, $br = true) {
                 return wpautop( $pee, $br );
             }),
 
-            new \Twig_SimpleFilter('wp_filter_kses', function($data){
+            new \Twig_SimpleFilter('wp_filter_kses', function($data) {
                 return wp_filter_kses( $data );
             }),
 
-            new \Twig_SimpleFilter('wp_filter_post_kses', function($data){
+            new \Twig_SimpleFilter('wp_filter_post_kses', function($data) {
                 return wp_filter_post_kses( $data );
             }),
 
-            new \Twig_SimpleFilter('wp_filter_nohtml_kses', function($data){
+            new \Twig_SimpleFilter('wp_filter_nohtml_kses', function($data) {
                 return wp_filter_nohtml_kses( $data );
             }),
 
-            new \Twig_SimpleFilter('wp_iso_descrambler', function($string){
+            new \Twig_SimpleFilter('wp_iso_descrambler', function($string) {
                 return wp_iso_descrambler( $string );
             }),
 
-            new \Twig_SimpleFilter('wp_kses', function($string, $allowed_html, $allowed_protocols = array()){
-                return wp_kses($string, $allowed_html, $allowed_protocols);
+            new \Twig_SimpleFilter('wp_kses', function($string, $allowedHTML, $allowedProtocols = array()) {
+                return wp_kses($string, $allowedHTML, $allowedProtocols);
             }),
 
-            new \Twig_SimpleFilter('wp_kses', function($string, $allowed_html, $allowed_protocols = array()){
-                return wp_kses($string, $allowed_html, $allowed_protocols);
+            new \Twig_SimpleFilter('wp_kses', function($string, $allowedHTML, $allowedProtocols = array()) {
+                return wp_kses($string, $allowedHTML, $allowedProtocols);
             }),
 
-            new \Twig_SimpleFilter('wp_kses_array_lc', function($inarray){
+            new \Twig_SimpleFilter('wp_kses_array_lc', function($inarray) {
                 return wp_kses_array_lc( $inarray );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_attr', function($element, $attr, $allowed_html, $allowed_protocols){
-                return wp_kses_attr( $element, $attr, $allowed_html, $allowed_protocols );
+            new \Twig_SimpleFilter('wp_kses_attr', function($element, $attr, $allowedHTML, $allowedProtocols) {
+                return wp_kses_attr( $element, $attr, $allowedHTML, $allowedProtocols );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_attr', function($element, $attr, $allowed_html, $allowed_protocols){
-                return wp_kses_attr( $element, $attr, $allowed_html, $allowed_protocols );
+            new \Twig_SimpleFilter('wp_kses_attr', function($element, $attr, $allowedHTML, $allowedProtocols) {
+                return wp_kses_attr( $element, $attr, $allowedHTML, $allowedProtocols );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_bad_protocol', function($string, $allowed_protocols){
-                return wp_kses_bad_protocol( $string, $allowed_protocols );
+            new \Twig_SimpleFilter('wp_kses_bad_protocol', function($string, $allowedProtocols) {
+                return wp_kses_bad_protocol( $string, $allowedProtocols );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_bad_protocol_once', function($string, $allowed_protocols, $count = 1){
-                return wp_kses_bad_protocol_once( $string, $allowed_protocols, $count );
+            new \Twig_SimpleFilter('wp_kses_bad_protocol_once', function($string, $allowedProtocols, $count = 1) {
+                return wp_kses_bad_protocol_once( $string, $allowedProtocols, $count );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_bad_protocol_once2', function($string, $allowed_protocols){
-                return wp_kses_bad_protocol_once2( $string, $allowed_protocols );
+            new \Twig_SimpleFilter('wp_kses_bad_protocol_once2', function($string, $allowedProtocols) {
+                return wp_kses_bad_protocol_once2( $string, $allowedProtocols );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_check_attr_val', function($value, $vless, $checkname, $checkvalue){
+            new \Twig_SimpleFilter('wp_kses_check_attr_val', function($value, $vless, $checkname, $checkvalue) {
                 return wp_kses_check_attr_val( $value, $vless, $checkname, $checkvalue );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_decode_entities', function($string){
+            new \Twig_SimpleFilter('wp_kses_decode_entities', function($string) {
                 return wp_kses_decode_entities( $string );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_hair', function($attr, $allowed_protocols){
-                return wp_kses_hair( $attr, $allowed_protocols );
+            new \Twig_SimpleFilter('wp_kses_hair', function($attr, $allowedProtocols) {
+                return wp_kses_hair( $attr, $allowedProtocols );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_hook', function($string, $allowed_html, $allowed_protocols){
-                return wp_kses_hook( $string, $allowed_html, $allowed_protocols );
+            new \Twig_SimpleFilter('wp_kses_hook', function($string, $allowedHTML, $allowedProtocols) {
+                return wp_kses_hook( $string, $allowedHTML, $allowedProtocols );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_html_error', function($string){
+            new \Twig_SimpleFilter('wp_kses_html_error', function($string) {
                 return wp_kses_html_error( $string );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_html_error', function($string){
+            new \Twig_SimpleFilter('wp_kses_html_error', function($string) {
                 return wp_kses_js_entities( $string );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_no_null', function($string){
+            new \Twig_SimpleFilter('wp_kses_no_null', function($string) {
                 return wp_kses_no_null( $string );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_normalize_entities', function($string){
+            new \Twig_SimpleFilter('wp_kses_normalize_entities', function($string) {
                 return wp_kses_normalize_entities( $string );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_normalize_entities2', function($matches){
+            new \Twig_SimpleFilter('wp_kses_normalize_entities2', function($matches) {
                 return wp_kses_normalize_entities2( $matches );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_normalize_entities2', function($matches){
+            new \Twig_SimpleFilter('wp_kses_normalize_entities2', function($matches) {
                 return wp_kses_normalize_entities2( $matches );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_split', function($string, $allowed_html, $allowed_protocols){
-                return wp_kses_split( $string, $allowed_html, $allowed_protocols );
+            new \Twig_SimpleFilter('wp_kses_split', function($string, $allowedHTML, $allowedProtocols) {
+                return wp_kses_split( $string, $allowedHTML, $allowedProtocols );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_split2', function($string, $allowed_html, $allowed_protocols){
-                return wp_kses_split2( $string, $allowed_html, $allowed_protocols );
+            new \Twig_SimpleFilter('wp_kses_split2', function($string, $allowedHTML, $allowedProtocols) {
+                return wp_kses_split2( $string, $allowedHTML, $allowedProtocols );
             }),
 
-            new \Twig_SimpleFilter('wp_kses_split2', function($string){
+            new \Twig_SimpleFilter('wp_kses_split2', function($string) {
                 return wp_kses_stripslashes( $string );
             }),
 
-            new \Twig_SimpleFilter('wp_make_link_relative', function($link){
+            new \Twig_SimpleFilter('wp_make_link_relative', function($link) {
                 return wp_make_link_relative( $link );
             }),
 
-            new \Twig_SimpleFilter('wp_normalize_path', function($path){
+            new \Twig_SimpleFilter('wp_normalize_path', function($path) {
                 return wp_normalize_path($path);
             }),
 
-            new \Twig_SimpleFilter('wp_rel_nofollow', function($text){
+            new \Twig_SimpleFilter('wp_rel_nofollow', function($text) {
                 return wp_rel_nofollow( $text );
             }),
 
-            new \Twig_SimpleFilter('wp_rel_nofollow', function($text, $num_words = 55, $more = null){
-                return wp_trim_words( $text, $num_words, $more );
+            new \Twig_SimpleFilter('wp_rel_nofollow', function($text, $numWords = 55, $more = null) {
+                return wp_trim_words( $text, $numWords, $more );
             }),
 
-            new \Twig_SimpleFilter('wp_zeroise', function($number, $threshold){
+            new \Twig_SimpleFilter('wp_zeroise', function($number, $threshold) {
                 return zeroise( $number, $threshold );
             }),
         );
