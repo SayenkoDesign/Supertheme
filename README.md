@@ -3,6 +3,7 @@
 [![Latest Unstable Version](https://poser.pugx.org/sayenkodesign/theme/v/unstable)](https://packagist.org/packages/sayenkodesign/theme) 
 [![License](https://poser.pugx.org/sayenkodesign/theme/license)](https://packagist.org/packages/sayenkodesign/theme)
 [![Build Status](https://travis-ci.org/SayenkoDesign/Theme.svg?branch=master)](https://travis-ci.org/SayenkoDesign/Theme)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a0c2882f-db5e-484e-9eb4-d001ed357831/mini.png)](https://insight.sensiolabs.com/projects/a0c2882f-db5e-484e-9eb4-d001ed357831)
 
 # Requirements
 
