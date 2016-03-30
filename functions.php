@@ -13,7 +13,7 @@ if (function_exists('acf_add_options_page')) {
         'menu_title'    => 'Theme Settings',
         'menu_slug'     => 'theme-general-settings',
         'capability'    => 'edit_posts',
-        'redirect'	    => false,
+        'redirect'      => false,
         'icon_url'      => 'dashicons-sayenko',
     ]);
 }
@@ -34,12 +34,12 @@ HTML;
 });
 
 // login logo
-add_action('login_head', function() {
-    $root_uri = get_template_directory_uri();
+add_action('login_head', function () {
+    $rootURI = get_template_directory_uri();
     echo <<<HTML
     <style type="text/css">
         h1 a {
-            background-image: url('$root_uri/logo.png') !important;
+            background-image: url('$rootURI/logo.png') !important;
             background-size: contain !important;
             width: 320px !important;
             height: 120px !important;
@@ -50,7 +50,7 @@ HTML;
 
 
 // referral widget
-add_action('wp_dashboard_setup', function() {
+add_action('wp_dashboard_setup', function () {
     wp_add_dashboard_widget(
         'referral_dashboard_widget',
         'RECEIVE $500 in CASH FOR A WEBSITE REFERRAL!!',
@@ -67,4 +67,4 @@ add_action('wp_dashboard_setup', function() {
 HTML;
         }
     );
-} );
+});
