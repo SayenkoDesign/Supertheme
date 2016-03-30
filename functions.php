@@ -8,13 +8,25 @@ if (!WP_DEBUG) {
 
 // options page for ACF
 if (function_exists('acf_add_options_page')) {
-    acf_add_options_page([
+    $parent = acf_add_options_page([
         'page_title'    => 'Theme General Settings',
         'menu_title'    => 'Theme Settings',
         'menu_slug'     => 'theme-general-settings',
         'capability'    => 'edit_posts',
         'redirect'      => false,
         'icon_url'      => 'dashicons-sayenko',
+    ]);
+
+    acf_add_options_sub_page([
+        'page_title' 	=> 'Social',
+        'menu_title' 	=> 'Social',
+        'parent_slug' 	=> $parent['menu_slug'],
+    ]);
+
+    acf_add_options_sub_page([
+        'page_title' 	=> 'Footer',
+        'menu_title' 	=> 'Footer',
+        'parent_slug' 	=> $parent['menu_slug'],
     ]);
 }
 
