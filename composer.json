@@ -18,5 +18,9 @@
         "symfony/yaml": "^3.0",
         "symfony/dependency-injection": "^3.0",
         "symfony/config": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.2",
+        "whatthejeff/nyancat-phpunit-resultprinter": "~1.2"
     }
 }
