@@ -26,13 +26,23 @@ Before you cn use this theme you need to go to this directory in your command li
 - `composer install`
 
 # file structure
-- App: where application files like PHP classes will go
-- bower_components: Directory created and managed with bower with client side libraries such as foundation-sites and jQuery.
-- node_modules: Directory created and managed by node. Contains dependencies needed to run gulp commands.
+- App: Directory for application files
+  - ACF: contains json and php files for ACF configurations you may wish to use
+  - src: Place your PHP classes in here
+  - var: used for caching when cache is enabled
+  - views: Twig Templates
+    - layout: templates for layout portions such as header, footer, one-column, two-column
+    - pages: templates for specific pages
+    - partials: partial templates that are used in multiple page templates such as a blog teaser
+    - recipes: prebuilt templates that you can include in your other templates
+  - bootstrap.php: bootstrap file to bootstrap the theme. include in any file you wish to bootstrap
+  - config.yml: Configuration file for the container
 - vendor: Directory created and managed with composer with PHP dependencies such as Pimple and Twig
 - web: Directory with web assets such as images, javascript and stylesheets.
+  - bower_components: Directory created and managed with bower with client side libraries such as foundation-sites and jQuery.
   - images: original images
   - images-min: images minified by gulp
+  - node_modules: Directory created and managed by node. Contains dependencies needed to run gulp commands.
   - sass: scss files
     - _settings.scss: contains all the foundation settings
     - app.scss: main scss file. You should add you styles to other files and import them here.
