@@ -13,8 +13,8 @@ var gulp         = require('gulp'),
 
 var options = {
     images: {
-        src: 'web/images/**/*.{png,jpg,gif,svg}',
-        dist: 'web/images-min',
+        src: 'images/**/*.{png,jpg,gif,svg}',
+        dist: 'images-min',
         optimizationLevel: 7,
         progressive: true,
         interlaced: true,
@@ -23,13 +23,13 @@ var options = {
     scripts: {
         src: [
             'bower_components/foundation-sites/dist/foundation.js',
-            'web/scripts/app.js'
+            'scripts/app.js'
         ],
-        dist: 'web/scripts-min'
+        dist: 'scripts-min'
     },
     styles: {
-        src: 'web/sass/**/*.scss',
-        dist: 'web/stylesheets',
+        src: 'sass/**/*.scss',
+        dist: 'stylesheets',
         style: 'nested',
         includePaths: [
             'bower_components/font-awesome/scss',

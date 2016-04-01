@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/bootstrap.php';
+require_once __DIR__.'/App/bootstrap.php';
 
 // include ACF fields if not in debug mode
 if (!WP_DEBUG) {

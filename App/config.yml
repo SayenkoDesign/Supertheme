@@ -16,9 +16,9 @@ services:
   twig.debug:
     class: "Twig_Extension_Debug"
   twig.acf:
-    class: "App\\Twig\\ACF"
+    class: "Sayenko\\Twig\\ACF"
   twig.wordpress:
-    class: "App\\Twig\\WordPress"
+    class: "Sayenko\\Twig\\WordPress"
   twig.environment:
     class: "Twig_Environment"
     arguments: ["@twig.loader", "%twig.options%"]

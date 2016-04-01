@@ -1,0 +1,40 @@
+<html>
+<head>
+    {% block meta %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="height=device-height,width=device-width,initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <title>{{ wp_get_the_title() }}</title>
+    {% endblock %}
+
+    {% block stylesheets %}
+        {{ wp_head() | raw }}
+    {% endblock %}
+
+    {% include "recipes/google-analytics.html.twig" %}
+</head>
+<body {{ wp_body_class() | raw }}>
+{% block body %}
+    {% block header %}
+        {% include "layout/header.html.twig" %}
+    {% endblock %}
+
+    {% block content %}
+        <section class="content">
+            <div class="row column">
+                <h1>{{ wp_get_the_title() }}</h1>
+                {{ wp_get_the_content() | raw }}
+            </div>
+        </section>
+    {% endblock %}
+
+    {% block footer %}
+        {% include "layout/footer.html.twig" %}
+    {% endblock %}
+{% endblock %}
+
+{% block scripts %}
+    {{ wp_footer() | raw }}
+{% endblock %}
+</body>
+</html>

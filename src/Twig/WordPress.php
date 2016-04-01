@@ -1,5 +1,5 @@
 <?php
-namespace App\Twig;
+namespace Sayenko\Twig;
 
 use Twig_Extension;
 
