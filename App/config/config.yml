@@ -29,7 +29,7 @@ services:
       - ["addExtension", ["@form.csrf_extension"]]
       - ["addExtension", ["@form.validator_extension"]]
   form.csrf_extension:
-    class: "Symfony\\Component\\Security\\Extension\\Csrf\\CsrfExtension" #"Symfony\\Component\\Form\\Extension\\Csrf\\CsrfExtension"
+  class: "Symfony\\Component\\Security\\Extension\\Csrf\\CsrfExtension"
     arguments: ["@csrf.token_manager"]
   form.validator_extension:
     class: "Symfony\\Component\\Form\\Extension\\Validator\\ValidatorExtension"
