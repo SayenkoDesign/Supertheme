@@ -1,5 +1,5 @@
 parameters:
-  twig.path: "%tempalte_dir%/App/views"
+  twig.path: "%tempalte_dir%/views"
   twig.options:
     debug:            "%WP_DEBUG%"
     charset:          "utf-8"
