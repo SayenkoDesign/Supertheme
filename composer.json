@@ -10,8 +10,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "Sayenko\\": "src",
-            "App\\": "App/src"
+            "Supertheme\\": "src",
+            "App\\": "app/src"
         }
     },
     "require": {

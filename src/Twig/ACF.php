@@ -1,5 +1,5 @@
 <?php
-namespace Sayenko\Twig;
+namespace Supertheme\Twig;
 
 use Twig_Extension;
 
