@@ -10,6 +10,8 @@ parameters:
     optimizations:    -1
 
 services:
+  http:
+    class: "Symfony\\Component\\Form\\Extension\\HttpFoundation\\HttpFoundationExtension"
   twig.loader:
     class: "Twig_Loader_Filesystem"
     arguments: ["%twig.path%"]
