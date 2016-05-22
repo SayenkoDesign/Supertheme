@@ -12,6 +12,7 @@ parameters:
     optimizations:    -1
 
 services:
+  # just the basics
   http:
     class: "Symfony\\Component\\Form\\Extension\\HttpFoundation\\HttpFoundationExtension"
   session:
@@ -19,12 +20,20 @@ services:
   translater:
     class: "Symfony\\Component\\Translation\\Translator"
     arguments: ["en"]
+  # fill that data out
   form:
     class: "Symfony\\Component\\Form\\FormFactoryBuilder"
     factory: ["Symfony\\Component\\Form\\Forms", "createFormFactoryBuilder"]
     calls:
       - ["addExtension", ["@http"]]
       - ["addExtension", ["@form.csrf_extension"]]
+      - ["addExtension", ["@form.validator_extension"]]
+  form.csrf_extension:
+    class: "Symfony\\Component\\Security\\Extension\\Csrf\\CsrfExtension" #"Symfony\\Component\\Form\\Extension\\Csrf\\CsrfExtension"
+    arguments: ["@csrf.token_manager"]
+  form.validator_extension:
+    class: "Symfony\\Component\\Form\\Extension\\Validator\\ValidatorExtension"
+    arguments: ["@validator"]
   csrf.token_generator:
     class: "Symfony\\Component\\Security\\Csrf\\TokenGenerator\\UriSafeTokenGenerator"
   csrf.session_starage:
@@ -33,6 +42,10 @@ services:
   csrf.token_manager:
     class: "Symfony\\Component\\Security\\Csrf\\CsrfTokenManager"
     arguments: ["@csrf.token_generator", "@csrf.session_starage"]
+  validator:
+    class: "Symfony\\Component\\Validator\\Validator"
+    factory: ["Symfony\\Component\\Validator\\Validation", "createValidator"]
+  # get twiggy with it
   twig.loader:
     class: "Twig_Loader_Filesystem"
     arguments: ["%twig.paths%"]
@@ -46,9 +59,6 @@ services:
     arguments: [["form_div_layout.html.twig"]]
     calls:
       - ["setEnvironment", ["@twig.environment"]]
-  form.csrf_extension:
-    class: "Symfony\\Component\\Security\\Extension\\Csrf\\CsrfExtension" #"Symfony\\Component\\Form\\Extension\\Csrf\\CsrfExtension"
-    arguments: ["@csrf.token_manager"]
   twig.form_renderer:
     class: "Symfony\\Bridge\\Twig\\Form\\TwigRenderer"
     arguments: ["@twig.form_engine"]
