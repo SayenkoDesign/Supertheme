@@ -10,4 +10,4 @@ $container->setParameter('tempalte_dir', get_template_directory());
 $container->setParameter('WP_DEBUG', WP_DEBUG);
 
 $loader = new YamlFileLoader($container, new FileLocator(get_template_directory().'/App'));
-$loader->load('config.yml');
+$loader->load('app/config/config.yml');
