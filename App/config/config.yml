@@ -12,6 +12,9 @@ parameters:
 services:
   http:
     class: "Symfony\\Component\\Form\\Extension\\HttpFoundation\\HttpFoundationExtension"
+  translater:
+    class: "Symfony\\Component\\Translation\\Translator"
+    arguments: ["en"]
   twig.loader:
     class: "Twig_Loader_Filesystem"
     arguments: ["%twig.path%"]
