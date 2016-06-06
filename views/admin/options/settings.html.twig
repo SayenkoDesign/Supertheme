@@ -1,0 +1,9 @@
+<h2>{{ title }}</h2>
+{{ form_start(form) }}
+        {{ form_widget(form.id_number) }}
+        {{ form_widget(form.title) }}
+    <p class="submit">
+        {{ form_widget(form.submit, { 'attr': {'class': 'button button-primary'} }) }}
+    </p>
+    {{ form_widget(form) }}
+{{ form_end(form) }}
