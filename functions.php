@@ -2,6 +2,13 @@
 require_once __DIR__.'/App/bootstrap.php';
 
 
+add_action('init', function() {
+    if( !session_id() )
+    {
+        session_start();
+    }
+});
+
 // logo for ACF options page
 add_action('admin_head', function () {
     $rootURI = get_template_directory_uri();
