@@ -10,6 +10,10 @@ add_action('init', function() {
     }
 });
 
+add_action('plugins_loaded', function() {
+    load_plugin_textdomain('supertheme', false, get_template_directory() . '/languages');
+});
+
 // logo for ACF options page
 add_action('admin_head', function () {
     $rootURI = get_template_directory_uri();
