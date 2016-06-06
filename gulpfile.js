@@ -13,7 +13,7 @@ var gulp         = require('gulp'),
 
 var options = {
     images: {
-        src: 'images/**/*.{png,jpg,gif,svg}',
+        src: 'web/images/**/*.{png,jpg,gif,svg}',
         dist: 'images-min',
         optimizationLevel: 7,
         progressive: true,
@@ -22,7 +22,7 @@ var options = {
     },
     scripts: {
         src: [
-            'bower_components/foundation-sites/dist/foundation.js',
+            'web/libs/foundation-sites/dist/foundation.js',
             'scripts/app.js'
         ],
         dist: 'scripts-min'
@@ -32,8 +32,8 @@ var options = {
         dist: 'stylesheets',
         style: 'nested',
         includePaths: [
-            'bower_components/font-awesome/scss',
-            'bower_components/foundation-sites/scss'
+            'web/libs/font-awesome/scss',
+            'web/libs/foundation-sites/scss'
         ],
         sourceComments: true
     }

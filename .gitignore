@@ -1,6 +1,6 @@
 npm-debug.log
 .sass-cache/
+node_modules/
 App/var/twig/*
-web/bower_components/
-web/node_modules/
+web/libs/
 vendor/
