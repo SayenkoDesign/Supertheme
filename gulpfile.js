@@ -23,13 +23,13 @@ var options = {
     scripts: {
         src: [
             'web/libs/foundation-sites/dist/foundation.js',
-            'scripts/app.js'
+            'web/scripts/app.js'
         ],
-        dist: 'scripts-min'
+        dist: 'web/scripts-min'
     },
     styles: {
-        src: 'sass/**/*.scss',
-        dist: 'stylesheets',
+        src: 'web/sass/**/*.scss',
+        dist: 'web/stylesheets',
         style: 'nested',
         includePaths: [
             'web/libs/font-awesome/scss',
