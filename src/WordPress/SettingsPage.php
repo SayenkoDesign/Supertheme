@@ -1,21 +1,79 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: rpark
+ * Date: 6/7/2016
+ * Time: 11:47 PM
+ */
+
 namespace Supertheme\WordPress;
 
-use Symfony\Component\Form\Extension\Core\Type;
+
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryBuilderInterface;
-use Symfony\Component\HttpFoundation\Request;
 
-class SettingsPage
+abstract class SettingsPage
 {
+    /**
+     * @var string Page title
+     */
     protected $title;
+
+    /**
+     * @var string menu title
+     */
     protected $menuTitle;
+
+    /**
+     * @var string required capability to view the page
+     */
     protected $capability = 'manage_options';
+
+    /**
+     * @var string slug for the page
+     */
     protected $menuSlug;
+
+    /**
+     * @var string group name for the options
+     */
     protected $optionGroup;
-    protected $options; // values
+
+    /**
+     * @var array saved values
+     */
+    protected $values;
+
+    /**
+     * @var \Twig_Environment twig environment to render the page
+     */
     protected $twig;
+
+    /**
+     * @var FormFactoryBuilderInterface factory instance to create form builders
+     */
     protected $factory;
+
+    /**
+     * @return string return name to save and retrieve options
+     */
+    abstract public function getOptionName();
+
+    /**
+     * @return null echos the page
+     */
+    abstract public function renderPage();
+
+    /**
+     * @return null called on admin_init. This is where you should register your sections and options
+     */
+    abstract public function initPage();
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @return FormBuilderInterface returns the builder after adding settings and fields
+     */
+    abstract public function buildForm(FormBuilderInterface $builder);
 
     public function __construct($title, $menuTitle, $menuSlug, FormFactoryBuilderInterface $factory, \Twig_Environment $twig)
     {
@@ -26,32 +84,40 @@ class SettingsPage
         $this->factory = $factory;
         $this->twig = $twig;
         $this->register();
-        // Set class property
-        $this->options = get_option($this->getOptionName());
+        $this->values = get_option($this->getOptionName());
     }
 
+    /**
+     * @param $capability string wordpress capability required to view page
+     * @return $this
+     */
     public function setCapability($capability)
     {
         $this->capability = $capability;
         return $this;
     }
 
+    /**
+     * @param $group string set groupo name to the options fields
+     * @return $this
+     */
     public function setOptionGroup($group)
     {
         $this->optionGroup = $group;
+        return $this;
     }
 
-    public function getOptionName()
+    /**
+     * @return array returns the currently saved values
+     */
+    public function getValues()
     {
-        return 'supertheme_options';
+        return $this->values;
     }
 
-    public function register()
-    {
-        add_action('admin_menu', array($this, 'addPage'));
-        add_action('admin_init', array($this, 'initPage'));
-    }
-
+    /**
+     * adds menu page to wordpress on admin_menu action
+     */
     public function addPage()
     {
         // This page will be under "Settings"
@@ -60,96 +126,17 @@ class SettingsPage
             $this->menuTitle,
             $this->capability,
             $this->menuSlug,
-            array($this, 'createPage')
+            array($this, 'renderPage')
         );
+        wp_enqueue_media();
     }
 
-    public function createPage()
+    /**
+     * register the page and initialize it
+     */
+    public function register()
     {
-        $builder = $this->buildForm($this->factory->getFormFactory()->createNamedBuilder(null));
-        $form = $builder->getForm();
-        $view = $form->createView();
-
-        echo $this->twig->render('admin/options/settings.html.twig', [
-            'form' => $view,
-            'title' => $this->menuTitle,
-        ]);
-    }
-
-    public function initPage()
-    {
-        // register model
-        register_setting(
-            $this->optionGroup, // Option group
-            $this->getOptionName(), // Option name
-            [$this, 'sanitize']
-        );
-
-        // register views. no defined relationship to model
-        add_settings_section(
-            'setting_section_id', // ID
-            'My Custom Settings', // Title
-            '__return_false', // Callback
-            $this->menuSlug // Page
-        );
-
-        add_settings_field(
-            'id_number', // ID
-            'ID Number', // Title
-            '__return_false', // Callback
-            $this->menuSlug, // Page
-            'setting_section_id' // Section
-        );
-
-        add_settings_field(
-            'title',
-            'Title',
-            '__return_false',
-            $this->menuSlug,
-            'setting_section_id'
-        );
-    }
-
-    public function sanitize($input)
-    {
-        $builder = $this->buildForm($this->factory->getFormFactory()->createNamedBuilder(null));
-        $form = $builder->getForm();
-        $form->handleRequest(Request::createFromGlobals());
-        if($form->isValid()) {
-            $data = $form->getData();
-            $input['id_number'] = absint($data['id_number']);
-            $input['title'] = sanitize_text_field($data['title']);
-
-            return $input;
-        }
-    }
-
-    public function buildForm(FormBuilderInterface $builder, array $options = [])
-    {
-        $builder
-            ->setAction('options.php')
-            ->add('option_page', Type\HiddenType::class, [
-                'data' => esc_attr($this->menuSlug),
-            ])
-            ->add('action', Type\HiddenType::class, [
-                'data' => 'update'
-            ])
-            ->add('_wpnonce', Type\HiddenType::class, [
-                'data' => wp_create_nonce($this->menuSlug."-options")
-            ])
-            ->add('_wp_http_referer', Type\HiddenType::class, [
-                'data' => esc_attr(wp_unslash($_SERVER['REQUEST_URI']))
-            ])
-            ->add('id_number', Type\NumberType::class, [
-                'data' => $this->options['id_number']
-            ])
-            ->add('title', Type\TextType::class, [
-                'data' => $this->options['title']
-            ])
-            ->add('submit', Type\SubmitType::class, [
-                'label' => 'Save Changes',
-            ])
-        ;
-        return $builder;
+        add_action('admin_menu', [$this, 'addPage']);
+        add_action('admin_init', [$this, 'initPage']);
     }
 }
