@@ -5,10 +5,14 @@ use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class ThemeSettingsPage extends SettingsPage
+/**
+ * Class ThemeAbstractSettingsPage
+ * @package Supertheme\WordPress
+ */
+class ThemeAbstractSettingsPage extends AbstractSettingsPage
 {
     /**
-     * @inheritdoc
+     * @return string
      */
     public function getOptionName()
     {
@@ -76,7 +80,7 @@ class ThemeSettingsPage extends SettingsPage
         $builder = $this->buildForm($this->factory->getFormFactory()->createNamedBuilder(null));
         $form = $builder->getForm();
         $form->handleRequest(Request::createFromGlobals());
-        if($form->isValid()) {
+        if ($form->isValid()) {
             $data = $form->getData();
             $input['universal_analytics'] = sanitize_text_field($data['universal_analytics']);
             $input['tracking_id'] = sanitize_text_field($data['tracking_id']);
@@ -92,11 +96,13 @@ class ThemeSettingsPage extends SettingsPage
 
             return $input;
         }
+
         return [];
     }
 
     /**
-     * @inheritdoc
+     * @param FormBuilderInterface $builder
+     * @return FormBuilderInterface
      */
     public function buildForm(FormBuilderInterface $builder)
     {
@@ -111,28 +117,23 @@ class ThemeSettingsPage extends SettingsPage
                 'data' => 'update',
             ])
             ->add('_wpnonce', Type\HiddenType::class, [
-                'data' => wp_create_nonce($this->menuSlug."-options")
+                'data' => wp_create_nonce($this->menuSlug."-options"),
             ])
             ->add('_wp_http_referer', Type\HiddenType::class, [
-                'data' => esc_attr(wp_unslash($_SERVER['REQUEST_URI']))
+                'data' => esc_attr(wp_unslash($_SERVER['REQUEST_URI'])),
             ])
             // logo
-            ->add('admin_logo', Type\UrlType::class, [
-            ])
-            ->add('logo', Type\UrlType::class, [
-            ])
-            ->add('mobile_logo', Type\UrlType::class, [
-            ])
-            ->add('favicon', Type\UrlType::class, [
-            ])
+            ->add('admin_logo', Type\UrlType::class)
+            ->add('logo', Type\UrlType::class)
+            ->add('mobile_logo', Type\UrlType::class)
+            ->add('favicon', Type\UrlType::class)
             // analytics
             ->add('universal_analytics', Type\CheckboxType::class, [
                 'label' => 'Enable Universal Analytics',
                 'required' => false,
-                'data' => (bool) $this->values['universal_analytics']
+                'data' => (bool) $this->values['universal_analytics'],
             ])
-            ->add('tracking_id', Type\TextType::class, [
-            ])
+            ->add('tracking_id', Type\TextType::class)
             // social
             ->add('facebook', Type\UrlType::class, [
                 'required' => false,
@@ -156,6 +157,7 @@ class ThemeSettingsPage extends SettingsPage
                 'label' => 'Save Changes',
             ])
         ;
+
         return $builder;
     }
 }

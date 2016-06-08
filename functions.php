@@ -2,28 +2,27 @@
 require_once __DIR__.'/App/bootstrap.php';
 
 require_once 'sample-settings.php';
-$my_settings_page = new \Supertheme\WordPress\ThemeSettingsPage(
+$themeSettingsPage = new \Supertheme\WordPress\ThemeAbstractSettingsPage(
     'Settings Admin',
     'Theme Settings',
     'my-setting-admin',
     $container->get('form'),
     $container->get('twig.environment')
 );
-$my_settings_page->register();
+$themeSettingsPage->register();
 
-add_filter('wp_headers', function($headers) {
+add_filter('wp_headers', function ($headers) {
     return $headers;
 });
 
-add_action('init', function() {
-    if( !session_id() )
-    {
+add_action('init', function () {
+    if (!session_id()) {
         session_start();
     }
 });
 
-add_action('plugins_loaded', function() {
-    load_plugin_textdomain('supertheme', false, get_template_directory() . '/languages');
+add_action('plugins_loaded', function () {
+    load_plugin_textdomain('supertheme', false, get_template_directory().'/languages');
 });
 
 // logo for ACF options page

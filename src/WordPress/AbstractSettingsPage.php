@@ -1,18 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: rpark
- * Date: 6/7/2016
- * Time: 11:47 PM
- */
-
 namespace Supertheme\WordPress;
-
 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryBuilderInterface;
 
-abstract class SettingsPage
+/**
+ * Class AbstractSettingsPage
+ * @package Supertheme\WordPress
+ */
+abstract class AbstractSettingsPage
 {
     /**
      * @var string Page title
@@ -75,6 +71,14 @@ abstract class SettingsPage
      */
     abstract public function buildForm(FormBuilderInterface $builder);
 
+    /**
+     * AbstractSettingsPage constructor.
+     * @param $title
+     * @param $menuTitle
+     * @param $menuSlug
+     * @param FormFactoryBuilderInterface $factory
+     * @param \Twig_Environment $twig
+     */
     public function __construct($title, $menuTitle, $menuSlug, FormFactoryBuilderInterface $factory, \Twig_Environment $twig)
     {
         $this->title = $title;
@@ -93,6 +97,7 @@ abstract class SettingsPage
     public function setCapability($capability)
     {
         $this->capability = $capability;
+
         return $this;
     }
 
@@ -103,6 +108,7 @@ abstract class SettingsPage
     public function setOptionGroup($group)
     {
         $this->optionGroup = $group;
+
         return $this;
     }
 
