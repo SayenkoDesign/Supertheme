@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__.'/App/bootstrap.php';
-global $container;
 
 require_once 'sample-settings.php';
 $my_settings_page = new \Supertheme\WordPress\ThemeSettingsPage(
@@ -26,9 +25,6 @@ add_action('init', function() {
 add_action('plugins_loaded', function() {
     load_plugin_textdomain('supertheme', false, get_template_directory() . '/languages');
 });
-
-//$themeOptions = new \Supertheme\ThemeOptions($container->get('twig.environment'), $container->get('form'));
-//$themeOptions->register();
 
 // logo for ACF options page
 add_action('admin_head', function () {
