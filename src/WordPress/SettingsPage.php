@@ -83,7 +83,6 @@ abstract class SettingsPage
         $this->optionGroup = $this->menuSlug;
         $this->factory = $factory;
         $this->twig = $twig;
-        $this->register();
         $this->values = get_option($this->getOptionName());
     }
 

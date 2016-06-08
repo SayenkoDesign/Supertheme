@@ -2,6 +2,19 @@
 require_once __DIR__.'/App/bootstrap.php';
 global $container;
 
+require_once 'sample-settings.php';
+$my_settings_page = new \Supertheme\WordPress\ThemeSettingsPage(
+    'Settings Admin',
+    'Theme Settings',
+    'my-setting-admin',
+    $container->get('form'),
+    $container->get('twig.environment')
+);
+$my_settings_page->register();
+
+add_filter('wp_headers', function($headers) {
+    return $headers;
+});
 
 add_action('init', function() {
     if( !session_id() )
