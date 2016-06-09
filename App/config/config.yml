@@ -5,7 +5,7 @@ parameters:
   twig.options:
     debug:            "%WP_DEBUG%"
     charset:          "utf-8"
-    cache:            null #"%tempalte_dir%/var/twig/views"
+    cache:            "%template_dir%/var/twig"
     auto_reload:      "%WP_DEBUG%"
     strict_variables: true
     autoescape:       true

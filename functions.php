@@ -2,10 +2,7 @@
 require_once __DIR__.'/App/bootstrap.php';
 
 require_once 'sample-settings.php';
-$themeSettingsPage = new \Supertheme\WordPress\ThemeAbstractSettingsPage(
-    'Settings Admin',
-    'Theme Settings',
-    'my-setting-admin',
+$themeSettingsPage = new \Supertheme\WordPress\ThemeSettingsPage(
     $container->get('form'),
     $container->get('twig.environment')
 );

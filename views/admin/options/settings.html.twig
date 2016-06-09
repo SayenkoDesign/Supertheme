@@ -2,6 +2,10 @@
 {{ form_start(form) }}
 {{ form_errors(form) }}
 
+<p class="submit">
+    {{ form_widget(form.clear_cache, { 'attr': {'class': 'button button-primary'} }) }}
+</p>
+
 <script language="JavaScript">
     jQuery(document).ready(function($){
         $('.form-table .dashicons-camera').css({'margin': '3px 3px 0 0'});
@@ -110,7 +114,6 @@
         <tr><th scope="row">{{ form_label(form.youtube) }}</th><td>{{ form_widget(form.youtube, {attr: {class: 'regular-text'}}) }}</td></tr>
     </tbody>
 </table>
-
 
 <p class="submit">
     {{ form_widget(form.submit, { 'attr': {'class': 'button button-primary'} }) }}

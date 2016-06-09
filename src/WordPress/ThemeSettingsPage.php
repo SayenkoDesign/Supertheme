@@ -1,6 +1,7 @@
 <?php
 namespace Supertheme\WordPress;
 
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Class ThemeAbstractSettingsPage
  * @package Supertheme\WordPress
  */
-class ThemeAbstractSettingsPage extends AbstractSettingsPage
+class ThemeSettingsPage extends AbstractSettingsPage
 {
     /**
      * @return string
@@ -17,6 +18,30 @@ class ThemeAbstractSettingsPage extends AbstractSettingsPage
     public function getOptionName()
     {
         return 'supertheme_options';
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return 'Settings Admin';
+    }
+
+    /**
+     * @return string
+     */
+    public function getMenuTitle()
+    {
+        return 'Theme Settings';
+    }
+
+    /**
+     * @return string
+     */
+    public function getMenuSlug()
+    {
+        return 'theme-settings';
     }
 
     /**
@@ -80,7 +105,14 @@ class ThemeAbstractSettingsPage extends AbstractSettingsPage
         $builder = $this->buildForm($this->factory->getFormFactory()->createNamedBuilder(null));
         $form = $builder->getForm();
         $form->handleRequest(Request::createFromGlobals());
-        if ($form->isValid()) {
+        if($form->getClickedButton()->getName() == 'clear_cache') {
+            if($cache = $this->twig->getCache()) {
+                $fs = new Filesystem();
+                $fs->remove($cache);
+            }
+            
+            return $this->values;
+        } else if ($form->isValid()) {
             $data = $form->getData();
             $input['universal_analytics'] = sanitize_text_field($data['universal_analytics']);
             $input['tracking_id'] = sanitize_text_field($data['tracking_id']);
@@ -122,6 +154,8 @@ class ThemeAbstractSettingsPage extends AbstractSettingsPage
             ->add('_wp_http_referer', Type\HiddenType::class, [
                 'data' => esc_attr(wp_unslash($_SERVER['REQUEST_URI'])),
             ])
+            // clear cache
+            ->add('clear_cache', Type\SubmitType::class)
             // logo
             ->add('admin_logo', Type\UrlType::class)
             ->add('logo', Type\UrlType::class)

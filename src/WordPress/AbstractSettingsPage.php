@@ -55,6 +55,10 @@ abstract class AbstractSettingsPage
      */
     abstract public function getOptionName();
 
+    abstract public function getTitle();
+    abstract public function getMenuTitle();
+    abstract public function getMenuSlug();
+
     /**
      * @return null echos the page
      */
@@ -73,18 +77,15 @@ abstract class AbstractSettingsPage
 
     /**
      * AbstractSettingsPage constructor.
-     * @param $title
-     * @param $menuTitle
-     * @param $menuSlug
      * @param FormFactoryBuilderInterface $factory
      * @param \Twig_Environment $twig
      */
-    public function __construct($title, $menuTitle, $menuSlug, FormFactoryBuilderInterface $factory, \Twig_Environment $twig)
+    public function __construct(FormFactoryBuilderInterface $factory, \Twig_Environment $twig)
     {
-        $this->title = $title;
-        $this->menuTitle = $menuTitle;
-        $this->menuSlug = $menuSlug;
-        $this->optionGroup = $this->menuSlug;
+        $this->title = $this->getTitle();
+        $this->menuTitle = $this->getMenuTitle();
+        $this->menuSlug = $this->getMenuSlug();
+        $this->optionGroup = $this->getOptionGroup();
         $this->factory = $factory;
         $this->twig = $twig;
         $this->values = get_option($this->getOptionName());
@@ -110,6 +111,11 @@ abstract class AbstractSettingsPage
         $this->optionGroup = $group;
 
         return $this;
+    }
+
+    public function getOptionGroup()
+    {
+        return $this->getMenuSlug();
     }
 
     /**
