@@ -4,3 +4,4 @@ node_modules/
 App/var/twig/*
 web/libs/
 vendor/
+var/twig
