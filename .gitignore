@@ -1,7 +1,9 @@
 npm-debug.log
 .sass-cache/
 node_modules/
-App/var/twig/*
 web/libs/
-vendor/
 var/twig
+vendor/
+web/images-min
+web/scripts-min
+web/stylesheets

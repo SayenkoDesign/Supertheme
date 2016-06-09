@@ -14,7 +14,7 @@ var gulp         = require('gulp'),
 var options = {
     images: {
         src: 'web/images/**/*.{png,jpg,gif,svg}',
-        dist: 'images-min',
+        dist: 'web/images-min',
         optimizationLevel: 7,
         progressive: true,
         interlaced: true,
