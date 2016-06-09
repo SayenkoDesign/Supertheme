@@ -127,6 +127,14 @@ abstract class AbstractSettingsPage
     }
 
     /**
+     * @return string dashicon for menu page
+     */
+    public function getIcon()
+    {
+        return '';
+    }
+
+    /**
      * adds menu page to wordpress on admin_menu action
      */
     public function addPage()
@@ -137,7 +145,8 @@ abstract class AbstractSettingsPage
             $this->menuTitle,
             $this->capability,
             $this->menuSlug,
-            array($this, 'renderPage')
+            array($this, 'renderPage'),
+            $this->getIcon()
         );
         wp_enqueue_media();
     }

@@ -38,4 +38,9 @@ class WordPress
         wp_footer();
         return ob_get_clean();
     }
+
+    public function templateURI()
+    {
+        return get_template_directory_uri();
+    }
 }

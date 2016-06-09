@@ -44,6 +44,11 @@ class ThemeSettingsPage extends AbstractSettingsPage
         return 'theme-settings';
     }
 
+    public function getIcon()
+    {
+        return 'dashicons-sayenko';
+    }
+
     /**
      * @inheritdoc
      */
