@@ -13,13 +13,6 @@ add_action('wp_enqueue_scripts', function(){
     wp_enqueue_style('app');
 });
 
-// regiser the home page
-$themeSettingsPage = new \Supertheme\WordPress\ThemeSettingsPage(
-    $container->get('form'),
-    $container->get('twig.environment')
-);
-$themeSettingsPage->register();
-
 // always start a session
 add_action('init', function () {
     if (!session_id()) {
