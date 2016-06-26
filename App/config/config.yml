@@ -11,6 +11,16 @@ parameters:
     strict_variables: "%WP_DEBUG%"
     autoescape:       false
     optimizations:    -1
+  wordpress.theme_support:
+    - "html5"
+    - "post-thumbnails"
+    - "custom-logo"
+  wordpress.image_sizes:
+    fullscreen: [1920, 1080, true]
+  wordpress.menus:
+    primary_menu: "Primary Menu"
+  wordpress.sidebars:
+    - { id: "sample_sidebar", name: "sample sidebar", description: "sample sidebar managed by config file" }
 
 services:
   # just the basics

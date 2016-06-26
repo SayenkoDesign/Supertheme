@@ -45,3 +45,23 @@ add_action('wp_dashboard_setup', function () use($twig) {
         }
     );
 });
+
+add_action('after_setup_theme', function() use($container) {
+    // image sizes from config
+    foreach ($container->getParameter('wordpress.image_sizes', []) as $imageSize) {
+        call_user_func_array('add_image_size', $imageSize);
+    }
+
+    // theme suppoer
+    foreach ($container->getParameter('wordpress.theme_support', []) as $support) {
+        add_theme_support($support);
+    }
+
+    // theme suppoer
+    foreach ($container->getParameter('wordpress.sidebars', []) as $sidebar) {
+        register_sidebar($sidebar);
+    }
+
+    // menus from config
+    register_nav_menus($container->getParameter('wordpress.menus', []));
+});
