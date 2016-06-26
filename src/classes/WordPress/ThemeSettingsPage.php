@@ -145,7 +145,7 @@ class ThemeSettingsPage extends AbstractSettingsPage
     {
         $builder
             ->setAction('options.php')
-            ->setData($this->values)
+            ->setData($this->values ?: null)
             // hidden
             ->add('option_page', Type\HiddenType::class, [
                 'data' => esc_attr($this->menuSlug),
