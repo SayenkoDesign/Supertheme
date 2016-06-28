@@ -38,11 +38,6 @@ add_action('init', function () use($container) {
     }
 });
 
-// load languages directory
-add_action('plugins_loaded', function () {
-    load_plugin_textdomain('supertheme', false, get_template_directory().'/languages');
-});
-
 // logo for ACF options page
 add_action('admin_head', function () use ($twig){
     echo $twig->render('admin/dashicons.html.twig');
@@ -65,6 +60,11 @@ add_action('wp_dashboard_setup', function () use($twig) {
 });
 
 add_action('after_setup_theme', function() use($container) {
+    // load languages directory
+    if($container->hasParameter('wordpress.translations')) {
+        load_theme_textdomain('supertheme', $container->getParameter('wordpress.translations'));
+    }
+
     // image sizes from config
     if($container->hasParameter('wordpress.image_sizes')) {
         foreach ($container->getParameter('wordpress.image_sizes') as $imageSize) {
