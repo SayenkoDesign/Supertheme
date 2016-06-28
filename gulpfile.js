@@ -40,7 +40,8 @@ var options = {
         style: 'nested',
         includePaths: [
             'web/libs/font-awesome/scss',
-            'web/libs/foundation-sites/scss'
+            'web/libs/foundation-sites/scss',
+            'src/web/scss'
         ],
         sourceComments: true
     }
