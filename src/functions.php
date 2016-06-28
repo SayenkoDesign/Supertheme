@@ -7,23 +7,30 @@ $twig = $container->get('twig.environment');
 
 // register scripts/styles
 add_action('wp_enqueue_scripts', function() use($container) {
-    foreach($container->getParameter('wordpress.styles', []) as $args) {
-        wp_register_style($args['id'], $container->getParameterBag()->resolveValue($args['source']), $args['deps'], false, 'all');
-        wp_enqueue_style($args['id']);
+    // styles
+    if($container->hasParameter('wordpress.styles')) {
+        foreach ($container->getParameter('wordpress.styles') as $args) {
+            wp_register_style($args['id'], $container->getParameterBag()->resolveValue($args['source']), $args['deps'], false, 'all');
+            wp_enqueue_style($args['id']);
+        }
     }
 
-    foreach($container->getParameter('wordpress.scripts', []) as $args) {
-        wp_register_script($args['id'], $container->getParameterBag()->resolveValue($args['source']), $args['deps'], false, $args['header']);
-        wp_enqueue_script($args['id']);
+    // config
+    if($container->hasParameter('wordpress.scripts')) {
+        foreach ($container->getParameter('wordpress.scripts') as $args) {
+            wp_register_script($args['id'], $container->getParameterBag()->resolveValue($args['source']), $args['deps'], false, $args['header']);
+            wp_enqueue_script($args['id']);
+        }
     }
 });
 
-// always start a session
 add_action('init', function () use($container) {
+    // always start a session
     if (!session_id()) {
         session_start();
     }
 
+    // post types
     if($container->hasParameter('wordpress.post_types')) {
         foreach ($container->getParameter('wordpress.post_types', []) as $post_type => $args) {
             register_post_type($post_type, $args);
@@ -59,20 +66,28 @@ add_action('wp_dashboard_setup', function () use($twig) {
 
 add_action('after_setup_theme', function() use($container) {
     // image sizes from config
-    foreach ($container->getParameter('wordpress.image_sizes', []) as $imageSize) {
-        call_user_func_array('add_image_size', $imageSize);
+    if($container->hasParameter('wordpress.image_sizes')) {
+        foreach ($container->getParameter('wordpress.image_sizes') as $imageSize) {
+            call_user_func_array('add_image_size', $imageSize);
+        }
     }
 
-    // theme suppoer
-    foreach ($container->getParameter('wordpress.theme_support', []) as $support) {
-        add_theme_support($support);
+    // theme supports
+    if($container->hasParameter('wordpress.theme_support')) {
+        foreach ($container->getParameter('wordpress.theme_support') as $support) {
+            add_theme_support($support);
+        }
     }
 
-    // theme suppoer
-    foreach ($container->getParameter('wordpress.sidebars', []) as $sidebar) {
-        register_sidebar($sidebar);
+    // theme sidebars
+    if($container->hasParameter('wordpress.sidebars')) {
+        foreach ($container->getParameter('wordpress.sidebars') as $sidebar) {
+            register_sidebar($sidebar);
+        }
     }
 
     // menus from config
-    register_nav_menus($container->getParameter('wordpress.menus', []));
+    if($container->hasParameter('wordpress.menus')) {
+        register_nav_menus($container->getParameter('wordpress.menus'));
+    }
 });
