@@ -19,9 +19,15 @@ add_action('wp_enqueue_scripts', function() use($container) {
 });
 
 // always start a session
-add_action('init', function () {
+add_action('init', function () use($container) {
     if (!session_id()) {
         session_start();
+    }
+
+    if($container->hasParameter('wordpress.post_types')) {
+        foreach ($container->getParameter('wordpress.post_types', []) as $post_type => $args) {
+            register_post_type($post_type, $args);
+        }
     }
 });
 
