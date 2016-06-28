@@ -24,6 +24,10 @@ parameters:
     primary_menu: "Primary Menu"
   wordpress.sidebars:
     - { id: "sample_sidebar", name: "sample sidebar", description: "sample sidebar managed by config file" }
+  wordpress.styles:
+    - { id: "app", source: "%template_uri%/web/stylesheets/app.css", deps: ~ }
+  wordpress.scripts:
+    - { id: "app", source: "%template_uri%/web/scripts-min/app.min.js", deps: ~, header: false }
 
 services:
   # just the basics

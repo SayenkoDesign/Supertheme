@@ -6,11 +6,16 @@ require_once __DIR__.'/../App/bootstrap.php';
 $twig = $container->get('twig.environment');
 
 // register scripts/styles
-add_action('wp_enqueue_scripts', function(){
-    wp_register_script('app', get_template_directory_uri().'/web/scripts-min/app.min.js', ['jquery']);
-    wp_enqueue_script('app');
-    wp_register_style('app', get_template_directory_uri().'/web/stylesheets/app.css');
-    wp_enqueue_style('app');
+add_action('wp_enqueue_scripts', function() use($container) {
+    foreach($container->getParameter('wordpress.styles', []) as $args) {
+        wp_register_style($args['id'], $container->getParameterBag()->resolveValue($args['source']), $args['deps'], false, 'all');
+        wp_enqueue_style($args['id']);
+    }
+
+    foreach($container->getParameter('wordpress.scripts', []) as $args) {
+        wp_register_script($args['id'], $container->getParameterBag()->resolveValue($args['source']), $args['deps'], false, $args['header']);
+        wp_enqueue_script($args['id']);
+    }
 });
 
 // always start a session
