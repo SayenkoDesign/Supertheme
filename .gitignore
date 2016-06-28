@@ -3,6 +3,7 @@ npm-debug.log
 node_modules/
 web/libs/
 var/twig
+var/*.log
 vendor/
 web/images-min
 web/scripts-min

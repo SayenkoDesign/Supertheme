@@ -11,6 +11,9 @@ parameters:
     strict_variables: "%WP_DEBUG%"
     autoescape:       false
     optimizations:    -1
+  logger.name: "SuperTheme"
+  logger.path: "%template_dir%/var/logs.log"
+  logger.level: "WARNING"
   wordpress.theme_support:
     - "html5"
     - "post-thumbnails"
@@ -34,6 +37,15 @@ services:
   translater:
     class: "Symfony\\Component\\Translation\\Translator"
     arguments: ["en"]
+  # keep track of every detail
+  logger:
+    class: "Monolog\\Logger"
+    arguments: ["%logger.name%"]
+    calls:
+      - ["pushHandler", ["@logger.stream"]]
+  logger.stream:
+    class: "Monolog\\Handler\\StreamHandler"
+    arguments: ["%logger.path%", "%logger.level%"]
   # fill that data out
   form:
     class: "Symfony\\Component\\Form\\FormFactoryBuilder"
