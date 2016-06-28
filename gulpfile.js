@@ -23,12 +23,19 @@ var options = {
     scripts: {
         src: [
             'web/libs/foundation-sites/dist/foundation.js',
+            'web/libs/fancybox/source/jquery.fancybox.js',
+            'web/libs/slick-carousel/slick/slick.js',
             'web/scripts/app.js'
         ],
         dist: 'web/scripts-min'
     },
     styles: {
-        src: 'web/sass/**/*.scss',
+        src: [
+            'web/libs/fancybox/source/jquery.fancybox.css',
+            'web/libs/slick-carousel/slick/slick.css',
+            'web/libs/slick-carousel/slick/slick-theme.css',
+            'web/sass/**/*.scss'
+        ],
         dist: 'web/stylesheets',
         style: 'nested',
         includePaths: [

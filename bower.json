@@ -17,6 +17,8 @@
   ],
   "dependencies": {
     "font-awesome": "fontawesome#^4.6.3",
-    "foundation-sites": "^6.2.3"
+    "foundation-sites": "^6.2.3",
+    "slick-carousel": "^1.6.0",
+    "fancybox": "^2.1.5"
   }
 }
