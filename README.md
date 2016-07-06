@@ -14,61 +14,54 @@ To Use this theme you must have these tools installed on your dev environment
 - [Bower](http://bower.io/)
 - [GulpJS](http://gulpjs.com/)
 
-This theme makes use of [livereload](http://livereload.com/) which will reload your browser when you make changes to a file that is being watched.
-To use this feature you must install the livereload add on to your browser.
-
 # Setup
 
-Before you cn use this theme you need to go to this directory in your command line and run
+In the theme directory run the following commands
 
 - `bower install`
 - `npm install`
 - `composer install`
 
-# file structure
-- App: Directory for application files
-  - ACF: contains json and php files for ACF configurations you may wish to use
-  - src: Place your PHP classes in here
-  - var: used for caching when cache is enabled
-  - views: Twig Templates
-    - layout: templates for layout portions such as header, footer, one-column, two-column
-    - pages: templates for specific pages
-    - partials: partial templates that are used in multiple page templates such as a blog teaser
-    - recipes: prebuilt templates that you can include in your other templates
-  - bootstrap.php: bootstrap file to bootstrap the theme. include in any file you wish to bootstrap
-  - config.yml: Configuration file for the container
-- vendor: Directory created and managed with composer with PHP dependencies such as Pimple and Twig
-- web: Directory with web assets such as images, javascript and stylesheets.
-  - bower_components: Directory created and managed with bower with client side libraries such as foundation-sites and jQuery.
-  - images: original images
-  - images-min: images minified by gulp
-  - node_modules: Directory created and managed by node. Contains dependencies needed to run gulp commands.
-  - sass: scss files
-    - _settings.scss: contains all the foundation settings
-    - app.scss: main scss file. You should add you styles to other files and import them here.
-  - scripts: source javascripts
-    - app.js: The main js file for your scripts. Any other Javascript files will need to be added to your gulp setttings
-  - scripts-min: minified javascripts
-  - stylesheets: compiled scss files
+# File Structure
+
+- App: Directory for your php and configs
+  - bootstrap.php: bootstraps the supertheme by creating and loading the container. Include this to load SuperTheme in any file such as functions.php or index.php
+  - config: Store yaml config files in here
+  - src: place your classes in here. src is mapped to the \App namespace and will automatically load if you include the bootstrap file or composers autoload file
+- docs: more detailed documentation on specific subjects
+- languages: directory for translation files
+- src: contains supertheme classes, styles and views. You should not edit these files.
+- tests: contains unit test for theme.
+- var: will contain caches and logs.
+- views: directory for twig templates
+- web: directory for public web assets
+  - libs: created after running bower install. this is where your bower dependencies will be saved
+  - scripts: scripts go in here
+  - scripts-min: gulp will place minified scripts in here
+  - scss: scss files go in here
+  - stylesheets: gulp will place compiled css files in here
+  
 
 # Gulp
 
-Gulp is a task manager that will compile, merge and minify all your web assets. 
-If you have livereload installed and enabled in your browser it will also automatically update your browser window.
+Gulp is a task manager that will compile, merge and minify all your public web assets. 
 
-## List of Gulp Comands
+*This theme makes use of [livereload](http://livereload.com/) which will reload your browser when you make changes to a file that is being watched.*
+*To use this feature you must install the livereload add on to your browser.*
+
+## List of Gulp Commands
 
 | Command | Description |
 | ------- | ----------- |
-| gulp    | Runs gulp images, scripts, sass and watch commands in that order |
-| images  | Minifies images. Supports png, jpg, gif and svg. |
-| scripts | Merges javascript files and minifies them |
-| sass    | Compiles sass files into CSS |
-| watch   | Watches source images, scripts and sass files for changes. runs appropriate command on change |
+| `gulp`         | Runs gulp images, scripts, sass and watch commands in that order |
+| `gulp images`  | Minifies images. Supports png, jpg, gif and svg. |
+| `gulp scripts` | Merges javascript files and minifies them |
+| `gulp styles`  | Compiles sass files into CSS |
+| `gulp watch`   | Watches source images, scripts and sass files for changes. runs appropriate command on change |
 
 ## Settings
 
-In your *gulpfile.js* file there is a *options* object you can use to change the most commonly changes settings.
+In your *gulpfile.js* you can configure its settings by editing the *options* object.
 
 ### images
 
