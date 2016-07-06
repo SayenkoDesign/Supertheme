@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit
-        bootstrap="./Tests/bootstrap.php"
+        bootstrap="./tests/bootstrap.php"
         processIsolation="true"
         stopOnFailure="false"
         convertErrorsToExceptions="true"
@@ -9,7 +9,7 @@
 >
     <testsuites>
         <testsuite name="test suite">
-            <directory suffix="Test.php">Tests</directory>
+            <directory suffix="Test.php">tests</directory>
         </testsuite>
     </testsuites>
 </phpunit>
