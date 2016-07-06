@@ -9,7 +9,8 @@ var gulp         = require('gulp'),
     rename       = require('gulp-rename'),
     notify       = require('gulp-notify'),
     watch        = require('gulp-watch'),
-    livereload   = require('gulp-livereload');
+    livereload   = require('gulp-livereload'),
+    del          = require('del');
 
 var options = {
     images: {
@@ -58,6 +59,10 @@ gulp.task('default', [
     'styles',
     'watch'
 ]);
+
+gulp.task('cache:clear', function() {
+    del(['./var/**/*']);
+});
 
 gulp.task('images', function(){
     gulp.src(options.images.src).pipe(plumber(plumberErrorHandler))

@@ -168,13 +168,14 @@ Gulp is a task manager that will compile, merge and minify all your public web a
 
 ## List of Gulp Commands
 
-| Command | Description |
-| ------- | ----------- |
-| `gulp`         | Runs gulp images, scripts, sass and watch commands in that order |
-| `gulp images`  | Minifies images. Supports png, jpg, gif and svg. |
-| `gulp scripts` | Merges javascript files and minifies them |
-| `gulp styles`  | Compiles sass files into CSS |
-| `gulp watch`   | Watches source images, scripts and sass files for changes. runs appropriate command on change |
+| Command            | Description                                                                                   |
+| ------------------ | --------------------------------------------------------------------------------------------- |
+| `gulp`             | Runs gulp images, scripts, sass and watch commands in that order                              |
+| `gulp images`      | Minifies images. Supports png, jpg, gif and svg.                                              |
+| `gulp scripts`     | Merges javascript files and minifies them                                                     |
+| `gulp styles`      | Compiles sass files into CSS                                                                  |
+| `gulp watch`       | Watches source images, scripts and sass files for changes. runs appropriate command on change |
+| `gulp cache:clear` | Clears the local file cache                                                                   |
 
 ## Settings
 
