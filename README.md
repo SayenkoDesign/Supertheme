@@ -41,6 +41,60 @@ In the theme directory run the following commands
   - scss: scss files go in here
   - stylesheets: gulp will place compiled css files in here
   
+# Config
+
+SuperTheme uses Symfonys [Dependency Injection Container](http://symfony.com/doc/current/components/dependency_injection/introduction.html) 
+to define services and parameters with a yaml file.
+
+The config file is broken up into two sections. 
+The parameters section is for variables you want to use throughout your script or for configuration settings for your services.
+Services are class definitions. Some services automatically run commands when received and others return the class from a specified factory.
+
+## Referencing a Parameter
+
+To reference a Parameter in a service you wrap the key in `%`. 
+```yaml
+twig.loader:
+    class: "Twig_Loader_Filesystem"
+    arguments: ["%twig.paths%"] # loads the twig.paths parameter as an argument
+```
+
+To get the parameter in pgp you use the getParameter method.
+```php
+require_once __DIR__.'/App/bootstrap.php';
+
+$translationDirectory = $container->getParameter('wordpress.translations');
+```
+
+For parameters that contain a string with a parameter in it you will have to resolve the nested parameter manually.
+```php
+require_once __DIR__.'/App/bootstrap.php';
+
+$nestedParameter = $container->getParameterBag()->resolveValue(container->getParameter('some.parameter'));
+```
+
+## Retrieving a Service
+
+The config file defines many services for you such as twig, a logger and a form handler.
+to receive a services call the `get` method.
+
+```php
+require_once __DIR__.'/App/bootstrap.php';
+
+$twig = $container->get("twig.environment");
+echo $twig->render('basic.html.twig');
+```
+
+If you need to pass the service as a dependancy to another service definition you pass a string starting with a `@`.
+```yaml
+  twig.environment:
+    class: "Twig_Environment"
+    arguments: ["@twig.loader", "%twig.options%"]
+```
+
+## More Information
+
+for more information on services and parameters read Symfonys [documentation](http://symfony.com/doc/current/components/dependency_injection/introduction.html).
 
 # Gulp
 
