@@ -17,7 +17,6 @@ parameters:
   wordpress.theme_support:
     - "html5"
     - "post-thumbnails"
-    - "custom-logo"
   wordpress.translations: "%template_dir%/languages"
   wordpress.image_sizes:
     fullscreen: [1920, 1080, true]

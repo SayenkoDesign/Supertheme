@@ -53,6 +53,7 @@ Services are class definitions. Some services automatically run commands when re
 ## Referencing a Parameter
 
 To reference a Parameter in a service you wrap the key in `%`. 
+
 ```yaml
 twig.loader:
     class: "Twig_Loader_Filesystem"
@@ -60,6 +61,7 @@ twig.loader:
 ```
 
 To get the parameter in pgp you use the getParameter method.
+
 ```php
 require_once __DIR__.'/App/bootstrap.php';
 
@@ -67,6 +69,7 @@ $translationDirectory = $container->getParameter('wordpress.translations');
 ```
 
 For parameters that contain a string with a parameter in it you will have to resolve the nested parameter manually.
+
 ```php
 require_once __DIR__.'/App/bootstrap.php';
 
@@ -86,10 +89,70 @@ echo $twig->render('basic.html.twig');
 ```
 
 If you need to pass the service as a dependancy to another service definition you pass a string starting with a `@`.
+
 ```yaml
-  twig.environment:
+twig.environment:
     class: "Twig_Environment"
     arguments: ["@twig.loader", "%twig.options%"]
+```
+
+## WordPress Quickies
+
+The parameters can be used to build out some common and basic WordPress functionality such as menus, sidebars, styles and scripts.
+
+### Styles
+
+You can add styles with `wordpress.styles`. This is an array of styles with an associative array that is passed to `wp_register_style`. All styles are automatically enqueued.
+
+```
+wordpress.styles:
+    - { id: "app", source: "%template_uri%/web/stylesheets/app.css", deps: ~ }
+```
+
+### Scripts
+
+You can add scripts with `wordpress.scripts`. This is an array of scripts with an associative array that is passed to `wp_register_script`. All scripts are automatically enqueued.
+
+```
+wordpress.scripts:
+    - { id: "app", source: "%template_uri%/web/scripts-min/app.min.js", deps: ~, header: false }
+```
+
+### Theme Support
+
+You can add various theme support with `wordpress.theme_support`. The default add support for html5, and post thumbnails
+
+```yaml
+  wordpress.theme_support:
+    - "html5"
+    - "post-thumbnails"
+```
+
+### Images Sizes
+
+You can add image sizes by adding them to `wordpress.image_sizes`. The key is the image size name and the array is the additional args to pass to `add_image_size`
+
+```yaml
+wordpress.image_sizes:
+    fullscreen: [1920, 1080, true]
+```
+
+### Menus
+
+You can add menus locations with `wordpress.menus`. The keys are the location and the values are the descriptions.
+
+```yaml
+wordpress.menus:
+    primary_menu: "Primary Menu"
+```
+
+## Sidebars
+
+You can add sidebars with `wordpress.sidebars`. It is an array with a associative array of the args to pass to `wordpress.sidebars`.
+
+```
+wordpress.sidebars:
+    - { id: "sample_sidebar", name: "sample sidebar", description: "sample sidebar managed by config file" }
 ```
 
 ## More Information
