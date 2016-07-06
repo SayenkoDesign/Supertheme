@@ -182,34 +182,28 @@ In your *gulpfile.js* you can configure its settings by editing the *options* ob
 
 ### images
 
-| Option | Type | Default | format |Description |
-| ------ | ---- | ------- | ------ | ---------- |
-| src    | string\|array | `"web/images/**/*.{png,jpg,gif,svg}"` | | Location of source images |
-| dist   | string | `"web/images-min"` | | Directory to store minified images |
-| optimizationLevel | 0-7 | 7 | png | Optimization level for compression |
-| progressive | true | bool | jpg | Convert to progressive |
-| interlaced | true | bool | gif | Convert to interlaced |
-| multipass | true | bool | png | Optimize svg multiple times until it's fully optimized |
+| Option            | Type          | format | Description                                            |
+| ----------------- | ------------- | ---    | ------------------------------------------------------ |
+| src               | string\|array |        | Location of source images                              |
+| dist              | string        |        | Directory to store minified images                     |
+| optimizationLevel | 0-7           | png    | Optimization level for compression                     |
+| progressive       | true          | jpg    | Convert to progressive                                 |
+| interlaced        | true          | gif    | Convert to interlaced                                  |
+| multipass         | true          | png    | Optimize svg multiple times until it's fully optimized |
 
 ### scripts
 
-| Option | Type | Default |Description |
-| ------ | ---- | ------- | ---------- |
-| src | string\|array | `[` | Source javascript files to merge and minify |
-|     |               | `    "bower_components/foundation-sites/dist/foundation.js",` | |
-|     |               | `    "web/scripts/app.js"` | |
-|     |               | `]`
-| dist | string | `"web/scripts-min"` | Directory to store the minified Javascript |
+| Option | Type          | Description                                 |
+| ------ | ------------- | ------------------------------------------- |
+| src    | string\|array | Source javascript files to merge and minify |
+| dist   | string        | Directory to store the minified Javascript  |
 
 ### styles
 
-| Option | Type | Default |Description |
-| ------ | ---- | ------- | ---------- |
-| src | string\|array | `"web/sass/**/*.scss"` | Location of source scss files |
-| dist | string | `"web/stylesheets"` | Directory to save compiled styles to
-| style | nested, expanded, compact, compressed | `"nested"` | Output format for css files |
-| includePaths | string\|array | `[` | An array of paths that LibSass can look in to attempt to resolve your `@import` declarations |
-|              |               | `    "bower_components/font-awesome/scss",` | |
-|              |               | `    "bower_components/foundation-sites/scss"` | |
-|              |               | `]`
-| comments     | bool | true | Enables additional debugging information in the output file as CSS comments |
+| Option       | Type                                  | Description                                                                                  |
+| ------------ | ------------------------------------- | -------------------------------------------------------------------------------------------- |
+| src          | string\|array                         | Location of source scss files                                                                |
+| dist         | string                                | Directory to save compiled styles to                                                         |
+| style        | nested, expanded, compact, compressed | Output format for css files                                                                  |
+| includePaths | string\|array                         | An array of paths that LibSass can look in to attempt to resolve your `@import` declarations |
+| comments     | bool                                  | Enables additional debugging information in the output file as CSS comments                  |
