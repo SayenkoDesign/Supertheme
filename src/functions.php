@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/../App/bootstrap.php';
+require_once __DIR__.'/../app/bootstrap.php';
 
 /** @var $container \Symfony\Component\DependencyInjection\Container */
 /** @var $twig \Twig_Environment */
