@@ -1,10 +1,10 @@
-<html>
+<html {{ SP.WordPress.languageAttr() }} class="no-js">
 <head>
     {% block meta %}
-        <meta charset="utf-8">
+        <meta charset="{{ SP.WordPress.blogInfo("charset") }}">
         <meta name="viewport" content="height=device-height,width=device-width,initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-        <title>{{ SP.WordPress.title() }}</title>
+        <title>{{ SP.WordPress.wp_title() }}</title>
     {% endblock %}
 
     {% block stylesheets %}

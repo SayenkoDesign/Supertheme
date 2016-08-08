@@ -34,6 +34,11 @@ class WordPress
         return $title;
     }
 
+    public function wp_title($sep = '&raquo;', $seplocation = '')
+    {
+        return wp_title($sep, false, $seplocation);
+    }
+
     public function content($more_link_text = null, $strip_teaser = false)
     {
         $content = get_the_content($more_link_text, $strip_teaser);
@@ -141,5 +146,14 @@ class WordPress
     public function getForm($id_or_title, $display_title = true, $display_description = true, $display_inactive = false, $field_values = null, $ajax = false, $tabindex = 1)
     {
         return gravity_form($id_or_title, $display_title, $display_description, $display_inactive, $field_values, $ajax, $tabindex, false);
+    }
+
+    public function languageAttr() {
+        return get_language_attributes();
+    }
+
+    public function blogInfo($string, $filter = 'raw')
+    {
+        return get_bloginfo($string, $filter);
     }
 }
