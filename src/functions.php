@@ -92,3 +92,37 @@ add_action('after_setup_theme', function() use($container) {
         register_nav_menus($container->getParameter('wordpress.menus'));
     }
 });
+
+add_action('admin_menu', function () use($twig) {
+    // twig cache link
+    if(!$twig->getCache()) {
+        return;
+    }
+    add_menu_page(
+        'Clear Twig Cache',     // page title
+        'Clear Twig',     // menu title
+        'manage_options',   // capability
+        'clear-twig',     // menu slug
+        function() use($twig) {
+            global $title;
+            if ($cache = $twig->getCache()) {
+                foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($cache), RecursiveIteratorIterator::LEAVES_ONLY) as $file) {
+                    if ($file->isFile()) {
+                        @unlink($file->getPathname());
+                    }
+                }
+
+                print '<div class="wrap">';
+                print "<h1>$title</h1>";
+                print "<div class=\"notice notice-success\"><p>Cache Cleared</p></div>";
+                print '</div>';
+            } else {
+                print '<div class="wrap">';
+                print "<h1>$title</h1>";
+                print "<div class=\"notice notice-info\"><p>Nothing to clear. Caching is currently disabled.</p></div>";
+                print '</div>';
+            }
+        },
+        'dashicons-twig'
+    );
+});
