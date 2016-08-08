@@ -8,7 +8,6 @@
 }
 
 @each $name, $value in $foundation-palette {
-  #{$name}-color: $value;
   .text-#{$name} {
     color: $value;
   }
