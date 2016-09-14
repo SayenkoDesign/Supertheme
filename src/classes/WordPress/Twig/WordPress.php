@@ -18,11 +18,6 @@ class WordPress
 
     public function title($post = 0, $before = '', $after = '')
     {
-        if(!$post && !in_the_loop())
-        {
-            return wp_title('', false);
-        }
-
         $title = get_the_title($post);
 
         if (strlen($title) == 0) {
