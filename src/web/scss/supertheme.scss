@@ -15,3 +15,10 @@
     background: $value;
   }
 }
+
+body.admin-bar {
+  padding-top: 46px;
+  @include breakpoint(783px) {
+    padding-top: 32px;
+  }
+}
