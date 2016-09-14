@@ -5,6 +5,10 @@ require_once __DIR__.'/../app/bootstrap.php';
 /** @var $twig \Twig_Environment */
 $twig = $container->get('twig.environment');
 
+/***********************************************************************************************************************
+ * Actions
+ **********************************************************************************************************************/
+
 // register scripts/styles
 add_action('wp_enqueue_scripts', function() use($container) {
     // styles
@@ -35,6 +39,16 @@ add_action('init', function () use($container) {
         foreach ($container->getParameter('wordpress.post_types', []) as $post_type => $args) {
             register_post_type($post_type, $args);
         }
+    }
+
+    // options page
+    if (function_exists('acf_add_options_page')) {
+        acf_add_options_page([
+            'page_title' => 'Theme Options',
+            'capability' => 'edit_theme_options',
+            'icon_url' => 'dashicons-sayenko',
+            'position' => 59,
+        ]);
     }
 });
 
@@ -123,9 +137,17 @@ add_action('admin_menu', function () use($twig) {
                 print '</div>';
             }
         },
-        'dashicons-no-alt'
+        'dashicons-no-alt',
+        75
     );
 });
+                ga('create', '$googleID', 'auto');
+                ga('send', 'pageview');
+            </script>
+HTML;
+    }
+});
+
 /***********************************************************************************************************************
  * Filters
  **********************************************************************************************************************/
