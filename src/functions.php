@@ -125,36 +125,25 @@ add_action('admin_menu', function () use($twig) {
                         @unlink($file->getPathname());
                     }
                 }
-
-                print '<div class="wrap">';
-                print "<h1>$title</h1>";
-                print "<div class=\"notice notice-success\"><p>Cache Cleared</p></div>";
-                print '</div>';
+                $success = true;
             } else {
-                print '<div class="wrap">';
-                print "<h1>$title</h1>";
-                print "<div class=\"notice notice-info\"><p>Nothing to clear. Caching is currently disabled.</p></div>";
-                print '</div>';
+                $success = false;
             }
+            echo $twig->render('admin/rebuild-templates.html.twig', [
+                'title' => $title,
+                'success' => $success,
+            ]);
         },
         'dashicons-no-alt',
         75
     );
 });
 
-add_action('wp_head', function () {
+add_action('wp_head', function () use($twig) {
     if(function_exists('acf_add_options_page') && $googleID = get_field('google_analytics_id', 'option')) {
-        echo <<<HTML
-            <script>
-                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-                
-                ga('create', '$googleID', 'auto');
-                ga('send', 'pageview');
-            </script>
-HTML;
+        echo $twig->render('admin/google.html.twig', [
+            'id' => $googleID,
+        ]);
     }
 });
 
@@ -171,3 +160,11 @@ add_filter('acf/settings/save_json', function ($path) use($container) {
 add_filter('acf/settings/show_admin', function ($show) use($container){
     return $container->getParameter('wordpress.acf_menu');
 });
+
+
+
+add_action('get_header', 'my_filter_head');
+
+function my_filter_head() {
+    remove_action('wp_head', '_admin_bar_bump_cb');
+}
