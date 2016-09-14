@@ -4,6 +4,11 @@
         <meta charset="{{ SP.WordPress.blogInfo("charset") }}">
         <meta name="viewport" content="height=device-height,width=device-width,initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        {% if SP.ACF.get_field('favicon', 'option') %}
+            <link rel="icon" type="image/x-icon" href="{{ SP.ACF.get_field('favicon', 'option').url }}" />
+        {% elseif SP.ACF.get_field('mobile_logo', 'option') %}
+            <link rel="icon" type="image/x-icon" href="{{ SP.ACF.get_field('mobile_logo', 'option').url }}" />
+        {% endif %}
         <title>{{ SP.WordPress.wp_title() }}</title>
     {% endblock %}
 
