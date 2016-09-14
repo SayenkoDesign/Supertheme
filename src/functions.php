@@ -99,10 +99,10 @@ add_action('admin_menu', function () use($twig) {
         return;
     }
     add_menu_page(
-        'Clear Twig Cache',     // page title
-        'Clear Twig',     // menu title
+        'Rebuild Templates',     // page title
+        'Rebuild Templates',     // menu title
         'manage_options',   // capability
-        'clear-twig',     // menu slug
+        'rebuild-templates',     // menu slug
         function() use($twig) {
             global $title;
             if ($cache = $twig->getCache()) {
@@ -123,6 +123,6 @@ add_action('admin_menu', function () use($twig) {
                 print '</div>';
             }
         },
-        'dashicons-twig'
+        'dashicons-no-alt'
     );
 });
