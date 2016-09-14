@@ -24,9 +24,10 @@ In the theme directory run the following commands
 
 # File Structure
 
-- App: Directory for your php and configs
+- app: Directory for your php and configs
   - bootstrap.php: bootstraps the supertheme by creating and loading the container. Include this to load SuperTheme in any file such as functions.php or index.php
-  - config: Store yaml config files in here
+  - config: Store yaml and json config files in here
+    - acf: contains acf json files defining acf groups and fields with json
   - src: place your classes in here. src is mapped to the \App namespace and will automatically load if you include the bootstrap file or composers autoload file
 - docs: more detailed documentation on specific subjects
 - languages: directory for translation files
@@ -153,6 +154,19 @@ You can add sidebars with `wordpress.sidebars`. It is an array with a associativ
 ```
 wordpress.sidebars:
     - { id: "sample_sidebar", name: "sample sidebar", description: "sample sidebar managed by config file" }
+```
+
+## Post Types
+
+you can register post types with `wordpress.post_types`. the Keys are the post type name and the values are passed as the args.
+```
+wordpress.post_types:
+    case_study:
+        public: true
+        labels: {name: "Case Studies", singular_name: "Case Study"}
+        menu_position: 6
+        menu_icon: "dashicons-portfolio"
+        supports: ["title", "editor", "author", "thumbnail", "excerpt"]
 ```
 
 ## More Information
