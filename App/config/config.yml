@@ -83,6 +83,8 @@ services:
     arguments: ["%twig.paths%"]
   twig.debug:
     class: "Twig_Extension_Debug"
+  twig.preg:
+    class: "Supertheme\\WordPress\\Twig\\Extension\\PregExtension"
   twig.form_translation:
     class: "Symfony\\Bridge\\Twig\\Extension\\TranslationExtension"
     arguments: ["@translater"]
@@ -109,6 +111,7 @@ services:
     arguments: ["@twig.loader", "%twig.options%"]
     calls:
       - ["addExtension", ["@twig.debug"]]
+      - ["addExtension", ["@twig.preg"]]
       - ["addExtension", ["@twig.form_translation"]]
       - ["addExtension", ["@twig.form_extension"]]
       - ["addGlobal", ["SP", "@twig.supertheme"]]
