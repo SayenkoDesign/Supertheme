@@ -1,12 +1,4 @@
-.alignright {
-  float: right;
-  padding: 0 0 $global-padding $global-padding;
-}
-.alignleft {
-  float: left;
-  padding: 0 $global-padding $global-padding 0;
-}
-
+// create text-* and bg-* classes
 @each $name, $value in $foundation-palette {
   .text-#{$name} {
     color: $value;
@@ -16,9 +8,52 @@
   }
 }
 
+// wordpress image allignment
+.alignright {
+  float: right;
+  padding: 0 0 $global-padding $global-padding;
+}
+.alignleft {
+  float: left;
+  padding: 0 $global-padding $global-padding 0;
+}
+
+// space for admin bar on front end
 body.admin-bar {
   padding-top: 46px;
   @include breakpoint(783px) {
     padding-top: 32px;
   }
+}
+
+// jquery datepicker
+.ui-datepicker-header {
+  background-color: $white;
+  text-align: center;
+  padding: 0.5rem;
+}
+.ui-datepicker-prev {
+  float: left;
+  &:before {
+    color: $body-font-color;
+    content: "\f0d9";
+    font-family: "FontAwesome";
+  }
+  span {
+    display: none;
+  }
+}
+.ui-datepicker-next {
+  float: right;
+  &:before {
+    color: $body-font-color;
+    content: "\f0da";
+    font-family: "FontAwesome";
+  }
+  span {
+    display: none;
+  }
+}
+.ui-datepicker-title {
+  font-weight: bold;
 }
