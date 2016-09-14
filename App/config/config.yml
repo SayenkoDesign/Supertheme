@@ -98,7 +98,7 @@ services:
   twig.acf:
     class: "Supertheme\\WordPress\\Twig\\ACF"
   twig.wordpress:
-    class: "Supertheme\\WordPress\\Twig\\WordPRess"
+    class: "Supertheme\\WordPress\\Twig\\WordPress"
   twig.supertheme:
     class: "Supertheme\\WordPress\\Twig\\SuperTheme"
     arguments: ["@twig.acf", "@twig.wordpress"]
