@@ -126,3 +126,16 @@ add_action('admin_menu', function () use($twig) {
         'dashicons-no-alt'
     );
 });
+/***********************************************************************************************************************
+ * Filters
+ **********************************************************************************************************************/
+
+// save acf as json
+add_filter('acf/settings/save_json', function ($path) use($container) {
+    return $container->getParameterBag()->resolveValue($container->getParameter('wordpress.acf_path'));
+});
+
+// show acf menus
+add_filter('acf/settings/show_admin', function ($show) use($container){
+    return $container->getParameter('wordpress.acf_menu');
+});
