@@ -13,6 +13,7 @@ $container->setParameter('WP_DEBUG', WP_DEBUG);
 $loader = new YamlFileLoader($container, new FileLocator(get_template_directory()));
 $loader->load('app/config/config.yml');
 
+$twig = $container->get('twig.environment');
 $twig->addGlobal('url', get_site_url());
 $twig->addGlobal('walkers', [
     'accordion' => new \Supertheme\WordPress\AccordionMenuWalker(),
