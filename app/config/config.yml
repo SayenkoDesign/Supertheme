@@ -1,0 +1,117 @@
+parameters:
+  twig.paths:
+    - "%template_dir%/views"
+    - "%template_dir%/src/views"
+    - "%template_dir%/vendor/symfony/twig-bridge/Resources/views/Form"
+  twig.options:
+    debug:            "%WP_DEBUG%"
+    charset:          "utf-8"
+    cache:            "%template_dir%/var/twig"
+    auto_reload:      "%WP_DEBUG%"
+    strict_variables: "%WP_DEBUG%"
+    autoescape:       false
+    optimizations:    -1
+  logger.name: "SuperTheme"
+  logger.path: "%template_dir%/var/logs.log"
+  logger.level: "WARNING"
+  wordpress.acf_path: "%template_dir%/app/config/acf"
+  wordpress.acf_menu: true
+  wordpress.theme_support:
+    - "html5"
+    - "post-thumbnails"
+  wordpress.translations: "%template_dir%/languages"
+  wordpress.image_sizes:
+    fullscreen: [1920, 1080, true]
+  wordpress.menus:
+    primary_menu: "Primary Menu"
+  wordpress.sidebars:
+    - { id: "sample_sidebar", name: "sample sidebar", description: "sample sidebar managed by config file" }
+  wordpress.styles:
+    - { id: "app", source: "%template_uri%/web/stylesheets/app.css", deps: ~ }
+  wordpress.scripts:
+    - { id: "app", source: "%template_uri%/web/scripts-min/app.min.js", deps: ~, header: false }
+
+services:
+  # just the basics
+  http:
+    class: "Symfony\\Component\\Form\\Extension\\HttpFoundation\\HttpFoundationExtension"
+  session:
+    class: "Symfony\\Component\\HttpFoundation\\Session\\Session"
+    arguments: ["@session.bridge"]
+  session.bridge:
+    class: "Symfony\\Component\\HttpFoundation\\Session\\Storage\\PhpBridgeSessionStorage"
+  translater:
+    class: "Symfony\\Component\\Translation\\Translator"
+    arguments: ["en"]
+  # keep track of every detail
+  logger:
+    class: "Monolog\\Logger"
+    arguments: ["%logger.name%"]
+    calls:
+      - ["pushHandler", ["@logger.stream"]]
+  logger.stream:
+    class: "Monolog\\Handler\\StreamHandler"
+    arguments: ["%logger.path%", "%logger.level%"]
+  # fill that data out
+  form:
+    class: "Symfony\\Component\\Form\\FormFactoryBuilder"
+    factory: ["Symfony\\Component\\Form\\Forms", "createFormFactoryBuilder"]
+    calls:
+      - ["addExtension", ["@http"]]
+      - ["addExtension", ["@form.csrf_extension"]]
+      - ["addExtension", ["@form.validator_extension"]]
+  form.csrf_extension:
+    class: "Symfony\\Component\\Form\\Extension\\Csrf\\CsrfExtension"
+    arguments: ["@csrf.token_manager"]
+  form.validator_extension:
+    class: "Symfony\\Component\\Form\\Extension\\Validator\\ValidatorExtension"
+    arguments: ["@validator"]
+  csrf.token_generator:
+    class: "Symfony\\Component\\Security\\Csrf\\TokenGenerator\\UriSafeTokenGenerator"
+  csrf.session_starage:
+    class: "Symfony\\Component\\Security\\Csrf\\TokenStorage\\SessionTokenStorage"
+    arguments: ["@session"]
+  csrf.token_manager:
+    class: "Symfony\\Component\\Security\\Csrf\\CsrfTokenManager"
+    arguments: ["@csrf.token_generator", "@csrf.session_starage"]
+  validator:
+    class: "Symfony\\Component\\Validator\\Validator"
+    factory: ["Symfony\\Component\\Validator\\Validation", "createValidator"]
+  # get twiggy with it
+  twig.loader:
+    class: "Twig_Loader_Filesystem"
+    arguments: ["%twig.paths%"]
+  twig.debug:
+    class: "Twig_Extension_Debug"
+  twig.preg:
+    class: "Supertheme\\WordPress\\Twig\\Extension\\PregExtension"
+  twig.form_translation:
+    class: "Symfony\\Bridge\\Twig\\Extension\\TranslationExtension"
+    arguments: ["@translater"]
+  twig.form_engine:
+    class: "Symfony\\Bridge\\Twig\\Form\\TwigRendererEngine"
+    arguments: [["form_div_layout.html.twig"]]
+    calls:
+      - ["setEnvironment", ["@twig.environment"]]
+  twig.form_renderer:
+    class: "Symfony\\Bridge\\Twig\\Form\\TwigRenderer"
+    arguments: ["@twig.form_engine"]
+  twig.form_extension:
+    class: "Symfony\\Bridge\\Twig\\Extension\\FormExtension"
+    arguments: ["@twig.form_renderer"]
+  twig.acf:
+    class: "Supertheme\\WordPress\\Twig\\ACF"
+  twig.wordpress:
+    class: "Supertheme\\WordPress\\Twig\\WordPress"
+  twig.supertheme:
+    class: "Supertheme\\WordPress\\Twig\\SuperTheme"
+    arguments: ["@twig.acf", "@twig.wordpress"]
+  twig.environment:
+    class: "Twig_Environment"
+    arguments: ["@twig.loader", "%twig.options%"]
+    calls:
+      - ["addExtension", ["@twig.debug"]]
+      - ["addExtension", ["@twig.preg"]]
+      - ["addExtension", ["@twig.form_translation"]]
+      - ["addExtension", ["@twig.form_extension"]]
+      - ["addGlobal", ["SP", "@twig.supertheme"]]
