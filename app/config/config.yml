@@ -99,13 +99,6 @@ services:
   twig.form_extension:
     class: "Symfony\\Bridge\\Twig\\Extension\\FormExtension"
     arguments: ["@twig.form_renderer"]
-  twig.acf:
-    class: "Supertheme\\WordPress\\Twig\\ACF"
-  twig.wordpress:
-    class: "Supertheme\\WordPress\\Twig\\WordPress"
-  twig.supertheme:
-    class: "Supertheme\\WordPress\\Twig\\SuperTheme"
-    arguments: ["@twig.acf", "@twig.wordpress"]
   twig.environment:
     class: "Twig_Environment"
     arguments: ["@twig.loader", "%twig.options%"]
@@ -114,4 +107,6 @@ services:
       - ["addExtension", ["@twig.preg"]]
       - ["addExtension", ["@twig.form_translation"]]
       - ["addExtension", ["@twig.form_extension"]]
-      - ["addGlobal", ["SP", "@twig.supertheme"]]
+  # Get timber with it
+  timber:
+    class: "Timber\\Timber"

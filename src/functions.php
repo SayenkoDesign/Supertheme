@@ -1,9 +1,9 @@
 <?php
 require_once __DIR__.'/../app/bootstrap.php';
+use Timber\Timber;
 
 /** @var $container \Symfony\Component\DependencyInjection\Container */
-/** @var $twig \Twig_Environment */
-$twig = $container->get('twig.environment');
+Timber::$locations = $container->getParameterBag()->resolveValue($container->getParameter('twig.paths'));
 
 /***********************************************************************************************************************
  * Actions
@@ -52,23 +52,32 @@ add_action('init', function () use($container) {
     }
 });
 
+add_action('get_header', function() {
+    remove_action('wp_head', '_admin_bar_bump_cb');
+});
+
+
 // logo for ACF options page
-add_action('admin_head', function () use ($twig){
-    echo $twig->render('admin/dashicons.html.twig');
+add_action('admin_head', function () {
+    echo Timber::render('admin/dashicons.html.twig', [
+        'icon' => get_template_directory_uri()."/src/web/images/options-icon.png"
+    ]);
 });
 
 // login logo
-add_action('login_head', function () use($twig) {
-    echo $twig->render('admin/login.html.twig');
+add_action('login_head', function ()  {
+    if (function_exists('acf_add_options_page') && $login_image = get_field('logo', 'option')) {
+        echo Timber::render('admin/login.html.twig', ['logo' => $login_image]);
+    }
 });
 
 // referral widget
-add_action('wp_dashboard_setup', function () use($twig) {
+add_action('wp_dashboard_setup', function () {
     wp_add_dashboard_widget(
         'referral_dashboard_widget',
         'RECEIVE $500 in CASH FOR A WEBSITE REFERRAL!!',
         function () use($twig) {
-            echo $twig->render('admin/referral.html.twig');
+            echo Timber::render('admin/referral.html.twig');
         }
     );
 });
@@ -108,41 +117,9 @@ add_action('after_setup_theme', function() use($container) {
     }
 });
 
-add_action('admin_menu', function () use($twig) {
-    // twig cache link
-    if(!$twig->getCache()) {
-        return;
-    }
-    add_menu_page(
-        'Rebuild Templates',     // page title
-        'Rebuild Templates',     // menu title
-        'manage_options',   // capability
-        'rebuild-templates',     // menu slug
-        function() use($twig) {
-            global $title;
-            if ($cache = $twig->getCache()) {
-                foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($cache), RecursiveIteratorIterator::LEAVES_ONLY) as $file) {
-                    if ($file->isFile()) {
-                        @unlink($file->getPathname());
-                    }
-                }
-                $success = true;
-            } else {
-                $success = false;
-            }
-            echo $twig->render('admin/rebuild-templates.html.twig', [
-                'title' => $title,
-                'success' => $success,
-            ]);
-        },
-        'dashicons-no-alt',
-        75
-    );
-});
-
-add_action('wp_head', function () use($twig) {
+add_action('wp_head', function () {
     if(function_exists('acf_add_options_page') && $googleID = get_field('google_analytics_id', 'option')) {
-        echo $twig->render('admin/google.html.twig', [
+        echo Timber::render('admin/google.html.twig', [
             'id' => $googleID,
         ]);
     }
@@ -161,11 +138,3 @@ add_filter('acf/settings/save_json', function ($path) use($container) {
 add_filter('acf/settings/show_admin', function ($show) use($container){
     return $container->getParameter('wordpress.acf_menu');
 });
-
-
-
-add_action('get_header', 'my_filter_head');
-
-function my_filter_head() {
-    remove_action('wp_head', '_admin_bar_bump_cb');
-}
