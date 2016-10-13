@@ -76,7 +76,7 @@ add_action('wp_dashboard_setup', function () {
     wp_add_dashboard_widget(
         'referral_dashboard_widget',
         'RECEIVE $500 in CASH FOR A WEBSITE REFERRAL!!',
-        function () use($twig) {
+        function () {
             echo Timber::render('admin/referral.html.twig');
         }
     );

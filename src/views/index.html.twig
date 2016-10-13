@@ -1,0 +1,7 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+    {% for post in posts %}
+        {% include ['teasers/'~post.post_type~'.html.twig', 'tease.twig'] %}
+    {% endfor %}
+{% endblock %}

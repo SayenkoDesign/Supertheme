@@ -28,28 +28,33 @@
     {% endblock %}
 </head>
 <body {{ body_class }}>
-
-{% block body %}
     {% block header %}
+        {% if menu is defined %}
+            <nav>{% include 'menu.html.twig' %}</nav>
+        {% endif %}
     {% endblock %}
 
-    {% block content %}
+    {% block body %}
         <main class="content">
             <div class="row column">
                 <article>
-                    <h1>{{ post.title }}</h1>
-                    {{ post.content }}
+                    {% block title %}
+                        <h1>{{ post.title }}</h1>
+                    {% endblock %}
+                    {% block content %}
+                        {{ post.content }}
+                    {% endblock %}
                 </article>
             </div>
         </main>
     {% endblock %}
 
     {% block footer %}
+    <div class="row column">Copyright {{"now"|date('Y')}}</div>
     {% endblock %}
-{% endblock %}
 
-{% block scripts %}
-    {{ function('wp_footer') }}
-{% endblock %}
+    {% block scripts %}
+       {{ function('wp_footer') }}
+    {% endblock %}
 </body>
 </html>

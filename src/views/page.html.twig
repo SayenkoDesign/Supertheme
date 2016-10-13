@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="row column">
+        <article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
+            <h1>{{post.title}}</h1>
+            <div>
+                {{post.content}}
+            </div>
+        </article>
+    </div>
+{% endblock %}
