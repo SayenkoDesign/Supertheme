@@ -138,3 +138,12 @@ add_filter('acf/settings/save_json', function ($path) use($container) {
 add_filter('acf/settings/show_admin', function ($show) use($container){
     return $container->getParameter('wordpress.acf_menu');
 });
+
+/***********************************************************************************************************************
+ * ACF
+ **********************************************************************************************************************/
+if(function_exists('acf_add_local_field_group')){
+    $parser = new \Symfony\Component\Yaml\Parser();
+    $fields = $parser->parse(file_get_contents(__DIR__.'/../app/config/theme_options.yml'));
+    acf_add_local_field_group($fields);
+}
