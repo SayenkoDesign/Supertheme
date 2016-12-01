@@ -27,6 +27,22 @@ fields:
     readonly:  0,
     disabled:  0
   -
+    key:  "field_publisher_key"
+    label:  "Share This Publisher Key"
+    name:  "sharethis_key"
+    type:  "text"
+    instructions:  "Share this will not work unless a publisher key is set"
+    required:  0,
+    conditional_logic:  0,
+    wrapper:  { width:  "", class:  "", id:  "" }
+    default_value:  ""
+    placeholder:  ""
+    prepend:  ""
+    append:  ""
+    maxlength:  ""
+    readonly:  0,
+    disabled:  0
+  -
     key:  "field_57d9c7b4d5985"
     label:  "Logo"
     name:  "logo"
