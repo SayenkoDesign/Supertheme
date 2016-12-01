@@ -25,22 +25,67 @@
 
     {% block stylesheets %}
         {{ function('wp_head') }}
-    {% endblock %}
-</head>
-<body {{ body_class }}>
-    {% block header %}
-        {% if menu is defined %}
-            <nav>{% include 'menu.html.twig' %}</nav>
+        {% if sharethis %}
+            <script type="text/javascript">var switchTo5x=true;</script>
+            {% if is_ssl %}
+                <script type="text/javascript" id="st_insights_js" src="https://ws.sharethis.com/button/buttons.js"></script>
+            {% else %}
+                <script type="text/javascript" id="st_insights_js" src="http://w.sharethis.com/button/buttons.js"></script>
+            {% endif %}
+            <script type="text/javascript">stLight.options({publisher: "{{ sharethis }}", doNotHash: true, doNotCopy: true, hashAddressBar: true});</script>
         {% endif %}
     {% endblock %}
+</head>
+<body class="{{ body_class }}">
+    {% block navi %}
+        <div data-sticky-container>
+            <div class="sticky" data-sticky data-sticky-on="small" data-top-anchor="sticky-start:top" data-margin-top="0" style="width:100%">
+                <div class="large-menu hide-for-small-only">
+                    <div class="row column text-center">
+                        <a href="{{ site.link }}" class="home"><img src="{{ logo.url }}" alt="{{ site.title }}"></a>
+                        <nav>
+                            {% if menu is defined %}
+                                {% include 'menu-dropdown.html.twig' %}
+                            {% endif %}
+                        </nav>
+                    </div>
+                </div>
+                <div class="mobile-menu-bar" data-responsive-toggle="small-menu" data-hide-for="medium">
+                    <div class="row">
+                        <div class="shrink column">
+                            <a href=""><i class="fa fa-phone"></i></a>
+                        </div>
+                        <div class="expand column text-center">
+                            <a href="{{ site.link }}" class="home"><img src="{{ mobile_logo.url }}" alt="{{ site.title }}"></a>
+                        </div>
+                        <div class="shrink column">
+                            <a href="#" data-toggle><i class="fa fa-bars"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mobile-menu hide-for-medium" id="small-menu" data-toggler>
+                    {% if menu is defined %}
+                        {% include 'menu-accordion.html.twig' %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
 
+    {% block header %}
+        <header>
+            <div class="row column">
+                {% block title %}
+                    <h1>{{ post.title }}</h1>
+                {% endblock %}
+            </div>
+        </header>
+    {% endblock %}
+    <div id="sticky-start"></div>
     {% block body %}
         <main class="content">
             <div class="row column">
                 <article>
-                    {% block title %}
-                        <h1>{{ post.title }}</h1>
-                    {% endblock %}
                     {% block content %}
                         {{ post.content }}
                     {% endblock %}

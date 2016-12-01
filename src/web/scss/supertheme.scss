@@ -57,3 +57,13 @@ body.admin-bar {
 .ui-datepicker-title {
   font-weight: bold;
 }
+
+// navigation
+.mobile-menu-bar {
+  .row {
+    align-content: space-between;
+  }
+}
+#small-menu {
+  display: none;
+}
