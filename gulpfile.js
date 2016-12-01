@@ -11,7 +11,8 @@ var gulp         = require('gulp'),
     watch        = require('gulp-watch'),
     livereload   = require('gulp-livereload'),
     del          = require('del'),
-    newer        = require('gulp-newer');
+    newer        = require('gulp-newer'),
+    sprite = require('gulp.spritesmith');
 
 var options = {
     images: {
@@ -30,6 +31,12 @@ var options = {
             'web/scripts/app.js'
         ],
         dist: 'web/scripts-min'
+    },
+    sprites: {
+        src: 'web/sprites/*.png',
+        dist: 'web/',
+        css: 'scss/sprite-map.css',
+        image: 'images/sprite-map.png'
     },
     styles: {
         src: [
@@ -89,6 +96,14 @@ gulp.task('scripts', function(){
         .pipe(livereload());
 });
 
+gulp.task('sprites', function () {
+    var spriteData = gulp.src(options.sprites.src).pipe(sprite({
+        imgName: options.sprites.image,
+        cssName: options.sprites.css
+    }));
+    return spriteData.pipe(gulp.dest(options.sprites.dist));
+});
+
 gulp.task('styles', function(){
     gulp.src(options.styles.src).pipe(plumber(plumberErrorHandler))
         .pipe(sass({
@@ -105,6 +120,7 @@ gulp.task('styles', function(){
 
 gulp.task('watch', function(){
     livereload.listen();
+    gulp.watch(options.sprites.src, ['sprites']);
     gulp.watch(options.images.src, ['images']);
     gulp.watch(options.scripts.src, ['scripts']);
     gulp.watch(options.styles.src, ['styles']);
