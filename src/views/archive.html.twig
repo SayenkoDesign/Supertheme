@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <section class="archive two-columns">
+        <div class="gradient"></div>
+        <div class="row content-wrapper">
+            <div class="small-12 large-9 columns">
+                {% for post in posts %}
+                    <div class="row post-type-{{post.post_type}} teaser">
+                        <div class="large-2 columns author-bar">
+                            <div class="day">{{ post.date|date('d') }}</div>
+                            <div class="year">
+                                {{ post.date|date('M Y') }}
+                            </div>
+                            <div class="author">
+                                <img src="{{ post.get_author.avatar.src }}" />
+                                <div>Author</div>
+                                <div class="name">
+                                    {{ post.get_author.display_name }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="large-10 columns blog">
+                            <article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
+                                {{ function("get_the_post_thumbnail", post.ID) }}
+                                <h1>{{post.title}}</h1>
+                                <div class="excerpt">
+                                    {{post.get_preview(255)}}
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="small-12 large-3 columns sidebar">
+                <ul class="no-bullet">{{ sidebar }}</ul>
+            </div>
+        </div>
+    </section>
+{% endblock %}

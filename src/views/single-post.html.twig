@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% block header %}{%endblock%}
+{% block body %}
+    <section class="post-type-{{post.post_type}} two-columns">
+        <div class="gradient"></div>
+        <div class="row">
+            <div class="small-12 large-9 columns">
+                <div class="row">
+                    <div class="large-2 columns author-bar">
+                        <div class="day">{{ post.date|date('d') }}</div>
+                        <div class="year">
+                            {{ post.date|date('M Y') }}
+                        </div>
+                        <div class="author">
+                            <img src="{{ post.get_author.avatar.src }}" />
+                            <div>Author</div>
+                            <div class="name">
+                                {{ post.get_author.display_name }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="large-10 columns blog">
+                        <article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
+                            {{ function("get_the_post_thumbnail", post.ID) }}
+                            <h1>{{post.title}}</h1>
+                            <div>
+                                {{post.content}}
+                            </div>
+                        </article>
+                        <div class="share">
+                            <h4>Share</h4>
+                            {% include 'panels/sharethis.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <aside class="small-12 large-3 columns sidebar">
+                <ul class="no-bullet">{{ sidebar }}</ul>
+            </aside>
+        </div>
+    </section>
+{% endblock %}

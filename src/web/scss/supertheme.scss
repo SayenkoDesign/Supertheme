@@ -1,13 +1,3 @@
-// create text-* and bg-* classes
-@each $name, $value in $foundation-palette {
-  .text-#{$name} {
-    color: $value;
-  }
-  .bg-#{$name} {
-    background: $value;
-  }
-}
-
 // wordpress image allignment
 .alignright {
   float: right;
@@ -58,6 +48,47 @@ body.admin-bar {
   font-weight: bold;
 }
 
+// scroll to top
+.scroll-top {
+  position: fixed;
+  z-index: 1;
+  background-color: map-get($foundation-palette, primary);
+  color: $white;
+  display: block;
+  text-align: center;
+  font-size: rem-calc(32px);
+  width: rem-calc(32px);
+  bottom: rem-calc(96px);
+  right: rem-calc(32px);
+  border-radius: $global-radius;
+  @include breakpoint(medium) {
+    font-size: rem-calc(48px);
+    width: rem-calc(48px);
+    bottom: rem-calc(96px);
+    right: rem-calc(48px);
+  };
+  &:hover, &:active, &:focus {
+    color: $white;
+    background-color: scale_color(map-get($foundation-palette, primary), $lightness: -14%);
+  }
+  .fa {
+    position: relative;
+    top: rem-calc(-2px);
+    @include breakpoint(medium) {
+      top: rem-calc(-4px);
+    }
+  }
+}
+
+// search submit
+.search-submit {
+  @include button($white, $primary-color);
+  width: auto;
+  font-family: $header-font-family;
+  text-transform: uppercase;
+  font-weight: $global-weight-bold;
+}
+
 // navigation
 .mobile-menu-bar {
   .row {
@@ -66,4 +97,94 @@ body.admin-bar {
 }
 #small-menu {
   display: none;
+}
+
+// sidebar
+.sidebar {
+  .widget > ul {
+    margin: 0 0 $global-margin*2 0;
+  }
+  li {
+    list-style-type: none;
+  }
+  label {
+    h1, h2, h3, h4, h5, h6 {
+      color: $body-font-color;
+    }
+  }
+}
+
+// author-bar
+.author-bar {
+  text-align: center;
+  .day {
+    font-family: $header-font-family;
+    font-size: rem-calc(40px);
+    line-height: 1;
+    display: inline-block;
+    color: #404449;
+    color: $body-font-color;
+    &::after {
+      margin: $global-margin auto 0 auto;
+      content: " ";
+      display: block;
+      width: rem-calc(20px);
+      height: rem-calc(4px);
+      background-color: map-get($foundation-palette, primary);
+    }
+  }
+  .year {
+    font-size: rem-calc(14px);
+    margin-top: 4px;
+    margin-bottom: 0.5rem;
+  }
+  .author {
+    margin-top: $global-margin*2;
+    text-align: center;
+    font-size: rem-calc(14px);
+    color: rgba($body-font-color, 0.6);
+    img {
+      border-radius: 100%;
+      margin-bottom: 0.5rem;
+    }
+    .name {
+      color: $body-font-color;
+      font-weight: bold;
+    }
+  }
+}
+
+// two column
+.two-columns {
+  position: relative;
+  .gradient {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    background: -moz-linear-gradient(left, $two-column-background 50%, $body-background 50%);
+    background: -webkit-gradient(linear, left top, right top, from($two-column-background), color-stop(0.5, $two-column-background), color-stop(0.5, $body-background));
+  }
+  .gradient ~ .row {
+    position: relative;
+    > .large-9.columns {
+      background-color: $two-column-background;
+      padding: $global-padding*2 0;
+    }
+    > .sidebar {
+      background-color: $white;
+      padding: $global-padding*2;
+    }
+  }
+  .attachment-post-thumbnail {
+    width: 100%;
+    margin-bottom: $global-margin;
+  }
+  .excerpt {
+    margin-bottom: $global-margin*2;
+  }
+  .read-more {
+    margin-top: rem-calc($global-margin);
+    display: block;
+  }
 }
