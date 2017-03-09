@@ -1,6 +1,6 @@
 // universal analytics
-if(SP.Settings.AnalyticsID) {
-    if (SP.Settings.UniversalAnalytics) {
+if(SP.settings.analyticsID) {
+    if (SP.settings.universalAnalytics) {
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
             i[r] = i[r] || function () {
@@ -13,11 +13,11 @@ if(SP.Settings.AnalyticsID) {
             m.parentNode.insertBefore(a, m)
         })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-        ga('create', SP.Settings.AnalyticsID, 'auto');
+        ga('create', SP.settings.analyticsID, 'auto');
         ga('send', 'pageview');
     } else {
         var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', SP.Settings.AnalyticsID]);
+        _gaq.push(['_setAccount', SP.settings.analyticsID]);
         _gaq.push(['_trackPageview']);
 
         (function () {
@@ -31,6 +31,7 @@ if(SP.Settings.AnalyticsID) {
     }
 }
 
+// scroll to top
 jQuery('.scroll-top').on("click", function(e){
     jQuery("html, body").animate({ scrollTop: 0 }, "slow");
     e.preventDefault();
