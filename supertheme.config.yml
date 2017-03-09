@@ -1,3 +1,6 @@
+imports:
+  - { resource: "wordpress.config.yml" }
+
 parameters:
   twig.paths:
     - "%template_dir%/views"
@@ -14,22 +17,6 @@ parameters:
   logger.name: "SuperTheme"
   logger.path: "%template_dir%/var/logs.log"
   logger.level: "WARNING"
-  wordpress.acf_path: "%template_dir%/app/config/acf"
-  wordpress.acf_menu: true
-  wordpress.theme_support:
-    - "html5"
-    - "post-thumbnails"
-  wordpress.translations: "%template_dir%/languages"
-  wordpress.image_sizes:
-    fullscreen: [1920, 1080, true]
-  wordpress.menus:
-    primary_menu: "Primary Menu"
-  wordpress.sidebars:
-    - { id: "sample_sidebar", name: "sample sidebar", description: "sample sidebar managed by config file" }
-  wordpress.styles:
-    - { id: "app", source: "%template_uri%/web/stylesheets/app.css", deps: ~ }
-  wordpress.scripts:
-    - { id: "app", source: "%template_uri%/web/scripts-min/app.min.js", deps: ~, header: false }
 
 services:
   # just the basics

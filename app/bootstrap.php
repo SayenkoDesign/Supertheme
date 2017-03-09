@@ -21,4 +21,4 @@ $container->setParameter('template_uri', get_template_directory_uri());
 $container->setParameter('WP_DEBUG', WP_DEBUG);
 
 $loader = new YamlFileLoader($container, new FileLocator(get_template_directory()));
-$loader->load('app/config/config.yml');
+$loader->load('supertheme.config.yml');
