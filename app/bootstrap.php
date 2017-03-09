@@ -15,6 +15,10 @@ if(!class_exists('\Timber\Timber')) {
     trigger_error("Timber composer library or wordpress plugin is required for this theme.");
 }
 
+if(!function_exists('acf_add_options_page')) {
+    trigger_error("ACF plugin is required for this theme.");
+}
+
 $container = new ContainerBuilder();
 $container->setParameter('template_dir', get_template_directory());
 $container->setParameter('template_uri', get_template_directory_uri());
