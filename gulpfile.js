@@ -25,7 +25,7 @@ var options = {
     },
     scripts: {
         src: [
-            'web/libs/foundation-sites/dist/foundation.js',
+            'web/libs/foundation-sites/dist/js/foundation.js',
             'web/libs/fancybox/source/jquery.fancybox.js',
             'web/libs/slick-carousel/slick/slick.js',
             'web/scripts/app.js'
