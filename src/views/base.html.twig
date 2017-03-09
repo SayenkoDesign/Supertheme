@@ -42,7 +42,11 @@
             <div class="sticky" data-sticky data-sticky-on="small" data-top-anchor="sticky-start:top" data-margin-top="0" style="width:100%">
                 <div class="large-menu hide-for-small-only">
                     <div class="row column text-center">
-                        <a href="{{ site.link }}" class="home"><img src="{{ logo.url }}" alt="{{ site.title }}"></a>
+                        {% if logo.url %}
+                            <a href="{{ site.link }}" class="home"><img src="{{ logo.url }}" alt="{{ site.title }}"></a>
+                        {% else %}
+                            <a href="{{ site.link }}" class="home">{{ site.title }}</a>
+                        {% endif %}
                         <nav>
                             {% if menu is defined %}
                                 {% include 'menu-dropdown.html.twig' %}
@@ -56,7 +60,11 @@
                             <a href=""><i class="fa fa-phone"></i></a>
                         </div>
                         <div class="expand column text-center">
-                            <a href="{{ site.link }}" class="home"><img src="{{ mobile_logo.url }}" alt="{{ site.title }}"></a>
+                            {% if mobile_logo.url %}
+                                <a href="{{ site.link }}" class="home"><img src="{{ mobile_logo.url }}" alt="{{ site.title }}"></a>
+                            {% else %}
+                                <a href="{{ site.link }}" class="home">{{ site.title }}</a>
+                            {% endif %}
                         </div>
                         <div class="shrink column">
                             <a href="#" data-toggle><i class="fa fa-bars"></i></a>
