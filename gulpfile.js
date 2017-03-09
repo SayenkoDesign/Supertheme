@@ -124,4 +124,5 @@ gulp.task('watch', function(){
     gulp.watch(options.images.src, ['images']);
     gulp.watch(options.scripts.src, ['scripts']);
     gulp.watch(options.styles.src, ['styles']);
+    gulp.watch("src/web/scss/**.scss", ['styles']);
 });
