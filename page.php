@@ -8,4 +8,5 @@ $timber = $container->get('timber');
 $context = Timber::get_context();
 $post = new Post();
 $context['post'] = $post;
-Timber::render(['page-'.$post->post_name.'.twig', 'page.html.twig'], $context);
+$templates = ['page-'.$post->post_name.'.twig', 'page.html.twig', 'index.html.twig'];
+Timber::render($templates, $context);

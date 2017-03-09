@@ -6,5 +6,10 @@ use Timber\Timber;
 $timber = $container->get('timber');
 $context = Timber::get_context();
 $context['posts'] = Timber::get_posts();
-$templates = ['404.html.twig', 'index.html.twig'];
+$templates = ['archive.html.twig', 'index.html.twig'];
+
+if (is_front_page()) {
+    array_unshift($templates, 'home.html.twig');
+}
+
 $timber::render($templates, $context);

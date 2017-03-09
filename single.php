@@ -7,8 +7,14 @@ $timber = $container->get('timber');
 $context = Timber::get_context();
 $post = Timber::query_post();
 $context['post'] = $post;
+$templates = ['archive.html.twig', 'index.html.twig'];
+
 if (post_password_required($post->ID)) {
-    Timber::render('single-password.html.twig', $context);
+    array_unshift($templates, 'single-password.html.twig');
 } else {
-    Timber::render(['single-'.$post->ID.'.html.twig', 'single-'.$post->post_type.'.html.twig', 'single.html.twig'], $context);
+    array_unshift($templates, 'single.html.twig');
+    array_unshift($templates, 'single-'.$post->post_type.'.html.twig');
+    array_unshift($templates, 'single-'.$post->ID.'.html.twig');
 }
+
+$timber::render($templates, $context);
