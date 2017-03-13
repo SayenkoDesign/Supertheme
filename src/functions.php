@@ -157,6 +157,8 @@ add_filter('timber/context', function($data) {
     $data['sharethis'] = get_field('sharethis_key', 'option');
     // checkers
     $data['is_ssl'] = is_ssl();
+    // copyright
+    $data['copyright'] = get_field('copyright', 'option');
 
     return $data;
 });

@@ -107,7 +107,16 @@
     {% endblock %}
 
     {% block footer %}
-    <div class="row column">Copyright {{"now"|date('Y')}}</div>
+        <footer class="footer">
+            <div class="row">
+                <div class="column copyright {% if not copyright %}text-center{% endif %}">
+                    {% if copyright %}
+                        {{ copyright }}
+                    {% else %}
+                        Copyright {{"now"|date('Y')}}
+                    {% endif %}
+                </div>
+        </footer>
     {% endblock %}
 
     {% block scripts %}

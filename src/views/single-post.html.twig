@@ -29,8 +29,8 @@
                             </div>
                         </article>
                         <div class="share">
-                            <h4>Share</h4>
-                            {% include 'panels/sharethis.html.twig' %}
+                            {{ sharethis }} key
+                            {% include 'panels/sharethis.html.twig' with {sharethis: sharethis, title: true} only %}
                         </div>
                     </div>
                 </div>

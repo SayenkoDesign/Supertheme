@@ -11,14 +11,14 @@ instruction_placement: label
 hide_on_screen: ""
 fields:
   -
-    key:  "field_57d9b0cfe4c9f"
+    key:  "theme_options_google_id"
     label:  "Google Analytics ID"
     name:  "google_analytics_id"
     type:  "text"
-    instructions:  ""
+    instructions:  "Google analytics will not load unless an id is set"
     required:  0,
     conditional_logic:  0,
-    wrapper:  { width:  "", class:  "", id:  "" }
+    wrapper:  { width:  "50", class:  "", id:  "" }
     default_value:  ""
     placeholder:  ""
     prepend:  ""
@@ -27,15 +27,15 @@ fields:
     readonly:  0,
     disabled:  0
   -
-    key:  "field_publisher_key"
+    key:  "theme_options_sharethis_id"
     label:  "Share This Publisher Key"
     name:  "sharethis_key"
     type:  "text"
-    instructions:  "Share this will not work unless a publisher key is set"
+    instructions:  "Share this will not load unless a publisher key is set"
     required:  0,
     conditional_logic:  0,
-    wrapper:  { width:  "", class:  "", id:  "" }
-    default_value:  ""
+    wrapper:  { width:  "50", class:  "", id:  "" }
+    default_value:  "share"
     placeholder:  ""
     prepend:  ""
     append:  ""
@@ -43,7 +43,7 @@ fields:
     readonly:  0,
     disabled:  0
   -
-    key:  "field_57d9c7b4d5985"
+    key:  "theme_options_logo"
     label:  "Logo"
     name:  "logo"
     type:  "image"
@@ -62,7 +62,7 @@ fields:
     max_size:  ""
     mime_types:  ""
   -
-    key:  "field_57d9c7d4d5986"
+    key:  "theme_options_logo_alt"
     label:  "Alt Logo"
     name:  "alt_logo"
     type:  "image"
@@ -81,7 +81,7 @@ fields:
     max_size:  ""
     mime_types:  ""
   -
-    key:  "field_57d9c7e5a615f"
+    key:  "theme_options_logo_mobile"
     label:  "Mobile Logo"
     name:  "mobile_logo"
     type:  "image"
@@ -100,7 +100,7 @@ fields:
     max_size:  ""
     mime_types:  ""
   -
-    key:  "field_57d9c7f3a6160"
+    key:  "theme_options_favicon"
     label:  "Favicon"
     name:  "favicon"
     type:  "image"
@@ -118,3 +118,15 @@ fields:
     max_height:  ""
     max_size:  ""
     mime_types:  ""
+  -
+    key:  "theme_options_copyright"
+    label:  "Copyright"
+    name:  "copyright"
+    type:  "wysiwyg"
+    instructions:  ""
+    required:  0
+    conditional_logic:  0
+    wrapper:  { width:  "", class:  "", id:  "" }
+    tabs: "all"
+    toolbar: "basic"
+    media_upload: false

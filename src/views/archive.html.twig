@@ -23,7 +23,7 @@
                         <div class="large-10 columns blog">
                             <article class="post-type-{{post.post_type}}" id="post-{{post.ID}}">
                                 {{ function("get_the_post_thumbnail", post.ID) }}
-                                <h1>{{post.title}}</h1>
+                                <h1><a href="{{ post.link }}">{{post.title}}</a></h1>
                                 <div class="excerpt">
                                     {{post.get_preview(255)}}
                                 </div>

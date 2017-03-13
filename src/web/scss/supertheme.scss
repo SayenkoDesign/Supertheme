@@ -202,3 +202,43 @@ body.admin-bar {
     display: block;
   }
 }
+
+// sharethis
+.share {
+  .sharethis > span {
+    display: inline-block;
+    background-color: get-color(primary);
+    width: rem-calc(36px);
+    height: rem-calc(32px);
+    text-align: center;
+    &:hover {
+      cursor: pointer;
+      background-color: scale-color(get-color(primary), $lightness: 15%);
+    }
+    &::before {
+      font-family: FontAwesome;
+      color: $white;
+      font-size: rem-calc(19px);
+      position: relative;
+      top: rem-calc(2px);
+    }
+  }
+  .st_sharethis_custom::before {
+    content: "\f1e0"
+  }
+  .st_facebook_custom::before {
+    content: "\f09a ";
+  }
+  .st_twitter_custom::before {
+    content: "\f099";
+  }
+  .st_linkedin_custom::before {
+    content: "\f0e1";
+  }
+  .st_pinterest_custom::before {
+    content: "\f231";
+  }
+  .st_email_custom::before {
+    content: "\f003";
+  }
+}
