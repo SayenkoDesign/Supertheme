@@ -11,3 +11,5 @@
 - make share this custom font awesome icons by default
 - only include sharethis if an id is set
 - move title to share panel view and allow user to set to false
+# 1.0.2
+- don't replace jquery version on login or register pages
