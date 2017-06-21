@@ -2,7 +2,7 @@ key: "group_theme_options"
 title: "Theme Options"
 location:
   -
-    - { param: "options_page", operator: "==", value: "acf-options-theme-options" }
+    - { param: "options_page", operator: "==", value: "acf-options-theme" }
 menu_order: 0
 position: "normal"
 style: "default"
@@ -10,6 +10,17 @@ label_placement: "top"
 instruction_placement: label
 hide_on_screen: ""
 fields:
+  -
+    key:  "theme_options_tab_ids"
+    label:  "IDs"
+    name:  "google_tab_id"
+    type:  "tab"
+    instructions:  ""
+    required:  0,
+    conditional_logic:  0,
+    wrapper:  { width:  "", class:  "", id:  "" }
+    placement: "left"
+    endpoint: 0
   -
     key:  "theme_options_google_id"
     label:  "Google Analytics ID"
@@ -35,13 +46,24 @@ fields:
     required:  0,
     conditional_logic:  0,
     wrapper:  { width:  "50", class:  "", id:  "" }
-    default_value:  "share"
+    default_value:  ""
     placeholder:  ""
     prepend:  ""
     append:  ""
     maxlength:  ""
     readonly:  0,
     disabled:  0
+  -
+    key:  "theme_options_tab_logo"
+    label:  "Logos"
+    name:  "google_tab_logo"
+    type:  "tab"
+    instructions:  ""
+    required:  0,
+    conditional_logic:  0,
+    wrapper:  { width:  "", class:  "", id:  "" }
+    placement: "left"
+    endpoint: 0
   -
     key:  "theme_options_logo"
     label:  "Logo"
@@ -118,6 +140,17 @@ fields:
     max_height:  ""
     max_size:  ""
     mime_types:  ""
+  -
+    key:  "theme_options_tab_footer"
+    label:  "Footer"
+    name:  "google_tab_footer"
+    type:  "tab"
+    instructions:  ""
+    required:  0,
+    conditional_logic:  0,
+    wrapper:  { width:  "", class:  "", id:  "" }
+    placement: "left"
+    endpoint: 0
   -
     key:  "theme_options_copyright"
     label:  "Copyright"

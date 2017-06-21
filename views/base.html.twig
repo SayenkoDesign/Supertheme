@@ -1,0 +1,126 @@
+<html {{ site.language_attributes }} class="no-js">
+<head>
+    {% block meta %}
+        <meta charset="{{ site.charset }}">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <meta name="viewport" content="height=device-height,width=device-width,initial-scale=1">
+        <meta name="description" content="{{ site.description }}">
+        <link rel="pingback" href="{{ site.pingback_url }}" />
+
+        {% if favicon %}
+            <link rel="icon" type="image/x-icon" href="{{ favicon.url }}" />
+        {% endif %}
+
+        {% block meta_title %}
+            <title>
+                {% if wp_title %}
+                    {{ wp_title }} - {{ site.name }}
+                {% else %}
+                    {{ site.name }}
+                {% endif %}
+            </title>
+        {% endblock %}
+    {% endblock %}
+
+    {% block stylesheets %}
+        {{ function('wp_head') }}
+        {% if sharethis %}
+            <script type="text/javascript">var switchTo5x=true;</script>
+        {% if is_ssl %}
+            <script type="text/javascript" id="st_insights_js" src="https://ws.sharethis.com/button/buttons.js"></script>
+        {% else %}
+            <script type="text/javascript" id="st_insights_js" src="http://w.sharethis.com/button/buttons.js"></script>
+        {% endif %}
+            <script type="text/javascript">stLight.options({publisher: "{{ sharethis }}", doNotHash: true, doNotCopy: true, hashAddressBar: true});</script>
+        {% endif %}
+    {% endblock %}
+</head>
+<body class="{{ body_class }}">
+{% block navi %}
+    <div data-sticky-container>
+        <div class="sticky" data-sticky data-sticky-on="small" data-top-anchor="sticky-start:top" data-margin-top="0" style="width:100%">
+            <div class="large-menu hide-for-small-only">
+                <div class="row column text-center">
+                    {% if logo.url %}
+                        <a href="{{ site.link }}" class="home"><img src="{{ logo.url }}" alt="{{ site.title }}" class="large-logo"></a>
+                    {% else %}
+                        <a href="{{ site.link }}" class="home">{{ site.title }}</a>
+                    {% endif %}
+                    <nav>
+                        {% if menu is defined %}
+                            {% include 'partials/menu-dropdown.html.twig' %}
+                        {% endif %}
+                    </nav>
+                </div>
+            </div>
+            <div class="mobile-menu-bar hide-for-medium" data-responsive-toggle="small-menu" data-hide-for="medium">
+                <div class="row">
+                    <div class="shrink column">
+                        <a href=""><i class="fa fa-phone"></i></a>
+                    </div>
+                    <div class="expand column text-center">
+                        {% if mobile_logo.url %}
+                            <a href="{{ site.link }}" class="home"><img src="{{ mobile_logo.url }}" alt="{{ site.title }}" class="small-logo"></a>
+                        {% else %}
+                            <a href="{{ site.link }}" class="home">{{ site.title }}</a>
+                        {% endif %}
+                    </div>
+                    <div class="shrink column">
+                        <a href="#" data-toggle><i class="fa fa-bars"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mobile-menu hide-for-medium" id="small-menu" data-toggler>
+                {% if menu is defined %}
+                    {% include 'partials/menu-accordion.html.twig' %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block header %}
+    <header>
+        <div class="row column">
+            {% block title %}
+                <h1>{{ post.title }}</h1>
+            {% endblock %}
+        </div>
+    </header>
+{% endblock %}
+<div id="sticky-start"></div>
+{% block body %}
+    <main class="content">
+        <div class="row column">
+            <article>
+                {% block content %}
+                    {{ post.content }}
+                {% endblock %}
+            </article>
+        </div>
+    </main>
+{% endblock %}
+
+{% block scroll %}
+    <a class="scroll-top"><i class="fa fa-angle-up"></i></a>
+{% endblock %}
+
+{% block footer %}
+    <footer class="footer">
+        <div class="row">
+            <div class="column copyright {% if not copyright %}text-center{% endif %}">
+                {% if copyright %}
+                    {{ copyright }}
+                {% else %}
+                    Copyright {{"now"|date('Y')}}
+                {% endif %}
+            </div>
+    </footer>
+{% endblock %}
+
+{% block scripts %}
+    {{ function('wp_footer') }}
+{% endblock %}
+</body>
+</html>

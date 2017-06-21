@@ -11,6 +11,12 @@
     background-color: $mobile-menu-background;
   }
 }
+.large-logo {
+  max-width: rem-calc(200px);
+}
+.small-logo {
+  max-width: rem-calc(128px);
+}
 
 // wordpress image allignment
 .alignright {
@@ -125,81 +131,6 @@ body.admin-bar {
     h1, h2, h3, h4, h5, h6 {
       color: $body-font-color;
     }
-  }
-}
-
-// author-bar
-.author-bar {
-  text-align: center;
-  .day {
-    font-family: $header-font-family;
-    font-size: rem-calc(40px);
-    line-height: 1;
-    display: inline-block;
-    color: #404449;
-    color: $body-font-color;
-    &::after {
-      margin: $global-margin auto 0 auto;
-      content: " ";
-      display: block;
-      width: rem-calc(20px);
-      height: rem-calc(4px);
-      background-color: map-get($foundation-palette, primary);
-    }
-  }
-  .year {
-    font-size: rem-calc(14px);
-    margin-top: 4px;
-    margin-bottom: 0.5rem;
-  }
-  .author {
-    margin-top: $global-margin*2;
-    text-align: center;
-    font-size: rem-calc(14px);
-    color: rgba($body-font-color, 0.6);
-    img {
-      border-radius: 100%;
-      margin-bottom: 0.5rem;
-    }
-    .name {
-      color: $body-font-color;
-      font-weight: bold;
-    }
-  }
-}
-
-// two column
-.two-columns {
-  position: relative;
-  .gradient {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    background: -moz-linear-gradient(left, $two-column-background 50%, $body-background 50%);
-    background: -webkit-gradient(linear, left top, right top, from($two-column-background), color-stop(0.5, $two-column-background), color-stop(0.5, $body-background));
-  }
-  .gradient ~ .row {
-    position: relative;
-    > .large-9.columns {
-      background-color: $two-column-background;
-      padding: $global-padding*2 0;
-    }
-    > .sidebar {
-      background-color: $white;
-      padding: $global-padding*2;
-    }
-  }
-  .attachment-post-thumbnail {
-    width: 100%;
-    margin-bottom: $global-margin;
-  }
-  .excerpt {
-    margin-bottom: $global-margin*2;
-  }
-  .read-more {
-    margin-top: rem-calc($global-margin);
-    display: block;
   }
 }
 

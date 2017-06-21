@@ -1,28 +1,22 @@
 <?php
-$vendor =  __DIR__.'/../vendor/autoload.php';
-
-if(!file_exists($vendor)) {
-    trigger_error("You must run composer install in the command line to install PHP dependencies");
-}
-
-require_once $vendor;
-
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\Config\FileLocator;
-
-if(!class_exists('\Timber\Timber')) {
-    trigger_error("Timber composer library or wordpress plugin is required for this theme.");
-}
-
-if(!function_exists('acf_add_options_page')) {
-    trigger_error("ACF plugin is required for this theme.");
-}
-
-$container = new ContainerBuilder();
-$container->setParameter('template_dir', get_template_directory());
-$container->setParameter('template_uri', get_template_directory_uri());
-$container->setParameter('WP_DEBUG', WP_DEBUG);
-
-$loader = new YamlFileLoader($container, new FileLocator(get_template_directory()));
-$loader->load('supertheme.config.yml');
+require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/includes/check-requirements.php';
+require_once __DIR__.'/includes/build-container.php';
+require_once __DIR__.'/includes/timber.php';
+require_once __DIR__.'/includes/assets.php';
+require_once __DIR__.'/includes/session.php';
+require_once __DIR__.'/includes/post-types.php';
+require_once __DIR__.'/includes/options-page.php';
+require_once __DIR__.'/includes/replace-jquery.php';
+require_once __DIR__.'/includes/remove-body-margin.php';
+require_once __DIR__.'/includes/login-logo.php';
+require_once __DIR__.'/includes/referral-widget.php';
+require_once __DIR__.'/includes/translations.php';
+require_once __DIR__.'/includes/image-sizes.php';
+require_once __DIR__.'/includes/theme-support.php';
+require_once __DIR__.'/includes/sidebars.php';
+require_once __DIR__.'/includes/menus.php';
+require_once __DIR__.'/includes/acf.php';
+require_once __DIR__.'/includes/yoast.php';
+require_once __DIR__.'/includes/google-analytics.php';
+require_once __DIR__.'/includes/thumbnail-upscale.php';

@@ -1,7 +1,6 @@
 var gulp         = require('gulp'),
     concat       = require('gulp-concat'),
     sass         = require('gulp-sass'),
-    compass      = require('gulp-compass'),
     autoprefix   = require('gulp-autoprefixer'),
     uglify       = require('gulp-uglify'),
     imagemin     = require('gulp-imagemin'),
@@ -12,50 +11,31 @@ var gulp         = require('gulp'),
     livereload   = require('gulp-livereload'),
     del          = require('del'),
     newer        = require('gulp-newer'),
-    sprite = require('gulp.spritesmith');
+    sprite       = require('gulp.spritesmith');
 
-var options = {
-    images: {
-        src: 'web/images/**/*.{png,jpg,gif,svg}',
-        dist: 'web/images-min',
-        optimizationLevel: 7,
-        progressive: true,
-        interlaced: true,
-        multipass: true
-    },
-    scripts: {
-        src: [
-            'web/libs/foundation-sites/dist/js/foundation.js',
-            'web/libs/fancybox/source/jquery.fancybox.js',
-            'web/libs/slick-carousel/slick/slick.js',
-            'src/web/scripts/app.js',
-            'web/scripts/app.js'
-        ],
-        dist: 'web/scripts-min'
-    },
-    sprites: {
-        src: 'web/sprites/*.png',
-        dist: 'web/',
-        css: 'scss/sprite-map.css',
-        image: 'images/sprite-map.png'
-    },
-    styles: {
-        src: [
-            'web/libs/fancybox/source/jquery.fancybox.css',
-            'web/libs/slick-carousel/slick/slick.css',
-            'web/libs/slick-carousel/slick/slick-theme.css',
-            'web/scss/**/*.scss'
-        ],
-        dist: 'web/stylesheets',
-        style: 'nested',
-        includePaths: [
-            'web/libs/font-awesome/scss',
-            'web/libs/foundation-sites/scss',
-            'src/web/scss'
-        ],
-        sourceComments: true
-    }
-};
+var inline_scripts_src = [
+    'web/scripts/inline.js'
+];
+var scripts_src = [
+    'web/libs/foundation-sites/dist/js/foundation.js',
+    'web/libs/fancybox/source/jquery.fancybox.js',
+    'web/libs/slick-carousel/slick/slick.js',
+    'src/web/scripts/app.js',
+    'web/scripts/app.js'
+];
+var scripts_dist = 'web/scripts-min';
+var images_src = 'web/images/**/*.{png,jpg,gif,svg}';
+var images_dist = 'web/images-min';
+var sprites_src = 'web/sprite-images';
+var styles_src = [
+    'web/scss/**/*.scss'
+];
+var styles_paths = [
+    'web/libs/font-awesome/scss',
+    'web/libs/foundation-sites/scss',
+    'src/web/scss'
+];
+var styles_dist = 'web/stylesheets';
 
 var plumberErrorHandler = { errorHandler: notify.onError({
     title: 'Gulp',
@@ -74,56 +54,93 @@ gulp.task('cache:clear', function() {
 });
 
 gulp.task('images', function(){
-    gulp.src(options.images.src).pipe(plumber(plumberErrorHandler))
+    gulp.src(images_src).pipe(plumber(plumberErrorHandler))
         .pipe(rename({ suffix: '.min' }))
-        .pipe(newer(options.images.dist))
+        .pipe(newer(images_dist))
         .pipe(imagemin({
-            optimizationLevel:  options.images.optimizationLevel,
-            progressive:        options.images.progressive,
-            interlaced:         options.images.interlaced,
-            multipass:          options.images.multipass
+            optimizationLevel:  7,
+            progressive:        true,
+            interlaced:         true,
+            multipass:          true
         }))
-        .pipe(gulp.dest(options.images.dist))
+        .pipe(gulp.dest(images_dist))
         .pipe(livereload());
 });
 
 gulp.task('scripts', function(){
-    gulp.src(options.scripts.src)
+    // app
+    gulp.src(scripts_src)
         .pipe(concat('app.js'))
         .pipe(plumber(plumberErrorHandler))
         .pipe(rename({ suffix: '.min' }))
         .pipe(uglify())
-        .pipe(gulp.dest(options.scripts.dist))
+        .pipe(gulp.dest(scripts_dist));
+
+    // app debug
+    gulp.src(scripts_src)
+        .pipe(concat('app.js'))
+        .pipe(plumber(plumberErrorHandler))
+        .pipe(rename({ suffix: '-debug' }))
+        .pipe(gulp.dest(scripts_dist));
+
+    // inline
+    gulp.src(inline_scripts_src)
+        .pipe(concat('inline.js'))
+        .pipe(plumber(plumberErrorHandler))
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(uglify())
+        .pipe(gulp.dest(scripts_dist));
+
+    // inline debug
+    gulp.src(inline_scripts_src)
+        .pipe(concat('inline.js'))
+        .pipe(plumber(plumberErrorHandler))
+        .pipe(rename({ suffix: '-debug' }))
+        .pipe(gulp.dest(scripts_dist))
         .pipe(livereload());
 });
 
 gulp.task('sprites', function () {
-    var spriteData = gulp.src(options.sprites.src).pipe(sprite({
-        imgName: options.sprites.image,
-        cssName: options.sprites.css
+    // css needs to be css to compile correctly
+    // saving in scss folder so scss files can include and extend it
+    var spriteData = gulp.src(sprites_src).pipe(sprite({
+        imgName: images_dist+'/sprite-map.png',
+        cssName: styles_dist+'/sprite-map.css'
     }));
-    return spriteData.pipe(gulp.dest(options.sprites.dist));
+    // not including path since the other options have the full path
+    return spriteData.pipe(gulp.dest('./'));
 });
 
 gulp.task('styles', function(){
-    gulp.src(options.styles.src).pipe(plumber(plumberErrorHandler))
+    // minified
+    gulp.src(styles_src).pipe(plumber(plumberErrorHandler))
         .pipe(sass({
-            style:          options.scripts.style,
-            includePaths:   options.styles.includePaths,
-            comments:       options.styles.comments,
-            source_map:     options.styles.source_map,
-            time:           options.styles.time
+            style:          "compressed",
+            includePaths:   styles_paths,
+            comments:       true,
+            sourceComments: false
         }))
         .pipe(autoprefix('last 4 version'))
-        .pipe(gulp.dest(options.styles.dist))
+        .pipe(gulp.dest(styles_dist));
+
+    // debug
+    gulp.src(styles_src).pipe(plumber(plumberErrorHandler))
+        .pipe(sass({
+            style:          "expanded",
+            includePaths:   styles_paths,
+            comments:       true,
+            sourceComments: true
+        }))
+        .pipe(rename({ suffix: '-debug' }))
+        .pipe(autoprefix('last 4 version'))
+        .pipe(gulp.dest(styles_dist))
         .pipe(livereload());
 });
 
 gulp.task('watch', function(){
     livereload.listen();
-    gulp.watch(options.sprites.src, ['sprites']);
-    gulp.watch(options.images.src, ['images']);
-    gulp.watch(options.scripts.src, ['scripts']);
-    gulp.watch(options.styles.src, ['styles']);
-    gulp.watch("src/web/scss/**.scss", ['styles']);
+    gulp.watch(sprites_src, ['sprites']);
+    gulp.watch(images_src, ['images']);
+    gulp.watch(scripts_src, ['scripts']);
+    gulp.watch(styles_src, ['styles']);
 });

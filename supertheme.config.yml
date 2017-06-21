@@ -4,8 +4,6 @@ imports:
 parameters:
   twig.paths:
     - "%template_dir%/views"
-    - "%template_dir%/src/views"
-    - "%template_dir%/vendor/symfony/twig-bridge/Resources/views/Form"
   twig.options:
     debug:            "%WP_DEBUG%"
     charset:          "utf-8"

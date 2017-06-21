@@ -1,6 +1,6 @@
 parameters:
   wordpress.acf_path: "%template_dir%/app/config/acf"
-  wordpress.acf_menu: true
+  wordpress.acf_menu: "%wp_debug%"
   wordpress.theme_support:
     - "html5"
     - "post-thumbnails"
@@ -11,7 +11,11 @@ parameters:
     primary_menu: "Primary Menu"
   wordpress.sidebars:
     - { id: "sample_sidebar", name: "sample sidebar", description: "sample sidebar managed by config file" }
+  wordpress.inline_styles:
+    - { id: "inline", source: "%template_dir%/web/stylesheets/inline.css" }
   wordpress.styles:
     - { id: "app", source: "%template_uri%/web/stylesheets/app.css", deps: ~ }
+  wordpress.inline_scripts:
+    - { id: "inline", source: "%template_dir%/web/scripts-min/inline.min.js" }
   wordpress.scripts:
     - { id: "app", source: "%template_uri%/web/scripts-min/app.min.js", deps: ~, header: false }

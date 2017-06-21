@@ -4,12 +4,8 @@ use Timber\Timber;
 
 /** @var $timber Timber */
 $timber = $container->get('timber');
-$context = Timber::get_context();
-$context['posts'] = Timber::get_posts();
-$templates = ['archive.html.twig', 'index.html.twig'];
+$context = $timber::get_context();
+$context['posts'] = $timber::get_posts();
+$timber::render('base.html.twig', $context);
 
-if (is_home()) {
-    array_unshift($templates, 'home.html.twig');
-}
 
-$timber::render($templates, $context);
