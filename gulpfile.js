@@ -142,5 +142,6 @@ gulp.task('watch', function(){
     gulp.watch(sprites_src, ['sprites']);
     gulp.watch(images_src, ['images']);
     gulp.watch(scripts_src, ['scripts']);
+    gulp.watch(inline_scripts_src, ['scripts']);
     gulp.watch(styles_src, ['styles']);
 });

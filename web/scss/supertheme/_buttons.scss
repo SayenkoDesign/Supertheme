@@ -1,0 +1,25 @@
+.hollow.button:hover, .primary.hollow.button:hover {
+  color: $white;
+  background-color: scale-color(get-color(primary), $lightness: -15%);
+  border-color: scale-color(get-color(primary), $lightness: -15%);
+}
+.secondary.hollow.button:hover {
+  color: $white;
+  background-color: scale-color(get-color(secondary), $lightness: -15%);
+  border-color: scale-color(get-color(secondary), $lightness: -15%);
+}
+.success.hollow.button:hover {
+  color: $white;
+  background-color: scale-color(get-color(success), $lightness: -15%);
+  border-color: scale-color(get-color(success), $lightness: -15%);
+}
+.warning.hollow.button:hover {
+  color: $white;
+  background-color: scale-color(get-color(warning), $lightness: -15%);
+  border-color: scale-color(get-color(warning), $lightness: -15%);
+}
+.alert.hollow.button:hover {
+  color: $white;
+  background-color: scale-color(get-color(alert), $lightness: -15%);
+  border-color: scale-color(get-color(alert), $lightness: -15%);
+}

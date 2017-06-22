@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "19e613cda25949c368851cb69ad86320",
+    "content-hash": "7960165fd240d90fae7fdd10bbe825a5",
     "packages": [
         {
             "name": "altorouter/altorouter",
@@ -747,34 +747,32 @@
         },
         {
             "name": "timber/timber",
-            "version": "1.3.2",
+            "version": "1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/timber/timber.git",
-                "reference": "ba10f09a3cccb38619da2012bd9d88bb724bcb2f"
+                "reference": "c3a30b077fde4b0017fcd6b9098b94d068ac95f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/timber/timber/zipball/ba10f09a3cccb38619da2012bd9d88bb724bcb2f",
-                "reference": "ba10f09a3cccb38619da2012bd9d88bb724bcb2f",
+                "url": "https://api.github.com/repos/timber/timber/zipball/c3a30b077fde4b0017fcd6b9098b94d068ac95f8",
+                "reference": "c3a30b077fde4b0017fcd6b9098b94d068ac95f8",
                 "shasum": ""
             },
             "require": {
                 "asm89/twig-cache-extension": "~1.0",
                 "composer/installers": "~1.0",
-                "php": ">=5.3.0|7.*",
-                "twig/twig": "^1.0|2.*",
+                "php": ">=5.3.0",
+                "twig/twig": "^1.0",
                 "upstatement/routes": "0.4"
             },
             "require-dev": {
-                "phpunit/phpunit": "5.7.16",
+                "jarednova/markdowndocs": "dev-master",
+                "phpdocumentor/phpdocumentor": "2.*",
+                "phpunit/phpunit": "5.*",
+                "satooshi/php-coveralls": "1.0.*",
                 "wpackagist-plugin/advanced-custom-fields": "4.*",
                 "wpackagist-plugin/co-authors-plus": "3.*"
-            },
-            "suggest": {
-                "jarednova/markdowndocs": "dev-master for generating docs",
-                "phpdocumentor/phpdocumentor": "2.* for generating docs",
-                "satooshi/php-coveralls": "1.0.* for code coverage"
             },
             "type": "library",
             "autoload": {
@@ -806,7 +804,7 @@
                 "timber",
                 "twig"
             ],
-            "time": "2017-06-12T21:56:41+00:00"
+            "time": "2017-02-22T19:54:49+00:00"
         },
         {
             "name": "twig/twig",
@@ -1439,16 +1437,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.35",
+            "version": "4.8.36",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "791b1a67c25af50e230f841ee7a9c6eba507dc87"
+                "reference": "46023de9a91eec7dfb06cc56cb4e260017298517"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/791b1a67c25af50e230f841ee7a9c6eba507dc87",
-                "reference": "791b1a67c25af50e230f841ee7a9c6eba507dc87",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/46023de9a91eec7dfb06cc56cb4e260017298517",
+                "reference": "46023de9a91eec7dfb06cc56cb4e260017298517",
                 "shasum": ""
             },
             "require": {
@@ -1507,7 +1505,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-02-06T05:18:07+00:00"
+            "time": "2017-06-21T08:07:12+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

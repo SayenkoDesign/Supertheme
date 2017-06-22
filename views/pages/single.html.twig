@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <div class="row">
+        <div class="small-12 medium-8 large-9 columns">
+            <div class="post">
+                <div class="content">
+                    {{ post.post_content }}
+                </div>
+            </div>
+            <div class="navigation">
+                <div class="row">
+                    <div class="column text-left">
+                        {% if post.prev.link %}
+                            <a href="{{ post.prev.link }}"><i class="fa fa-angle-left"></i> Previous</a>
+                        {% endif %}
+                    </div>
+                    <div class="column text-right">
+                        {% if post.next.link %}
+                            <a href="{{ post.next.link }}">Next <i class="fa fa-angle-right"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="small-12 medium-4 large-3 columns">
+            {% include 'partials/sidebar.html.twig' %}
+        </div>
+    </div>
+{% endblock %}

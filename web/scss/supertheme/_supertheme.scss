@@ -1,3 +1,6 @@
+@import "header";
+@import "buttons";
+
 // sticky-container
 .sticky-container {
   z-index: 10;
@@ -172,4 +175,19 @@ body.admin-bar {
   .st_email_custom::before {
     content: "\f003";
   }
+}
+
+// archives
+.post-teaser {
+  margin-bottom: $global-margin*3;
+}
+
+// navigation
+.navigation {
+  padding: $global-padding 0;
+}
+
+// layouts
+main.content {
+  padding: $global-padding*2 0;
 }

@@ -9,7 +9,7 @@
         <link rel="pingback" href="{{ site.pingback_url }}" />
 
         {% if favicon %}
-            <link rel="icon" type="image/x-icon" href="{{ favicon.url }}" />
+            <link rel="icon" type="image/x-icon" href="{{ favicon.src|resize(64,64) }}" />
         {% endif %}
 
         {% block meta_title %}
@@ -37,21 +37,26 @@
     {% endblock %}
 </head>
 <body class="{{ body_class }}">
+
 {% block navi %}
     <div data-sticky-container>
         <div class="sticky" data-sticky data-sticky-on="small" data-top-anchor="sticky-start:top" data-margin-top="0" style="width:100%">
             <div class="large-menu hide-for-small-only">
-                <div class="row column text-center">
-                    {% if logo.url %}
-                        <a href="{{ site.link }}" class="home"><img src="{{ logo.url }}" alt="{{ site.title }}" class="large-logo"></a>
-                    {% else %}
-                        <a href="{{ site.link }}" class="home">{{ site.title }}</a>
-                    {% endif %}
-                    <nav>
-                        {% if menu is defined %}
-                            {% include 'partials/menu-dropdown.html.twig' %}
+                <div class="row align-center-middle">
+                    <div class="column">
+                        {% if logo.get_path %}
+                            <a href="{{ site.link }}" class="home"><img src="{{ logo.src|resize(0, 64) }}" alt="{{ site.title }}" class="large-logo"></a>
+                        {% else %}
+                            <a href="{{ site.link }}" class="home">{{ site.title }}</a>
                         {% endif %}
-                    </nav>
+                    </div>
+                    <div class="columns shrink">
+                        <nav>
+                            {% if menu is defined %}
+                                {% include 'partials/menu-dropdown.html.twig' %}
+                            {% endif %}
+                        </nav>
+                    </div>
                 </div>
             </div>
             <div class="mobile-menu-bar hide-for-medium" data-responsive-toggle="small-menu" data-hide-for="medium">
@@ -60,8 +65,8 @@
                         <a href=""><i class="fa fa-phone"></i></a>
                     </div>
                     <div class="expand column text-center">
-                        {% if mobile_logo.url %}
-                            <a href="{{ site.link }}" class="home"><img src="{{ mobile_logo.url }}" alt="{{ site.title }}" class="small-logo"></a>
+                        {% if mobile_logo.src %}
+                            <a href="{{ site.link }}" class="home"><img src="{{ mobile_logo.src|resize(0, 64) }}" alt="{{ site.title }}" class="small-logo"></a>
                         {% else %}
                             <a href="{{ site.link }}" class="home">{{ site.title }}</a>
                         {% endif %}
@@ -79,26 +84,21 @@
         </div>
     </div>
 {% endblock %}
-
 {% block header %}
-    <header>
-        <div class="row column">
-            {% block title %}
-                <h1>{{ post.title }}</h1>
-            {% endblock %}
-        </div>
-    </header>
+    {% if header is not defined or header %}
+        {% include 'partials/header.html.twig' %}
+    {% endif %}
 {% endblock %}
 <div id="sticky-start"></div>
 {% block body %}
     <main class="content">
-        <div class="row column">
-            <article>
-                {% block content %}
+        {% block content %}
+            <div class="row column">
+                <article>
                     {{ post.content }}
-                {% endblock %}
-            </article>
-        </div>
+                </article>
+            </div>
+        {% endblock %}
     </main>
 {% endblock %}
 

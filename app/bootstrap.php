@@ -20,3 +20,4 @@ require_once __DIR__.'/includes/acf.php';
 require_once __DIR__.'/includes/yoast.php';
 require_once __DIR__.'/includes/google-analytics.php';
 require_once __DIR__.'/includes/thumbnail-upscale.php';
+require_once __DIR__.'/includes/read-more.php';

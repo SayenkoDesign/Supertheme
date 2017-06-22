@@ -1,5 +1,5 @@
 {% if menu %}
-    <ul class="horizontal dropdown menu align-center" data-dropdown-menu>
+    <ul class="horizontal dropdown menu" data-dropdown-menu>
         {% for item in menu.get_items %}
             <li class="{{item.classes | join(' ')}}">
                 <a href="{{item.get_link}}">{{item.title}}</a>

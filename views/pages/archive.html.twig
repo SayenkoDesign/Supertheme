@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% set header_author = false %}
+{% block content %}
+    <div class="row">
+        <div class="small-12 medium-8 large-9 columns">
+            {% for post in posts %}
+                <div class="post-teaser">
+                    {% include 'partials/header.html.twig' with {post: post, header_link: true} only %}
+                    <div class="excerpt">
+                        {{ post.get_preview(50, false, 'Read More', true, '') }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="small-12 medium-4 large-3 columns">
+            {% include 'partials/sidebar.html.twig' %}
+        </div>
+    </div>
+{% endblock %}

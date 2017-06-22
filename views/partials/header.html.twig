@@ -1,0 +1,36 @@
+<header class="header">
+    <div class="box" {% if post.thumbnail %}style="background-image:url('{{ post.thumbnail.src }}');"{% endif %}>
+        {% if header_link is defined and header_link %}
+            <a href="{{ post.link }}" class="header-link">
+                <div class="header-title">
+                    <h1>{% if title is defined and title %}{{ title }}{% else %}{{ post.title }}{% endif %}</h1>
+                </div>
+                <div class="header-date">{{ post.date }}</div>
+            </a>
+        {% else %}
+            <div class="header-no-link">
+                <div class="header-title">
+                    <h1>{% if title is defined and title %}{{ title }}{% else %}{{ post.title }}{% endif %}</h1>
+                </div>
+                <div class="header-date">{{ post.date }}</div>
+            </div>
+        {% endif %}
+    </div>
+    {% if header_author is not defined or header_author %}
+        <div class="author">
+            <a href="{{ post.author.link }}" class="author-link">
+                <div class="author-profile">
+                    <img src="{{ post.author.avatar.src|resize(96) }}" />
+                </div>
+                <div class="author-name">
+                    By
+                    {% if post.author.first_name or post.author.last_name %}
+                        {{ post.author.first_name }} {{ post.author.last_name }}
+                    {% else %}
+                        {{ post.author }}
+                    {% endif %}
+                </div>
+            </a>
+        </div>
+    {% endif %}
+</header>

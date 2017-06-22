@@ -1,0 +1,71 @@
+.header {
+  .box {
+    background-color: get-color(primary);
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-align: center;
+  }
+  .header-link, .header-no-link {
+    display: block;
+    color: $white;
+    padding: $global-padding*6 $global-padding;
+    position: relative;
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba($black, 0.25);
+      transition: background-color 0.25s ease-out;
+      z-index: 0;
+    }
+    .header-title, .header-date {
+      position: relative;
+      z-index: 1;
+    }
+    .header-date {
+      color: $light-gray;
+    }
+  }
+  .header-link:hover::before {
+    background-color: rgba($black, 0.40);
+  }
+  .author {
+    text-align: center;
+    position: relative;
+    top: rem-calc(-96px/2) - 1rem/2;
+    width: rem-calc(96px) + 1rem;
+    margin: 0 auto rem-calc(-96px/2) - 1rem/2 + $global-padding;
+    .author-link {
+      display: block;
+      color: $dark-gray;
+      .author-profile {
+        border: 0.5rem solid $white;
+        border-radius: 100%;
+        position: relative;
+        img {
+          border-radius: 100%;
+        }
+        &::after {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          background-color: rgba($black, 0);
+          transition: background-color 0.25s ease-out;
+          z-index: 0;
+          border-radius: 100%;
+        }
+      }
+      &:hover .author-profile::after {
+        background-color: rgba($black, 0.15);
+      }
+    }
+  }
+}

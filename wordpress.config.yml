@@ -18,4 +18,4 @@ parameters:
   wordpress.inline_scripts:
     - { id: "inline", source: "%template_dir%/web/scripts-min/inline.min.js" }
   wordpress.scripts:
-    - { id: "app", source: "%template_uri%/web/scripts-min/app.min.js", deps: ~, header: false }
+    - { id: "app", source: "%template_uri%/web/scripts-min/app-debug.js", deps: ['jquery'], header: false }
