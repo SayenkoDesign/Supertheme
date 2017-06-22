@@ -1,7 +1,7 @@
-[![Latest Stable Version](https://poser.pugx.org/sayenkodesign/theme/v/stable)](https://packagist.org/packages/sayenkodesign/theme) 
-[![Total Downloads](https://poser.pugx.org/sayenkodesign/theme/downloads)](https://packagist.org/packages/sayenkodesign/theme) 
-[![Latest Unstable Version](https://poser.pugx.org/sayenkodesign/theme/v/unstable)](https://packagist.org/packages/sayenkodesign/theme) 
-[![License](https://poser.pugx.org/sayenkodesign/theme/license)](https://packagist.org/packages/sayenkodesign/theme)
+[![Latest Stable Version](https://poser.pugx.org/sayenkodesign/supertheme/v/stable)](https://packagist.org/packages/sayenkodesign/supertheme) 
+[![Total Downloads](https://poser.pugx.org/sayenkodesign/supertheme/downloads)](https://packagist.org/packages/sayenkodesign/supertheme) 
+[![Latest Unstable Version](https://poser.pugx.org/sayenkodesign/supertheme/v/unstable)](https://packagist.org/packages/sayenkodesign/supertheme) 
+[![License](https://poser.pugx.org/sayenkodesign/supertheme/license)](https://packagist.org/packages/sayenkodesign/supertheme)
 [![Build Status](https://travis-ci.org/SayenkoDesign/Supertheme.svg?branch=master)](https://travis-ci.org/SayenkoDesign/Supertheme)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/130a3186-3fc2-455a-a30d-e3860b0b9960/mini.png)](https://insight.sensiolabs.com/projects/130a3186-3fc2-455a-a30d-e3860b0b9960)
 
